@@ -224,10 +224,6 @@ function setupScrollReveals() {
     gsap.fromTo(el, { yPercent: -amount / 2 }, { yPercent: amount / 2, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
 
-  // Little pizzas on the menu teaser turn as they pass
-  $$('.fav__pie').forEach((el) => {
-    gsap.fromTo(el, { rotate: -40 }, { rotate: 40, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
   // Pizza drawing on inner page heroes rolls away as you scroll
   const spin = $('[data-spin]');
   if (spin) gsap.to(spin, { rotate: 120, xPercent: 20, ease: 'none', scrollTrigger: { trigger: spin.parentElement, start: 'top top', end: 'bottom top', scrub: true } });

@@ -29,6 +29,8 @@ export interface MenuItem {
   /** Allergens from the UK list of 14 */
   allergens?: string[];
   signature?: boolean;
+  /** Photo shown on the home page favourites */
+  photo?: Photo;
 }
 
 export interface MenuGroup {
@@ -136,31 +138,31 @@ export const site = {
         id: 'weddings',
         name: 'Weddings',
         text: 'Evening food that gets everyone back on their feet. Served from the oven or passed around as the party goes on.', // DEMO
-        photo: { id: '1564936281291-294551497d81', alt: 'Margherita with torn mozzarella and basil on a white plate' },
+        photo: { id: '1696263078099-ad603b242f90', alt: 'Bride and groom sharing a slice of pizza' },
       },
       {
         id: 'private-parties',
         name: 'Private parties',
         text: 'Birthdays, anniversaries and garden gatherings. We set up, cook to order and leave the garden as we found it.', // DEMO
-        photo: { id: '1587085416963-22efba033dd5', alt: 'Pizza with spinach, cherry tomatoes and mozzarella on a checked tablecloth' },
+        photo: { id: '1637270057940-921ced86faee', alt: 'Friends around an outdoor table of freshly made pizzas' },
       },
       {
         id: 'corporate',
         name: 'Corporate events',
         text: 'Team days, launches and office parties, with clear invoicing and timings that fit your agenda.', // DEMO
-        photo: { id: '1764705309243-c47cbc9792e4', alt: 'Two fresh pizzas with basil lined up on a wooden counter' },
+        photo: { id: '1639744210676-58da2cbee3d8', alt: 'A slice being lifted from a pizza next to a laptop' },
       },
       {
         id: 'schools',
         name: 'Schools',
         text: 'Summer fairs, leavers’ days and staff events. Simple menus that children love and parents trust.', // DEMO
-        photo: { id: '1627626775846-122b778965ae', alt: 'Margherita on a metal tray, seen from above on a wooden table' },
+        photo: { id: '1598610089882-eddd72f7a039', alt: 'Two girls sharing a pizza on a picnic blanket' },
       },
       {
         id: 'festivals',
         name: 'Festivals',
         text: 'High-volume service with a compact footprint. We can trade or be booked as a paid-for food option.', // DEMO
-        photo: { id: '1579751626657-72bc17010498', alt: 'Blistered pizza on a wooden board with the oven fire behind' },
+        photo: { id: '1761281145477-1f40bab1b574', alt: 'Pizza chef with a peel beside a wood-fired oven outdoors' },
       },
     ] as { id: string; name: string; text: string; photo: Photo }[],
     steps: [
@@ -256,10 +258,10 @@ export const site = {
       note: 'Around 11 inches, made to order. Gluten-free bases available on request at events.', // DEMO
       items: [
         { name: 'Marinara', description: 'Tomato, garlic, oregano, extra virgin olive oil.', price: 8, diet: ['VG'], allergens: ['Gluten'] }, // DEMO
-        { name: 'Margherita', description: 'Tomato, fior di latte, basil, olive oil.', price: 10, diet: ['V'], allergens: ['Gluten', 'Milk'], signature: true }, // DEMO
-        { name: 'Diavola', description: 'Tomato, fior di latte, spicy salami, chilli oil.', price: 12, allergens: ['Gluten', 'Milk'] }, // DEMO
+        { name: 'Margherita', description: 'Tomato, fior di latte, basil, olive oil.', price: 10, diet: ['V'], allergens: ['Gluten', 'Milk'], signature: true, photo: { id: '1574071318508-1cdbab80d002', alt: 'Margherita with basil and a blistered, leopard-spotted crust' } }, // DEMO
+        { name: 'Diavola', description: 'Tomato, fior di latte, spicy salami, chilli oil.', price: 12, allergens: ['Gluten', 'Milk'], photo: { id: '1716237388526-9dfc45d0d5ad', alt: 'Spicy salami pizza with basil and grated cheese' } }, // DEMO
         { name: 'Funghi e salsiccia', description: 'Fior di latte, roasted mushrooms, fennel sausage, parmesan.', price: 13, allergens: ['Gluten', 'Milk'] }, // DEMO
-        { name: 'Nduja e miele', description: 'Tomato, fior di latte, spicy nduja, a drizzle of hot honey.', price: 13, allergens: ['Gluten', 'Milk'], signature: true }, // DEMO
+        { name: 'Nduja e miele', description: 'Tomato, fior di latte, spicy nduja, a drizzle of hot honey.', price: 13, allergens: ['Gluten', 'Milk'], signature: true, photo: { id: '1788272983172-dab082ca5936', alt: 'Wood-fired pizza with spicy salami and melted mozzarella' } }, // DEMO
         { name: 'Quattro formaggi', description: 'Fior di latte, gorgonzola, parmesan, smoked provola, black pepper.', price: 12, diet: ['V'], allergens: ['Gluten', 'Milk'] }, // DEMO
         { name: 'Verdure', description: 'Tomato, vegan mozzarella, grilled courgette, peppers, olives.', price: 11, diet: ['VG'], allergens: ['Gluten'] }, // DEMO
         { name: 'Pesto e burrata', description: 'Basil pesto, burrata added after the oven, cherry tomatoes.', price: 14, diet: ['V'], allergens: ['Gluten', 'Milk', 'Nuts'] }, // DEMO

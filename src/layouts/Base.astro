@@ -19,8 +19,10 @@ interface Props {
   description?: string;
   /** Path of this page, e.g. "/menu/" */
   path?: string;
+  /** Images to fetch early (e.g. the hero pizza on the home page) */
+  preloadImages?: string[];
 }
-const { title, description = s.seo.description, path = '/' } = Astro.props;
+const { title, description = s.seo.description, path = '/', preloadImages = [] } = Astro.props;
 const pageTitle = title ? `${title} — ${s.name}` : s.seo.title;
 const origin = (Astro.site?.href ?? '').replace(/\/$/, '');
 const url = `${origin}${path}`;
@@ -76,6 +78,7 @@ const schema = {
 
     <!-- Photos come from the Unsplash CDN; no crossorigin, images are requested without CORS -->
     <link rel="preconnect" href="https://images.unsplash.com" />
+    {preloadImages.map((src) => <link rel="preload" as="image" href={src} type="image/webp" fetchpriority="high" />)}
     <link rel="preload" href={serifDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansBody} as="font" type="font/woff2" crossorigin />
 
