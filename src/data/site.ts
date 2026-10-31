@@ -136,31 +136,31 @@ export const site = {
         id: 'weddings',
         name: 'Weddings',
         text: 'Evening food that gets everyone back on their feet. Served from the oven or passed around as the party goes on.', // DEMO
-        photo: { id: '1676027647672-1230463791a9', alt: 'Long wedding table under string lights, with the couple standing at the end' },
+        photo: { id: '1564936281291-294551497d81', alt: 'Margherita with torn mozzarella and basil on a white plate' },
       },
       {
         id: 'private-parties',
         name: 'Private parties',
         text: 'Birthdays, anniversaries and garden gatherings. We set up, cook to order and leave the garden as we found it.', // DEMO
-        photo: { id: '1782500161728-3920566cd907', alt: 'Friends eating together at an outdoor garden party' },
+        photo: { id: '1587085416963-22efba033dd5', alt: 'Pizza with spinach, cherry tomatoes and mozzarella on a checked tablecloth' },
       },
       {
         id: 'corporate',
         name: 'Corporate events',
         text: 'Team days, launches and office parties, with clear invoicing and timings that fit your agenda.', // DEMO
-        photo: { id: '1786206570631-5ab96f60fd14', alt: 'Caterer in an apron behind a buffet with salads and pizza at a garden event' },
+        photo: { id: '1764705309243-c47cbc9792e4', alt: 'Two fresh pizzas with basil lined up on a wooden counter' },
       },
       {
         id: 'schools',
         name: 'Schools',
         text: 'Summer fairs, leavers’ days and staff events. Simple menus that children love and parents trust.', // DEMO
-        photo: { id: '1714978444570-729693fde1f3', alt: 'A group gathered around a low table sharing pizzas from the box' },
+        photo: { id: '1627626775846-122b778965ae', alt: 'Margherita on a metal tray, seen from above on a wooden table' },
       },
       {
         id: 'festivals',
         name: 'Festivals',
         text: 'High-volume service with a compact footprint. We can trade or be booked as a paid-for food option.', // DEMO
-        photo: { id: '1581542241119-a3094c6702a2', alt: 'Friends pulling apart cheesy slices of pizza' },
+        photo: { id: '1579751626657-72bc17010498', alt: 'Blistered pizza on a wooden board with the oven fire behind' },
       },
     ] as { id: string; name: string; text: string; photo: Photo }[],
     steps: [
