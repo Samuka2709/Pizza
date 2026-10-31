@@ -1,0 +1,44 @@
+---
+import { restaurant as r } from '../data/restaurant';
+import { whatsappLink, genericOrderMessage, fullAddress, instagramUrl } from '../lib/format';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__cols">
+      <div class="footer__col">
+        <h2 class="label">{r.fullName}</h2>
+        <p class="footer__tagline">{r.tagline}</p>
+        <p class="footer__address">{fullAddress()}</p>
+      </div>
+      <nav class="footer__col" aria-label="Footer">
+        <h2 class="label">Navigate</h2>
+        <ul>
+          {r.nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+      <div class="footer__col">
+        <h2 class="label">Contact</h2>
+        <ul>
+          <li><a href={whatsappLink(genericOrderMessage())} target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href={`tel:${r.contact.phoneHref}`}>{r.contact.phone}</a></li>
+          <li><a href={instagramUrl()} target="_blank" rel="noopener">@{r.contact.instagram}</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h2 class="label">Reservations</h2>
+        <ul>
+          <li><a href="#reservas">Book a table</a></li>
+          <li><a href="#assinatura">{r.signature.name}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer__name" aria-hidden="true">{r.name}</p>
+
+    <div class="footer__bottom">
+      <span>© {year} {r.footer.copyright}. All rights reserved.</span>
+      <a href="#topo" class="link-line" data-scroll-link>Back to top</a>
+    </div>
+  </div>
+</footer>

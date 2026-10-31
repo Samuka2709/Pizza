@@ -1,0 +1,28 @@
+---
+import { whatsappLink, genericOrderMessage } from '../lib/format';
+import Icon from './Icon.astro';
+const wa = whatsappLink(genericOrderMessage());
+---
+<div class="mobile-bar" data-mobile-bar role="region" aria-label="Quick actions">
+  <a class="btn btn--primary" href={wa} target="_blank" data-order-generic rel="noopener">
+    <Icon name="whatsapp" class="btn__arrow" /> Order on WhatsApp
+  </a>
+  <button class="btn btn--primary bag-open" type="button" data-bag-open hidden>
+    <Icon name="bag" class="btn__arrow" /> View order <span class="bag-open__count" data-bag-count>0</span>
+  </button>
+  <a class="btn btn--outline" href="#reservas" data-scroll-link>Book</a>
+</div>
+
+<a class="wa-float" href={wa} target="_blank" data-order-generic rel="noopener" data-wa-float aria-label="Order on WhatsApp">
+  <Icon name="whatsapp" />
+</a>
+
+<button class="bag-float" type="button" data-bag-open data-bag-float hidden>
+  <Icon name="bag" />
+  <span>View order</span>
+  <span class="bag-float__total" data-bag-float-total></span>
+  <span class="bag-open__count" data-bag-count>0</span>
+</button>
+
+<div class="cursor" aria-hidden="true" data-cursor-el><span data-cursor-label></span></div>
+<div class="grain" aria-hidden="true"></div>

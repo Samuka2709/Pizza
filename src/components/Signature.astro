@@ -1,0 +1,39 @@
+---
+import { restaurant as r } from '../data/restaurant';
+import { price, whatsappLink } from '../lib/format';
+import Photo from './Photo.astro';
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+const s = r.signature;
+---
+<section class="section signature" id="assinatura" aria-labelledby="assinatura-title">
+  <div class="container signature__grid">
+    <div class="signature__head">
+      <span class="kanji" aria-hidden="true">{s.kanji}</span>
+      <SectionLabel text={s.label} />
+      <h2 class="display signature__name reveal-words" id="assinatura-title" data-split-auto>{s.name}</h2>
+      <p class="lead signature__desc" data-reveal="fade">{s.description}</p>
+      <ul class="signature__details" data-reveal="fade">
+        {s.details.map((d) => <li>{d}</li>)}
+      </ul>
+      <p class="signature__price" data-reveal="fade">
+        <span class="price-big">{price(s.price)}</span>
+        <small>{s.priceNote}</small>
+      </p>
+      <div class="signature__cta" data-reveal="fade">
+        <button class="btn btn--primary" type="button" data-add={s.name} data-price={s.price} data-detail={s.details[0]} aria-label={`Add ${s.name} to your order`} data-magnetic>
+          <span data-add-label>{s.cta}</span> <Icon name="arrow" class="btn__arrow" />
+        </button>
+        <a class="btn btn--outline" href={whatsappLink(`Hi! I'd like to know more about the ${s.name} (${price(s.price)}).`)} target="_blank" rel="noopener">
+          Ask a question
+        </a>
+      </div>
+    </div>
+
+    <div class="signature__media">
+      <Photo photo={s.photo} ratio={3 / 4.6} widths={[480, 720, 960, 1280, 1600]} sizes="(min-width: 900px) 44vw, 100vw" />
+      <p class="signature__caption" aria-hidden="true"><span>{r.fullName}</span><span>{s.details[0]}</span></p>
+      <Photo photo={s.detail} ratio={1} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 44vw, 100vw" class="signature__detail" />
+    </div>
+  </div>
+</section>

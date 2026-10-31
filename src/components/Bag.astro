@@ -1,0 +1,71 @@
+---
+import { restaurant as r } from '../data/restaurant';
+import Icon from './Icon.astro';
+---
+<dialog class="bag" aria-labelledby="bag-title" data-bag>
+  <div class="bag__panel">
+    <header class="bag__head">
+      <h2 class="bag__title" id="bag-title">Your order</h2>
+      <button class="icon-btn" type="button" data-bag-close>
+        <Icon name="close" />
+        <span class="sr-only">Close order</span>
+      </button>
+    </header>
+
+    <div class="bag__body" data-lenis-prevent>
+      <p class="bag__empty" data-bag-empty>
+        No items yet. Tap “Add” on the menu or the combos.
+      </p>
+      <ul class="bag__items" data-bag-items aria-label="Order items"></ul>
+
+      <form class="form bag__form" id="bag-form" novalidate data-bag-form>
+        <div class="field">
+          <label for="bg-name">Name <span class="req" aria-hidden="true">*</span></label>
+          <input class="input" id="bg-name" name="name" type="text" autocomplete="name" required aria-describedby="bg-name-err" />
+          <p class="field__error" id="bg-name-err"></p>
+        </div>
+
+        <fieldset class="field bag__mode">
+          <legend class="field__label">How would you like it?</legend>
+          <div class="segmented">
+            <label><input type="radio" name="mode" value="entrega" checked /><span>Delivery</span></label>
+            <label><input type="radio" name="mode" value="retirada" /><span>Pick up</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field" data-bag-address>
+          <label for="bg-address">Address <span class="req" aria-hidden="true">*</span></label>
+          <input class="input" id="bg-address" name="address" type="text" autocomplete="street-address" placeholder="Street, number and neighborhood" aria-describedby="bg-address-hint bg-address-err" />
+          <p class="field__hint" id="bg-address-hint">{r.order.deliveryNote}</p>
+          <p class="field__error" id="bg-address-err"></p>
+        </div>
+
+        <div class="field">
+          <label for="bg-payment">Payment</label>
+          <select class="input" id="bg-payment" name="payment">
+            {r.order.payment.map((p) => <option value={p}>{p}</option>)}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="bg-notes">Notes</label>
+          <textarea class="input" id="bg-notes" name="notes" rows="2" placeholder="No scallions, sauce on the side, change for..."></textarea>
+        </div>
+      </form>
+    </div>
+
+    <footer class="bag__foot">
+      <p class="bag__total">
+        <span>Subtotal</span>
+        <strong data-bag-total>$0</strong>
+      </p>
+      <p class="sr-only" role="status" aria-live="polite" data-bag-status></p>
+      <button class="btn btn--primary btn--block" type="submit" form="bag-form" data-bag-send>
+        <Icon name="whatsapp" class="btn__arrow" /> Send order on WhatsApp
+      </button>
+      <button class="bag__clear" type="button" data-bag-clear>Clear order</button>
+    </footer>
+  </div>
+</dialog>
+
+<p class="sr-only" role="status" aria-live="polite" data-bag-announce></p>

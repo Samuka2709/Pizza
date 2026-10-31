@@ -1,0 +1,52 @@
+---
+import { restaurant as r } from '../data/restaurant';
+import { whatsappLink, genericOrderMessage, fullAddress } from '../lib/format';
+import Icon from './Icon.astro';
+const wa = whatsappLink(genericOrderMessage());
+---
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a href="#topo" class="brand" aria-label={`${r.fullName}, back to top`}>
+      {r.name}<span class="brand__dot" aria-hidden="true"></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul>
+        {r.nav.map((item) => <li><a href={item.href} data-nav-link>{item.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <a class="btn btn--primary btn--sm header__order" href={wa} target="_blank" data-order-generic rel="noopener" data-magnetic>
+        Order <Icon name="arrow" class="btn__arrow" />
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-open>
+        <span class="menu-toggle__lines" aria-hidden="true"></span>
+        <span class="sr-only">Open menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="menu-mobile" role="dialog" aria-modal="true" aria-label="Menu" data-menu inert>
+  <button class="menu-close" type="button" data-menu-close>
+    <Icon name="close" />
+    <span class="sr-only">Close menu</span>
+  </button>
+  <nav aria-label="Mobile menu">
+    <ul class="mobile-menu__list">
+      {r.nav.map((item, i) => (
+        <li class="mobile-menu__item">
+          <a href={item.href} style={`transition-delay:${80 + i * 60}ms`} data-menu-link>
+            <span class="label__num">{String(i + 1).padStart(2, '0')}</span>
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <div class="mobile-menu__foot">
+    <a class="btn btn--primary btn--block" href={wa} target="_blank" data-order-generic rel="noopener">
+      <Icon name="whatsapp" class="btn__arrow" /> Order on WhatsApp
+    </a>
+    <p>{fullAddress()}</p>
+  </div>
+</div>

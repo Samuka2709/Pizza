@@ -1,0 +1,43 @@
+---
+import type { Photo as PhotoT } from '../data/restaurant';
+import { photoUrl, photoSrcset } from '../lib/img';
+
+interface Props {
+  photo: PhotoT;
+  /** largura / altura */
+  ratio: number;
+  widths?: number[];
+  sizes?: string;
+  priority?: boolean;
+  class?: string;
+  imgClass?: string;
+  reveal?: 'clip' | 'fade' | false;
+  vignette?: boolean;
+}
+const {
+  photo,
+  ratio,
+  widths = [400, 640, 900, 1200],
+  sizes = '100vw',
+  priority = false,
+  class: cls = '',
+  imgClass = '',
+  reveal = 'clip',
+  vignette = false,
+} = Astro.props;
+const base = widths[Math.min(1, widths.length - 1)];
+---
+<div class:list={['ph', cls, { 'ph--vignette': vignette }]} data-reveal={reveal || undefined}>
+  <img
+    class={imgClass}
+    src={photoUrl(photo.id, base, ratio)}
+    srcset={photoSrcset(photo.id, ratio, widths)}
+    sizes={sizes}
+    width={base}
+    height={Math.round(base / ratio)}
+    alt={photo.alt}
+    loading={priority ? 'eager' : 'lazy'}
+    decoding={priority ? 'sync' : 'async'}
+    fetchpriority={priority ? 'high' : undefined}
+  />
+</div>

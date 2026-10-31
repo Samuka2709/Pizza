@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import About from '../components/About.astro';
+import Signature from '../components/Signature.astro';
+import Menu from '../components/Menu.astro';
+import Combos from '../components/Combos.astro';
+import Reviews from '../components/Reviews.astro';
+import Gallery from '../components/Gallery.astro';
+import Reservation from '../components/Reservation.astro';
+import Visit from '../components/Visit.astro';
+import Footer from '../components/Footer.astro';
+import Fixed from '../components/Fixed.astro';
+import Bag from '../components/Bag.astro';
+import { restaurant } from '../data/restaurant';
+---
+<Base>
+  <Header />
+  <main id="conteudo" tabindex="-1">
+    <Hero />
+    <Marquee />
+    <About />
+    <Signature />
+    <Menu />
+    <Combos />
+    <Reviews />
+    <Gallery />
+    <Reservation />
+    <Visit />
+  </main>
+  <Footer />
+  <Fixed />
+  <Bag />
+  <script type="application/json" id="site-data" set:html={JSON.stringify({ hours: restaurant.hours, timezone: restaurant.timezone, whatsapp: restaurant.contact.whatsapp, gallery: restaurant.gallery.map((g) => g.alt), reservation: { slotMinutes: restaurant.reservation.slotMinutes, lastSlotBeforeClose: restaurant.reservation.lastSlotBeforeClose }, name: restaurant.fullName })} />
+  <script>
+    import '../scripts/main';
+  </script>
+</Base>

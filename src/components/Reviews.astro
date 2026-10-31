@@ -1,0 +1,28 @@
+---
+import { restaurant as r } from '../data/restaurant';
+import SectionLabel from './SectionLabel.astro';
+const g = r.google;
+---
+{g && (
+  <section class="section" id="avaliacoes" aria-labelledby="avaliacoes-title">
+    <div class="container reviews">
+      <div>
+        <SectionLabel text="Google reviews" />
+        <h2 class="sr-only" id="avaliacoes-title">Reviews</h2>
+        <p class="reviews__score">{g.rating.toLocaleString('en-US', { minimumFractionDigits: 1 })}</p>
+        <p class="muted">
+          {g.count.toLocaleString('en-US')} reviews ·{' '}
+          <a class="link-line" href={g.url} target="_blank" rel="noopener">see on Google</a>
+        </p>
+      </div>
+      <div class="reviews__list">
+        {g.reviews.map((rv) => (
+          <figure class="review" data-reveal="fade">
+            <blockquote>“{rv.text}”</blockquote>
+            <figcaption>{rv.author}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

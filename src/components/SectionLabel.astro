@@ -1,0 +1,13 @@
+---
+interface Props {
+  num?: string;
+  text: string;
+  class?: string;
+}
+const { num, text, class: cls } = Astro.props;
+---
+<p class:list={['label', cls]} data-reveal="fade">
+  {num && <span class="label__num">{num}</span>}
+  {num && <span class="label__rule" aria-hidden="true"></span>}
+  <span>{text}</span>
+</p>

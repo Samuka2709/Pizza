@@ -1,0 +1,19 @@
+---
+import { restaurant as r } from '../data/restaurant';
+const items = r.marquee;
+---
+<div class="marquee" role="region" aria-label="House highlights">
+  <p class="sr-only">{items.join('. ')}.</p>
+  <div class="marquee__track" aria-hidden="true">
+    {[0, 1].map(() => (
+      <div class="marquee__group">
+        {[...items, ...items].map((t) => (
+          <>
+            <span class="marquee__item">{t}</span>
+            <span class="marquee__sep"></span>
+          </>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

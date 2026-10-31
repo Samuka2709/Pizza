@@ -1,0 +1,67 @@
+---
+import { restaurant as r } from '../data/restaurant';
+import { DAYS, rangeLabel, whatsappLink, fullAddress, instagramUrl } from '../lib/format';
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+const c = r.contact;
+// Display order: Monday to Sunday
+const order = [1, 2, 3, 4, 5, 6, 0];
+---
+<section class="section" id="contato" aria-labelledby="contato-title">
+  <div class="container visit__grid">
+    <div>
+      <SectionLabel num="06" text="Visit us" />
+      <h2 class="display h2 reveal-words visit__title" id="contato-title" data-split-auto>{r.sections.visit.title}</h2>
+
+      <div class="visit__block visit__block--first" data-reveal="fade">
+        <h3 class="label">Address</h3>
+        <address class="visit__address">{c.address.street}<br />{c.address.district}, {c.address.city} — {c.address.state}</address>
+      </div>
+
+      <div class="visit__block" data-reveal="fade">
+        <h3 class="label">Hours</h3>
+        <table class="hours" data-hours>
+          <caption class="sr-only">Opening hours</caption>
+          <tbody>
+            {order.map((d) => {
+              const h = r.hours[d];
+              return (
+                <tr data-day={d}>
+                  <th scope="row">{DAYS[d]}</th>
+                  <td>{h ? rangeLabel(h) : 'Closed'}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="visit__block" data-reveal="fade">
+        <h3 class="label">Contact</h3>
+        <div class="visit__links">
+          <a class="link-line" href={`tel:${c.phoneHref}`}><Icon name="phone" class="btn__arrow" /> {c.phone}</a>
+          <a class="link-line" href={instagramUrl()} target="_blank" rel="noopener"><Icon name="instagram" class="btn__arrow" /> @{c.instagram}</a>
+        </div>
+      </div>
+
+      <div class="visit__ctas" data-reveal="fade">
+        <a class="btn btn--primary" href={whatsappLink(`Hi! I have a question about ${r.fullName}.`)} target="_blank" rel="noopener">
+          <Icon name="whatsapp" class="btn__arrow" /> Chat on WhatsApp
+        </a>
+        <a class="btn btn--outline" href={c.mapsUrl} target="_blank" rel="noopener">
+          Get directions <Icon name="arrow" class="btn__arrow" />
+        </a>
+      </div>
+    </div>
+
+    <div class="map" data-reveal="fade">
+      <iframe
+        src={c.mapsEmbed}
+        title={`Map: ${fullAddress()}`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</section>

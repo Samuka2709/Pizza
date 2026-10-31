@@ -1,0 +1,60 @@
+---
+import { restaurant as r } from '../data/restaurant';
+import { whatsappLink, genericOrderMessage } from '../lib/format';
+import Photo from './Photo.astro';
+import { heroImage } from '../lib/img';
+import Icon from './Icon.astro';
+
+const words = (s: string) => s.split(' ');
+---
+<section class="hero" id="topo" aria-labelledby="hero-title" data-hero>
+  <div class="hero__media">
+    <Photo
+      photo={r.hero.photo}
+      ratio={heroImage.ratio}
+      widths={heroImage.widths}
+      sizes={heroImage.sizes}
+      priority
+      reveal={false}
+      imgClass="hero__img"
+      vignette
+    />
+  </div>
+
+  <div class="container hero__content">
+    <p class="label hero__eyebrow">{r.sections.heroEyebrow} · {r.city}</p>
+    <h1 class="hero__title reveal-words" id="hero-title" data-split>
+      {words(r.fullName).map((w, i) => (
+        <>{i > 0 && ' '}<span class="mask"><span>{w}</span></span></>
+      ))}
+    </h1>
+    <p class="hero__tagline reveal-words" data-split>
+      {words(r.tagline).map((w, i) => (
+        <>{i > 0 && ' '}<span class="mask"><span>{w}</span></span></>
+      ))}
+    </p>
+
+    <div class="hero__ctas">
+      <a class="btn btn--primary" href={whatsappLink(genericOrderMessage())} target="_blank" data-order-generic rel="noopener" data-magnetic>
+        Place your order <Icon name="arrow" class="btn__arrow" />
+      </a>
+      <a class="btn btn--outline" href="#cardapio" data-scroll-link>See the menu</a>
+    </div>
+
+    <p class="hero__info">
+      <span data-open-status><span class="status-dot" aria-hidden="true"></span>Opening hours under Visit us</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span>{r.neighborhood}, {r.city}</span>
+      {r.google && (
+        <>
+          <span class="sep" aria-hidden="true"></span>
+          <span>{r.google.rating.toLocaleString('en-US')} on Google</span>
+        </>
+      )}
+    </p>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    Scroll <span class="hero__scroll-line"></span>
+  </div>
+</section>
