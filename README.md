@@ -37,7 +37,7 @@ After changing the name or tagline, regenerate the share image and favicon: `npm
 
 ## Animations
 
-- **Main animation (home hero)**: a real Margherita on a dark stage. As you scroll, the toppings
+- **Main animation (home hero)**: a real Margherita. As you scroll, the toppings
   lift off it (mozzarella with strings of cheese stretching back to the pizza, basil leaves
   spinning up), float for a moment and settle back. All pieces are cut-outs from free Unsplash
   photos (`public/img/hero`), animated in canvas (`src/scripts/pizza.ts`) on a sticky stage driven

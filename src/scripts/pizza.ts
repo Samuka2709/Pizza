@@ -153,8 +153,17 @@ export function initPizza(opts: { reduced: boolean }) {
       g.addColorStop(0, 'rgb(240 214 160)');
       g.addColorStop(0.5, 'rgb(255 247 226)');
       g.addColorStop(1, 'rgb(248 234 200)');
-      ctx!.fillStyle = g;
       ctx!.globalAlpha = clamp(lift * 2) * 0.95;
+      // thin warm outline underneath, so the strings read on the light background
+      ctx!.strokeStyle = 'rgb(176 120 60 / 0.45)';
+      ctx!.lineWidth = 1;
+      ctx!.beginPath();
+      ctx!.moveTo(left[0][0], left[0][1]);
+      left.forEach(([x, y]) => ctx!.lineTo(x, y));
+      for (let n = right.length - 1; n >= 0; n--) ctx!.lineTo(right[n][0], right[n][1]);
+      ctx!.closePath();
+      ctx!.stroke();
+      ctx!.fillStyle = g;
       ctx!.beginPath();
       ctx!.moveTo(left[0][0], left[0][1]);
       left.forEach(([x, y]) => ctx!.lineTo(x, y));
@@ -176,7 +185,7 @@ export function initPizza(opts: { reduced: boolean }) {
 
     // Warm light from below, stronger while the toppings are in the air
     const glow = ctx!.createRadialGradient(cx, cy, R * 0.4, cx, cy, R * 2.4);
-    glow.addColorStop(0, `rgb(232 110 40 / ${0.16 + 0.18 * air})`);
+    glow.addColorStop(0, `rgb(232 130 60 / ${0.1 + 0.14 * air})`);
     glow.addColorStop(1, 'rgb(232 110 40 / 0)');
     ctx!.fillStyle = glow;
     ctx!.fillRect(0, 0, w, h);
@@ -188,8 +197,8 @@ export function initPizza(opts: { reduced: boolean }) {
       const sy = cy - R * 0.4 - t * R * 1.4;
       const sr = R * (0.35 + t * 0.5);
       const sg = ctx!.createRadialGradient(sx, sy, 0, sx, sy, sr);
-      sg.addColorStop(0, `rgb(255 245 230 / ${0.07 * Math.sin(Math.PI * t) * (1 - air * 0.5)})`);
-      sg.addColorStop(1, 'rgb(255 245 230 / 0)');
+      sg.addColorStop(0, `rgb(255 255 255 / ${0.35 * Math.sin(Math.PI * t) * (1 - air * 0.5)})`);
+      sg.addColorStop(1, 'rgb(255 255 255 / 0)');
       ctx!.fillStyle = sg;
       ctx!.fillRect(sx - sr, sy - sr, sr * 2, sr * 2);
     }
@@ -199,8 +208,8 @@ export function initPizza(opts: { reduced: boolean }) {
     ctx!.translate(cx + R * 0.03, cy + R * 0.12);
     ctx!.scale(1, 0.88);
     const shadow = ctx!.createRadialGradient(0, 0, R * 0.7, 0, 0, R * 1.12);
-    shadow.addColorStop(0, 'rgb(0 0 0 / 0.55)');
-    shadow.addColorStop(1, 'rgb(0 0 0 / 0)');
+    shadow.addColorStop(0, 'rgb(60 30 10 / 0.28)');
+    shadow.addColorStop(1, 'rgb(60 30 10 / 0)');
     ctx!.fillStyle = shadow;
     ctx!.fillRect(-R * 1.2, -R * 1.2, R * 2.4, R * 2.4);
     ctx!.restore();
@@ -212,7 +221,7 @@ export function initPizza(opts: { reduced: boolean }) {
       const x = cx + (m.x + Math.sin(time * 0.5 + m.phase) * 0.05) * R;
       const y = cy + (m.y + 0.6 - drift) * R;
       const a = Math.sin(Math.PI * (drift / 1.8)) * (m.ember ? 0.55 + 0.4 * air : 0.25 + 0.3 * air);
-      ctx!.fillStyle = m.ember ? `rgb(255 150 70 / ${a})` : `rgb(255 248 236 / ${a})`;
+      ctx!.fillStyle = m.ember ? `rgb(214 104 44 / ${a})` : `rgb(201 139 74 / ${a * 0.8})`;
       ctx!.beginPath();
       ctx!.arc(x, y, m.r * (R / 300), 0, Math.PI * 2);
       ctx!.fill();

@@ -729,29 +729,17 @@ main:focus {
 }
 
 /* ==========================================================================
-   Home hero: dark stage, real pizza in canvas, toppings lift off on scroll
+   Home hero: sticky stage, real pizza in canvas, toppings lift off on scroll
    ========================================================================== */
 .hero {
   position: relative;
-  color: var(--on-dark);
   background:
-    radial-gradient(ellipse 60% 55% at 68% 72%, rgb(150 60 20 / 0.35), transparent 70%),
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgb(255 255 255 / 0.04), transparent 70%),
-    #120d0b;
-}
-/* Faint stone texture and vignette, in CSS so nothing extra downloads */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 50% 50%, transparent 55%, rgb(0 0 0 / 0.55)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    radial-gradient(ellipse at 72% 55%, rgb(201 139 74 / 0.18), transparent 60%),
+    var(--cream);
 }
 .motion .hero {
-  height: 280vh;
-  height: 280svh;
+  height: 260vh;
+  height: 260svh;
 }
 .hero__stage {
   position: relative;
@@ -779,7 +767,6 @@ main:focus {
 }
 .hero__eyebrow {
   margin-bottom: 18px;
-  color: #f0a57a;
 }
 .hero__title {
   font-family: var(--serif);
@@ -788,8 +775,6 @@ main:focus {
   font-size: clamp(4rem, 2rem + 11vw, 11rem);
   line-height: 0.92;
   letter-spacing: -0.04em;
-  color: var(--flour);
-  text-shadow: 0 6px 40px rgb(0 0 0 / 0.45);
 }
 .hero__tagline {
   margin-top: 16px;
@@ -799,7 +784,7 @@ main:focus {
   font-weight: 350;
   font-size: clamp(1.375rem, 1rem + 1.6vw, 2.25rem);
   line-height: 1.2;
-  color: var(--on-dark-soft);
+  color: var(--ink-soft);
 }
 .hero__ctas {
   display: flex;
@@ -814,15 +799,15 @@ main:focus {
   margin-top: 20px;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--on-dark-soft);
+  color: var(--ink-soft);
 }
 .hero__info-icon {
   width: 18px;
   height: 18px;
-  color: #f0a57a;
+  color: var(--tomato);
 }
 .hero__info.is-live {
-  color: #8fd17a;
+  color: var(--basil);
 }
 .hero__scroll {
   display: none;
@@ -842,7 +827,7 @@ main:focus {
 }
 @media (min-width: 900px) {
   .hero__content {
-    padding-top: calc(var(--header-h) + 12vh);
+    padding-top: calc(var(--header-h) + 10vh);
     max-width: calc(var(--max) * 0.62);
     margin-left: max(0px, (100vw - var(--max)) / 2);
   }
@@ -858,49 +843,22 @@ main:focus {
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--on-dark-soft);
+    color: var(--ink-soft);
   }
   .hero__scroll-line {
     position: relative;
     width: 64px;
     height: 1.5px;
-    background: var(--line-dark);
+    background: var(--line);
     overflow: hidden;
   }
   .hero__scroll-line::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: #f0a57a;
+    background: var(--tomato);
     animation: scrollcue 2.2s var(--ease) infinite;
   }
-}
-
-/* Header while it sits over the dark hero */
-.header.is-on-dark .brand,
-.header.is-on-dark .nav a {
-  color: var(--on-dark);
-}
-.header.is-on-dark .nav a {
-  color: var(--on-dark-soft);
-}
-.header.is-on-dark .nav a:hover {
-  color: var(--flour);
-}
-.header.is-on-dark .menu-toggle__lines::before,
-.header.is-on-dark .menu-toggle__lines::after {
-  background: var(--on-dark);
-}
-.header.is-on-dark.is-scrolled {
-  background: rgb(18 13 11 / 0.72);
-  border-bottom-color: var(--line-dark);
-}
-.menu-open .header.is-on-dark .brand {
-  color: var(--ink);
-}
-.menu-open .header.is-on-dark .menu-toggle__lines::before,
-.menu-open .header.is-on-dark .menu-toggle__lines::after {
-  background: var(--ink);
 }
 @keyframes scrollcue {
   0% {
