@@ -37,17 +37,18 @@ After changing the name or tagline, regenerate the share image and favicon: `npm
 
 ## Animations
 
-- **Main animation (home hero)**: a real Margherita. As you scroll, the toppings
-  lift off it (mozzarella with strings of cheese stretching back to the pizza, basil leaves
-  spinning up), float for a moment and settle back. All pieces are cut-outs from free Unsplash
-  photos (`public/img/hero`), animated in canvas (`src/scripts/pizza.ts`) on a sticky stage driven
-  by scroll progress, smoothed, and only drawn while the hero is on screen.
+- **Main animation (home hero)**: the sliced pepperoni pizza turns slowly on its wooden board, with
+  steam rising, over a full-bleed photo (desktop) or at the bottom of the cream hero (phones).
+  It is one still photo (`public/img/hero/scene*.webp`): in WebGL each pixel of the pizza's top is
+  mapped onto the table plane, rotated and projected back, so the turn keeps the camera perspective
+  (`src/scripts/pizza.ts`). Scrolling turns it a little further and brings the camera slightly closer.
+  To use another photo, re-measure `PLANE` and `PIZZA` in that file.
 - Titles rise word by word, sections fade in, a few photos have light parallax.
 - Pizza details: slice icons, crust-shaped section edges, a CSS mini Margherita on each favourite, a
   turning "Every Fri" badge, buttons that fill from the bottom like sauce, event photos that round into
   a "pizza" on hover, a big pizza on inner page heroes that rolls away on scroll.
-- **Reduced motion**: with "reduce motion" on, the toppings are shown frozen mid-air, nothing moves on
-  its own and the hero is a normal-height section. If the script fails, all content shows after 4 seconds.
+- **Reduced motion**: with "reduce motion" on, the photo is shown still and nothing moves on its own.
+  Without WebGL the still photo is shown as a background. If the script fails, all content shows after 4 seconds.
 
 ## WordPress build (for launch)
 

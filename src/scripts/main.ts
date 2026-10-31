@@ -49,11 +49,14 @@ document.addEventListener('click', (e) => {
    Header: background once scrolled, hides going down, returns going up
    -------------------------------------------------------------------------- */
 const header = $('[data-header]')!;
+const heroEl = $('[data-hero]');
 let lastY = window.scrollY;
 let ticking = false;
 function onScroll() {
   const y = window.scrollY;
   header.classList.toggle('is-scrolled', y > 40);
+  // Light header text while it sits over the home hero photo (desktop)
+  header.classList.toggle('is-on-dark', !!heroEl && heroEl.getBoundingClientRect().bottom > header.offsetHeight);
   const menuOpen = document.documentElement.classList.contains('menu-open');
   header.classList.toggle('is-hidden', y > lastY && y > 320 && !menuOpen);
   document.body.classList.toggle('header-visible', !header.classList.contains('is-hidden'));

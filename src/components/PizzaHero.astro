@@ -6,8 +6,10 @@ const words = (t: string) => t.split(' ');
 ---
 <section class="hero" id="top" aria-labelledby="hero-title" data-hero>
   <div class="hero__stage">
-    <!-- Main animation: real pizza, toppings lift off as you scroll (canvas, see src/scripts/pizza.ts) -->
+    <!-- Main animation: the sliced pizza turns on its board with steam rising (WebGL, see src/scripts/pizza.ts) -->
     <canvas class="hero__canvas" data-pizza aria-hidden="true"></canvas>
+    <canvas class="hero__canvas hero__steam" data-steam aria-hidden="true"></canvas>
+    <div class="hero__shade" aria-hidden="true"></div>
 
     <div class="container hero__content">
       <p class="label hero__eyebrow">{s.hero.eyebrow}</p>
