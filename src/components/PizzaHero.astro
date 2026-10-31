@@ -8,8 +8,13 @@ const words = (t: string) => t.split(' ');
   <div class="hero__stage">
     <!-- Brand video: the sliced pizza turning with steam. Two copies cross-fade so the loop has no visible jump (src/scripts/pizza.ts) -->
     <div class="hero__media" aria-hidden="true">
+      <!-- First frame as a real image: shows at once, the right size per screen, and is what stays with reduced motion -->
+      <picture>
+        <source media="(min-width: 900px)" srcset="/video/hero-poster.webp" width="1280" height="720" />
+        <img class="hero__video hero__poster" src="/video/hero-poster-sm.webp" width="854" height="480" alt="" fetchpriority="high" decoding="async" />
+      </picture>
       {[0, 1].map((i) => (
-        <video class:list={['hero__video', { 'is-front': i === 0 }]} muted playsinline preload={i === 0 ? 'auto' : 'none'} poster="/video/hero-poster.webp" disablepictureinpicture data-hero-video>
+        <video class:list={['hero__video', { 'is-front': i === 0 }]} muted playsinline preload={i === 0 ? 'metadata' : 'none'} disablepictureinpicture data-hero-video>
           <source src="/video/hero-854.mp4" type="video/mp4" media="(max-width: 899px)" />
           <source src="/video/hero-1280.webm" type="video/webm" />
           <source src="/video/hero-1280.mp4" type="video/mp4" />
@@ -17,6 +22,12 @@ const words = (t: string) => t.split(' ');
       ))}
     </div>
     <div class="hero__shade" aria-hidden="true"></div>
+    <!-- Moving content longer than 5 s needs a way to stop it (WCAG 2.2.2) -->
+    <button class="hero__pause" type="button" aria-pressed="false" data-hero-pause hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-pause><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-play hidden><path d="M8 5.5v13l11-6.5z" /></svg>
+      <span class="sr-only" data-pause-label>Pause the video</span>
+    </button>
 
     <div class="container hero__content">
       <p class="label hero__eyebrow">{s.hero.eyebrow}</p>

@@ -392,7 +392,8 @@ main:focus {
     color var(--dur-hover) var(--ease),
     background-color var(--dur-hover) var(--ease),
     border-color var(--dur-hover) var(--ease),
-    translate 300ms var(--ease);
+    translate 300ms var(--ease),
+    scale 160ms var(--ease);
 }
 /* Hover: colour rises from the bottom, like sauce filling the button */
 .btn::before {
@@ -411,7 +412,7 @@ main:focus {
   transition: transform var(--dur-hover) var(--ease);
 }
 .btn:active {
-  scale: 0.98;
+  scale: 0.97;
 }
 .btn--primary {
   background: var(--tomato);
@@ -760,7 +761,8 @@ main:focus {
   opacity: 0;
   transition: opacity 0.7s linear;
 }
-.hero__video.is-front {
+.hero__video.is-front,
+.hero__poster {
   opacity: 1;
 }
 /* Phones: the pizza fills the width at the bottom, fading into the cream above */
@@ -779,6 +781,37 @@ main:focus {
     object-fit: cover;
     object-position: 50% 70%;
   }
+}
+.hero__pause {
+  position: absolute;
+  z-index: 2;
+  right: var(--gutter);
+  bottom: calc(52px + env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgb(255 253 248 / 0.85);
+  color: var(--ink);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgb(30 15 5 / 0.18);
+  transition:
+    background-color var(--dur-hover) var(--ease),
+    scale 160ms var(--ease);
+}
+.hero__pause:active {
+  scale: 0.94;
+}
+.hero__pause svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  stroke: none;
+}
+.hero__pause[hidden] {
+  display: none;
 }
 .hero__shade {
   position: absolute;
@@ -2359,7 +2392,7 @@ textarea.input {
   line-height: 0.82;
   letter-spacing: -0.04em;
   white-space: nowrap;
-  color: var(--tomato);
+  color: #d24f35;
 }
 .footer__bottom {
   display: flex;

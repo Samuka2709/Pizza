@@ -79,6 +79,12 @@ const schema = {
     <!-- Photos come from the Unsplash CDN; no crossorigin, images are requested without CORS -->
     <link rel="preconnect" href="https://images.unsplash.com" />
     {preloadImages.map((src) => <link rel="preload" as="image" href={src} type="image/webp" fetchpriority="high" />)}
+    {path === '/' && (
+      <>
+        <link rel="preload" as="image" href="/video/hero-poster.webp" type="image/webp" media="(min-width: 900px)" fetchpriority="high" />
+        <link rel="preload" as="image" href="/video/hero-poster-sm.webp" type="image/webp" media="(max-width: 899px)" fetchpriority="high" />
+      </>
+    )}
     <link rel="preload" href={serifDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansBody} as="font" type="font/woff2" crossorigin />
 
@@ -95,7 +101,7 @@ const schema = {
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
-    {s.mockupNotice && <p class="mockup-ribbon">Design preview · sample text, prices and photos</p>}
+    {s.mockupNotice && <aside class="mockup-ribbon" aria-label="Design preview notice"><p>Design preview · sample text, prices and photos</p></aside>}
     <Header path={path} />
     <main id="content" tabindex="-1">
       <slot />
