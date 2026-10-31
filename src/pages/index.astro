@@ -15,7 +15,7 @@ import { price } from '../lib/format';
 // Pizzas that have a photo, house favourites first
 const favourites = s.menu[0].items.filter((i) => i.photo).sort((a, b) => Number(!!b.signature) - Number(!!a.signature)).slice(0, 3);
 ---
-<Base preloadImages={['/img/hero-pizza.webp', '/img/hero-pizza-raw.webp']}>
+<Base preloadImages={['/img/hero/pizza.webp']}>
   <PizzaHero />
   <Marquee />
 

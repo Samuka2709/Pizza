@@ -6,7 +6,7 @@ const words = (t: string) => t.split(' ');
 ---
 <section class="hero" id="top" aria-labelledby="hero-title" data-hero>
   <div class="hero__stage">
-    <!-- Main animation: the pizza is built as you scroll (drawn in canvas, see src/scripts/pizza.ts) -->
+    <!-- Main animation: real pizza, toppings lift off as you scroll (canvas, see src/scripts/pizza.ts) -->
     <canvas class="hero__canvas" data-pizza aria-hidden="true"></canvas>
 
     <div class="container hero__content">
@@ -19,7 +19,7 @@ const words = (t: string) => t.split(' ');
       </p>
       <div class="hero__ctas">
         <a class="btn btn--primary" href="/contact/#quote" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
-        <a class="btn btn--outline" href="/pop-up/">{DAYS[s.popup.weekday]}s in Stanmore</a>
+        <a class="btn btn--outline-light" href="/pop-up/">{DAYS[s.popup.weekday]}s in Stanmore</a>
       </div>
       <p class="hero__info">
         <Icon name="clock" class="hero__info-icon" />
@@ -27,17 +27,9 @@ const words = (t: string) => t.split(' ');
       </p>
     </div>
 
-    <ol class="hero__steps" aria-label="How a pizza is made">
-      {s.hero.steps.map((step, i) => (
-        <li class:list={['hero__step', { 'is-active': i === 0 }]} data-step={i}>
-          <span class="hero__step-num">{String(i + 1).padStart(2, '0')}</span>
-          <span class="hero__step-text">{step}</span>
-        </li>
-      ))}
-    </ol>
 
     <div class="hero__scroll" aria-hidden="true">
-      Scroll to build a pizza <span class="hero__scroll-line"></span>
+      Scroll <span class="hero__scroll-line"></span>
     </div>
   </div>
 </section>

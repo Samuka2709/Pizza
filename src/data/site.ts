@@ -97,15 +97,6 @@ export const site = {
      ------------------------------------------------------------------------ */
   hero: {
     eyebrow: 'Neapolitan-inspired pizza · London', // DEMO
-    /** Captions that follow the pizza being built as you scroll */
-    steps: [
-      'Dough, rested slowly', // DEMO
-      'Tomato, spooned from the centre',
-      'Fior di latte, torn by hand',
-      'Basil and a thread of olive oil',
-      'Into the fire, about ninety seconds',
-      'Sliced and served, hot',
-    ],
   },
 
   marquee: ['Weddings', 'Private parties', 'Corporate events', 'Schools', 'Festivals', 'Fridays in Stanmore'],

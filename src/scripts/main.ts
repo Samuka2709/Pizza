@@ -49,11 +49,14 @@ document.addEventListener('click', (e) => {
    Header: background once scrolled, hides going down, returns going up
    -------------------------------------------------------------------------- */
 const header = $('[data-header]')!;
+const heroDark = $('[data-hero]');
 let lastY = window.scrollY;
 let ticking = false;
 function onScroll() {
   const y = window.scrollY;
   header.classList.toggle('is-scrolled', y > 40);
+  // Light header while it sits over the dark home hero
+  header.classList.toggle('is-on-dark', !!heroDark && heroDark.getBoundingClientRect().bottom > header.offsetHeight);
   const menuOpen = document.documentElement.classList.contains('menu-open');
   header.classList.toggle('is-hidden', y > lastY && y > 320 && !menuOpen);
   document.body.classList.toggle('header-visible', !header.classList.contains('is-hidden'));
@@ -192,7 +195,7 @@ function splitWords(el: HTMLElement) {
 if (!reduced) {
   // Titles: words rise from behind a mask (the text is already in the HTML, only the motion is added)
   gsap.fromTo($$('.hero [data-split] .mask > span'), { y: '110%' }, { y: '0%', duration: 0.9, ease: EASE, stagger: 0.07, delay: 0.1 });
-  gsap.fromTo('.hero__eyebrow, .hero__info, .hero__steps', { opacity: 0 }, { opacity: 1, duration: 0.8, delay: 0.5, ease: 'power1.out' });
+  gsap.fromTo('.hero__eyebrow, .hero__info', { opacity: 0 }, { opacity: 1, duration: 0.8, delay: 0.5, ease: 'power1.out' });
 
   $$('[data-split-auto]').forEach(splitWords);
   const pageHeroTitle = $('.page-hero [data-split-auto]');

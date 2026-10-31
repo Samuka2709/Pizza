@@ -37,16 +37,17 @@ After changing the name or tagline, regenerate the share image and favicon: `npm
 
 ## Animations
 
-- **Main animation (home hero)**: a Margherita is built as you scroll: dough stretched, tomato spooned
-  in a spiral, mozzarella torn on, basil and oil, into the oven (crust browns, leopard spots, glow),
-  then sliced with one slice pulled away. Drawn in canvas (`src/scripts/pizza.ts`), driven by scroll
-  progress on a sticky stage, smoothed, and only redrawn while on screen and when the progress changes.
+- **Main animation (home hero)**: a real Margherita on a dark stage. As you scroll, the toppings
+  lift off it (mozzarella with strings of cheese stretching back to the pizza, basil leaves
+  spinning up), float for a moment and settle back. All pieces are cut-outs from free Unsplash
+  photos (`public/img/hero`), animated in canvas (`src/scripts/pizza.ts`) on a sticky stage driven
+  by scroll progress, smoothed, and only drawn while the hero is on screen.
 - Titles rise word by word, sections fade in, a few photos have light parallax.
 - Pizza details: slice icons, crust-shaped section edges, a CSS mini Margherita on each favourite, a
   turning "Every Fri" badge, buttons that fill from the bottom like sauce, event photos that round into
   a "pizza" on hover, a big pizza on inner page heroes that rolls away on scroll.
-- **Reduced motion**: with "reduce motion" on, the finished pizza is shown, nothing moves on its own and
-  the hero is a normal-height section. If the script fails, all content shows after 4 seconds.
+- **Reduced motion**: with "reduce motion" on, the toppings are shown frozen mid-air, nothing moves on
+  its own and the hero is a normal-height section. If the script fails, all content shows after 4 seconds.
 
 ## WordPress build (for launch)
 
