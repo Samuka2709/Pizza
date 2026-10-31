@@ -1,0 +1,43 @@
+---
+import { site as s } from '../data/site';
+import { DAYS, popupTimes } from '../lib/format';
+import Icon from './Icon.astro';
+const words = (t: string) => t.split(' ');
+---
+<section class="hero" id="top" aria-labelledby="hero-title" data-hero>
+  <div class="hero__stage">
+    <!-- Main animation: the pizza is built as you scroll (drawn in canvas, see src/scripts/pizza.ts) -->
+    <canvas class="hero__canvas" data-pizza aria-hidden="true"></canvas>
+
+    <div class="container hero__content">
+      <p class="label hero__eyebrow">{s.hero.eyebrow}</p>
+      <h1 class="hero__title" id="hero-title" data-split>
+        {words(s.name).map((w, i) => <>{i > 0 && ' '}<span class="mask"><span>{w}</span></span></>)}
+      </h1>
+      <p class="hero__tagline" data-split>
+        {words(s.tagline).map((w, i) => <>{i > 0 && ' '}<span class="mask"><span>{w}</span></span></>)}
+      </p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="/contact/#quote" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
+        <a class="btn btn--outline" href="/pop-up/">{DAYS[s.popup.weekday]}s in Stanmore</a>
+      </div>
+      <p class="hero__info">
+        <Icon name="clock" class="hero__info-icon" />
+        <span data-next-popup>Pop-up every {DAYS[s.popup.weekday]}, {popupTimes()}</span>
+      </p>
+    </div>
+
+    <ol class="hero__steps" aria-label="How a pizza is made">
+      {s.hero.steps.map((step, i) => (
+        <li class:list={['hero__step', { 'is-active': i === 0 }]} data-step={i}>
+          <span class="hero__step-num">{String(i + 1).padStart(2, '0')}</span>
+          <span class="hero__step-text">{step}</span>
+        </li>
+      ))}
+    </ol>
+
+    <div class="hero__scroll" aria-hidden="true">
+      Scroll to build a pizza <span class="hero__scroll-line"></span>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+---
+import { site as s } from '../data/site';
+import { DAYS, popupTimes } from '../lib/format';
+import Photo from './Photo.astro';
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+const p = s.popup;
+interface Props {
+  num?: string;
+}
+const { num } = Astro.props;
+---
+<section class="section popup" aria-labelledby="popup-title">
+  <div class="crust crust--top" aria-hidden="true"></div>
+  <div class="container popup__grid">
+    <div class="popup__text">
+      <SectionLabel num={num} text="Friday pop-up" />
+      <h2 class="display h2 reveal-words" id="popup-title" data-split-auto>{p.title}</h2>
+      <p class="lead" data-reveal="fade">{p.lead}</p>
+      <dl class="popup__facts" data-reveal="fade">
+        <div><dt><Icon name="clock" /> When</dt><dd>Every {DAYS[p.weekday]}, {popupTimes()}</dd></div>
+        <div><dt><Icon name="pin" /> Where</dt><dd>{p.place}</dd></div>
+      </dl>
+      <p class="popup__next" data-next-popup-long data-reveal="fade" aria-live="polite"></p>
+      <div class="popup__ctas" data-reveal="fade">
+        <a class="btn btn--light" href="/pop-up/">Times &amp; directions <Icon name="arrow" class="btn__arrow" /></a>
+        <a class="btn btn--outline-light" href={p.mapsUrl} target="_blank" rel="noopener">Open in Maps</a>
+      </div>
+    </div>
+    <div class="popup__media" data-parallax="10">
+      <Photo photo={p.photo} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 40vw, 100vw" />
+      <span class="popup__badge" aria-hidden="true"><span>Every</span><strong>Fri</strong></span>
+    </div>
+  </div>
+  <div class="crust crust--bottom" aria-hidden="true"></div>
+</section>

@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import Icon from '../../components/Icon.astro';
+import { site as s } from '../../data/site';
+const st = s.story;
+---
+<Base title="Our Story" path="/our-story/" description={st.lead}>
+  <PageHero label="Our story" title={st.title} lead={st.lead} />
+
+  <section class="section section--tight" aria-label="The story">
+    <div class="container story__grid">
+      <div class="story__photos">
+        <div class="story__photo story__photo--a" data-parallax="-8">
+          <Photo photo={st.photos[0]} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 36vw, 80vw" />
+        </div>
+        <div class="story__photo story__photo--b" data-parallax="12">
+          <Photo photo={st.photos[1]} ratio={1} widths={[320, 480, 720]} sizes="(min-width: 900px) 24vw, 56vw" />
+        </div>
+      </div>
+      <div class="story__body">
+        {st.paragraphs.map((p) => <p data-reveal="fade">{p}</p>)}
+        <blockquote class="pull-quote" data-reveal="fade">
+          <p>“{st.quote}”</p>
+          <cite>{st.quoteBy}</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="values-title">
+    <div class="container">
+      <header class="section-head">
+        <SectionLabel num="01" text="What we care about" />
+        <h2 class="display h2 reveal-words" id="values-title" data-split-auto>Three things we never rush.</h2>
+      </header>
+      <ol class="steps steps--3">
+        {st.values.map((v, i) => (
+          <li class="step" data-reveal="fade">
+            <span class="step__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="h3">{v.title}</h3>
+            <p>{v.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="section-foot" data-reveal="fade">
+        <a class="btn btn--primary" href="/events/">Pizza for your event <Icon name="arrow" class="btn__arrow" /></a>
+      </p>
+    </div>
+  </section>
+</Base>

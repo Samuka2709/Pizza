@@ -1,58 +1,12 @@
 ---
-import { restaurant as r } from '../data/restaurant';
-import { photoUrl } from '../lib/img';
+import { site as s } from '../data/site';
 import Photo from './Photo.astro';
-import SectionLabel from './SectionLabel.astro';
-import Icon from './Icon.astro';
-
-const ratioFor = (span: string) => (span === 'tall' ? 0.5 : span === 'wide' ? 2 : 1);
+const ratioFor = (span: string) => (span === 'tall' ? 0.75 : span === 'wide' ? 1.6 : 1);
 ---
-<section class="section" id="galeria" aria-labelledby="galeria-title">
-  <div class="container">
-    <header class="section-head section-head--split">
-      <div>
-        <SectionLabel num="04" text="Gallery" />
-        <h2 class="display h2 section-head__title reveal-words" id="galeria-title" data-split-auto>{r.sections.gallery.title}</h2>
-      </div>
-      <a class="link-line gold" href={`https://instagram.com/${r.contact.instagram}`} target="_blank" rel="noopener" data-reveal="fade">
-        <Icon name="instagram" class="btn__arrow" /> @{r.contact.instagram}
-      </a>
-    </header>
-
-    <ul class="gallery">
-      {r.gallery.map((p, i) => (
-        <li class:list={['gallery__cell', p.span && `gallery__item--${p.span}`]}>
-          <button
-            type="button"
-            class="gallery__item"
-            data-lightbox-index={i}
-            data-full={photoUrl(p.id, 1800, p.span === 'tall' ? 0.75 : 1.5, 75)}
-            data-cursor="View"
-            aria-label={`Enlarge photo: ${p.alt}`}
-          >
-            <Photo photo={p} ratio={ratioFor(p.span)} widths={p.span === 'wide' ? [640, 960, 1400] : [360, 540, 800]} sizes={p.span === 'wide' ? '(min-width: 900px) 50vw, 100vw' : '(min-width: 900px) 25vw, 50vw'} />
-          </button>
-        </li>
-      ))}
-    </ul>
-  </div>
-
-  <dialog class="lightbox" aria-label="Enlarged gallery" data-lightbox>
-    <div class="lightbox__bar">
-      <span data-lightbox-count>01 / {String(r.gallery.length).padStart(2, '0')}</span>
-      <button class="icon-btn" type="button" data-lightbox-close>
-        <Icon name="close" /><span class="sr-only">Close gallery</span>
-      </button>
-    </div>
-    <div class="lightbox__stage">
-      <img alt="" data-lightbox-img />
-    </div>
-    <div class="lightbox__caption">
-      <p data-lightbox-caption aria-live="polite"></p>
-      <div class="lightbox__nav">
-        <button class="icon-btn" type="button" data-lightbox-prev><Icon name="prev" /><span class="sr-only">Previous photo</span></button>
-        <button class="icon-btn" type="button" data-lightbox-next><Icon name="next" /><span class="sr-only">Next photo</span></button>
-      </div>
-    </div>
-  </dialog>
-</section>
+<ul class="gallery">
+  {s.gallery.map((p) => (
+    <li class:list={['gallery__cell', p.span && `gallery__cell--${p.span}`]}>
+      <Photo photo={p} ratio={ratioFor(p.span)} widths={p.span === 'wide' ? [640, 960, 1400] : [360, 540, 800]} sizes={p.span === 'wide' ? '(min-width: 900px) 50vw, 100vw' : '(min-width: 900px) 25vw, 50vw'} />
+    </li>
+  ))}
+</ul>

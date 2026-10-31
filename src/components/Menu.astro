@@ -1,103 +1,69 @@
 ---
-import { restaurant as r, type Tag } from '../data/restaurant';
+import { site as s, type Diet } from '../data/site';
 import { price } from '../lib/format';
-import Photo from './Photo.astro';
-import SectionLabel from './SectionLabel.astro';
-import Icon from './Icon.astro';
 
-const tagClass = (t: Tag) => (t === 'Best seller' ? 'tag tag--top' : 'tag');
+const dietLabel = (d: Diet) => s.dietKey.find((k) => k.code === d)!.label;
 ---
-<section class="section menu" id="cardapio" aria-labelledby="cardapio-title">
-  <div class="container">
-    <header class="section-head section-head--split">
-      <div>
-        <SectionLabel num="02" text="Menu" />
-        <h2 class="display h2 section-head__title reveal-words" id="cardapio-title" data-split-auto>{r.sections.menu.title}</h2>
-      </div>
-      <p class="lead" data-reveal="fade">{r.sections.menu.lead}</p>
-    </header>
-
-    <div class="tabs" data-tabs>
-      <div class="tabs__scroller">
-        <div class="tabs__list" role="tablist" aria-label="Menu categories">
-          {r.menu.map((c, i) => (
-            <button
-              class="tab"
-              type="button"
-              role="tab"
-              id={`tab-${c.id}`}
-              aria-controls={`panel-${c.id}`}
-              aria-selected={i === 0 ? 'true' : 'false'}
-              tabindex={i === 0 ? 0 : -1}
-            >
-              {c.label}
-            </button>
-          ))}
-          <span class="tabs__indicator" aria-hidden="true"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-panels">
-      {r.menu.map((c, i) => (
-        <div class="menu-panel" role="tabpanel" id={`panel-${c.id}`} aria-labelledby={`tab-${c.id}`} tabindex="0" hidden={i !== 0}>
-          <h3 class="sr-only">{c.label}</h3>
-          {c.featured.length > 0 && (
-            <ul class="cards">
-              {c.featured.map((d) => (
-                <li class="card">
-                  <div class="card__frame">
-                    <Photo photo={d.photo!} ratio={4 / 5} widths={[360, 540, 720, 960]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 100vw" reveal={false} class="card__media" />
-                    {d.tags && (
-                      <div class="card__tags">
-                        {d.tags.map((t) => <span class={tagClass(t)}>{t}</span>)}
-                      </div>
-                    )}
-                  </div>
-                  <div class="card__body">
-                    <h4 class="card__name">{d.name}</h4>
-                    <p class="price">{price(d.price)}</p>
-                    <p class="card__desc">{d.description}</p>
-                    <div class="card__meta">
-                      <span class="card__pieces">{d.pieces ?? 'Portion'}</span>
-                      <button class="order-link" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Add ${d.name} to your order`}>
-                        <span data-add-label>Add</span> <Icon name="plus" class="order-link__plus" /><Icon name="check" class="order-link__check" />
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {c.more && c.more.length > 0 && (
-            <div class="menu-list">
-              {c.featured.length > 0 && <p class="label menu-list__title">Also in this category</p>}
-              <ul>
-                {c.more.map((d) => (
-                  <li class="menu-row">
-                    <div class="menu-row__top">
-                      <h4 class="menu-row__name">{d.name}</h4>
-                      <span class="menu-row__leader" aria-hidden="true"></span>
-                    </div>
-                    <div class="menu-row__right">
-                      <p class="price">{price(d.price)}</p>
-                      <button class="order-link order-link--icon" type="button" data-add={d.name} data-price={d.price} data-detail={d.pieces} aria-label={`Add ${d.name} to your order`}>
-                        <Icon name="plus" class="order-link__plus" /><Icon name="check" class="order-link__check" />
-                      </button>
-                    </div>
-                    <p class="menu-row__desc">
-                      <span>{d.description}</span>
-                      {d.pieces && <span>· {d.pieces}</span>}
-                      {d.tags?.map((t) => <span class="tag tag--line">{t}</span>)}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+<div class="tabs" data-tabs>
+  <div class="tabs__scroller">
+    <div class="tabs__list" role="tablist" aria-label="Menu sections">
+      {s.menu.map((c, i) => (
+        <button class="tab" type="button" role="tab" id={`tab-${c.id}`} aria-controls={`panel-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+          {c.label}
+        </button>
       ))}
+      <button class="tab" type="button" role="tab" id="tab-dietary" aria-controls="panel-dietary" aria-selected="false" tabindex="-1">Dietary info</button>
+      <span class="tabs__indicator" aria-hidden="true"></span>
     </div>
   </div>
-</section>
+</div>
+
+<div class="menu-panels">
+  {s.menu.map((c, i) => (
+    <div class="menu-panel" role="tabpanel" id={`panel-${c.id}`} aria-labelledby={`tab-${c.id}`} tabindex="0" hidden={i !== 0}>
+      <h2 class="sr-only">{c.label}</h2>
+      {c.note && <p class="menu-panel__note">{c.note}</p>}
+      <ul class="menu-list">
+        {c.items.map((d) => (
+          <li class:list={['menu-row', { 'menu-row--signature': d.signature }]}>
+            <div class="menu-row__top">
+              <h3 class="menu-row__name">{d.name}</h3>
+              {d.signature && <span class="tag">House favourite</span>}
+              <span class="menu-row__leader" aria-hidden="true"></span>
+              <p class="price">{price(d.price)}</p>
+            </div>
+            <p class="menu-row__desc">{d.description}</p>
+            {d.diet && (
+              <p class="menu-row__diet">
+                {d.diet.map((x) => <abbr class="diet" title={dietLabel(x)}>{x}<span class="sr-only"> ({dietLabel(x)})</span></abbr>)}
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+
+  <div class="menu-panel" role="tabpanel" id="panel-dietary" aria-labelledby="tab-dietary" tabindex="0" hidden>
+    <h2 class="sr-only">Dietary information</h2>
+    <p class="menu-panel__note">{s.menuNote}</p>
+    <ul class="diet-key">
+      {s.dietKey.map((k) => <li><abbr class="diet">{k.code}</abbr> {k.label}</li>)}
+    </ul>
+    <div class="table-wrap">
+      <table class="allergens">
+        <caption class="sr-only">Allergens in each item</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Dietary</th><th scope="col">Contains</th></tr></thead>
+        <tbody>
+          {s.menu.flatMap((c) => c.items).map((d) => (
+            <tr>
+              <th scope="row">{d.name}</th>
+              <td>{d.diet?.map(dietLabel).join(', ') || '—'}</td>
+              <td>{d.allergens?.join(', ') || 'None of the 14 major allergens'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

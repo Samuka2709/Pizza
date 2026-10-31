@@ -1,0 +1,25 @@
+---
+import { site as s } from '../data/site';
+import Photo from './Photo.astro';
+import Icon from './Icon.astro';
+interface Props {
+  /** Home shows short cards that link to the events page; the events page shows full ones */
+  linkTo?: 'events' | 'quote';
+}
+const { linkTo = 'events' } = Astro.props;
+---
+<ul class="events">
+  {s.events.types.map((e, i) => (
+    <li class="event" id={linkTo === 'quote' ? e.id : undefined} data-reveal="fade">
+      <a class="event__link" href={linkTo === 'quote' ? `/contact/?event=${e.id}#quote` : `/events/#${e.id}`} data-cursor={linkTo === 'quote' ? 'Quote' : 'More'}>
+        <div class="event__media">
+          <Photo photo={e.photo} ratio={4 / 5} widths={[360, 540, 720]} sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 80vw" reveal={false} />
+        </div>
+        <span class="event__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="event__name">{e.name}</h3>
+        <p class="event__text">{e.text}</p>
+        <span class="event__cta">{linkTo === 'quote' ? `Quote for ${e.name.toLowerCase()}` : 'Find out more'} <Icon name="arrow" class="btn__arrow" /></span>
+      </a>
+    </li>
+  ))}
+</ul>

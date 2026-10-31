@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Menu from '../../components/Menu.astro';
+import Icon from '../../components/Icon.astro';
+import { site as s } from '../../data/site';
+---
+<Base title="Menu" path="/menu/" description={`The ${s.name} menu: Neapolitan-style pizzas, desserts and full dietary and allergen information.`}>
+  <PageHero label="Menu" title="Pizzas, a few sweet things, nothing complicated." lead="The same menu we cook at events and at our Friday pop-up. Event menus can be tailored to your guests." />
+  <section class="section section--tight" aria-label="Menu">
+    <div class="container">
+      <Menu />
+      <div class="menu-cta" data-reveal="fade">
+        <p>Want this at your event?</p>
+        <a class="btn btn--primary" href="/contact/#quote" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import EventTypes from '../../components/EventTypes.astro';
+import Faq from '../../components/Faq.astro';
+import Gallery from '../../components/Gallery.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import Icon from '../../components/Icon.astro';
+import { site as s } from '../../data/site';
+---
+<Base title="Events & Catering" path="/events/" description={`Neapolitan pizza catering for weddings, private parties, corporate events, schools and festivals across ${s.contact.serviceArea}.`}>
+  <PageHero label="Events & catering" title={s.events.title} lead={s.events.lead}>
+    <div class="page-hero__ctas" data-reveal="fade">
+      <a class="btn btn--primary" href="/contact/#quote" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
+      <a class="btn btn--outline" href={`tel:${s.contact.phoneHref}`}><Icon name="phone" class="btn__arrow" /> {s.contact.phone}</a>
+    </div>
+  </PageHero>
+
+  <section class="section section--tight" aria-labelledby="types-title">
+    <div class="container">
+      <h2 class="sr-only" id="types-title">Types of event</h2>
+      <EventTypes linkTo="quote" />
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="how-title">
+    <div class="container">
+      <header class="section-head">
+        <SectionLabel num="01" text="How it works" />
+        <h2 class="display h2 reveal-words" id="how-title" data-split-auto>From first message to last slice.</h2>
+      </header>
+      <ol class="steps">
+        {s.events.steps.map((st, i) => (
+          <li class="step" data-reveal="fade">
+            <span class="step__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="h3">{st.title}</h3>
+            <p>{st.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="photos-title">
+    <div class="container">
+      <header class="section-head">
+        <SectionLabel num="02" text="At events" />
+        <h2 class="display h2 reveal-words" id="photos-title" data-split-auto>The oven is part of the party.</h2>
+      </header>
+      <Gallery />
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="faq-title">
+    <div class="container faq-grid">
+      <header>
+        <SectionLabel num="03" text="Questions" />
+        <h2 class="display h2 reveal-words" id="faq-title" data-split-auto>Good to know before you book.</h2>
+        <p class="lead" data-reveal="fade">Anything else? Call us or send the form and we will answer personally.</p>
+        <a class="btn btn--primary" href="/contact/#quote" data-reveal="fade">Ask for a quote <Icon name="arrow" class="btn__arrow" /></a>
+      </header>
+      <Faq />
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,32 @@
+---
+import { site as s } from '../data/site';
+import { photoUrl } from '../lib/img';
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+const f = s.film;
+const poster = f.poster.id ? photoUrl(f.poster.id, 1600, 16 / 9, 75) : undefined;
+---
+<section class="section film" aria-labelledby="film-title">
+  <div class="container">
+    <div class="film__head">
+      <SectionLabel num="02" text="The film" />
+      <h2 class="display h2 reveal-words" id="film-title" data-split-auto>{f.title}</h2>
+      <p class="lead" data-reveal="fade">{f.text}</p>
+    </div>
+
+    <!-- Brand video slot: fixed 16:9 frame, so adding the video never changes the layout -->
+    <div class="film__frame" data-film data-reveal="fade">
+      {f.src ? (
+        <video class="film__video" controls preload="none" playsinline poster={poster}>
+          <source src={f.src} type="video/mp4" />
+        </video>
+      ) : (
+        <div class="film__placeholder" role="img" aria-label="Space reserved for the brand film">
+          <span class="film__play" aria-hidden="true"><Icon name="play" /></span>
+          <span class="film__soon">Brand film · coming soon</span>
+          <span class="film__spec" aria-hidden="true">16:9 · MP4 · drops into this frame</span>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

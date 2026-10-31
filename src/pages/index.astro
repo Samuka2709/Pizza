@@ -1,40 +1,107 @@
 ---
 import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
+import PizzaHero from '../components/PizzaHero.astro';
 import Marquee from '../components/Marquee.astro';
-import About from '../components/About.astro';
-import Signature from '../components/Signature.astro';
-import Menu from '../components/Menu.astro';
-import Combos from '../components/Combos.astro';
-import Reviews from '../components/Reviews.astro';
+import BrandFilm from '../components/BrandFilm.astro';
+import EventTypes from '../components/EventTypes.astro';
+import PopupStrip from '../components/PopupStrip.astro';
 import Gallery from '../components/Gallery.astro';
-import Reservation from '../components/Reservation.astro';
-import Visit from '../components/Visit.astro';
-import Footer from '../components/Footer.astro';
-import Fixed from '../components/Fixed.astro';
-import Bag from '../components/Bag.astro';
-import { restaurant } from '../data/restaurant';
+import Photo from '../components/Photo.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Icon from '../components/Icon.astro';
+import { site as s } from '../data/site';
+import { price } from '../lib/format';
+
+const favourites = s.menu[0].items.filter((i) => i.signature).concat(s.menu[0].items.filter((i) => !i.signature)).slice(0, 4);
 ---
 <Base>
-  <Header />
-  <main id="conteudo" tabindex="-1">
-    <Hero />
-    <Marquee />
-    <About />
-    <Signature />
-    <Menu />
-    <Combos />
-    <Reviews />
-    <Gallery />
-    <Reservation />
-    <Visit />
-  </main>
-  <Footer />
-  <Fixed />
-  <Bag />
-  <script type="application/json" id="site-data" set:html={JSON.stringify({ hours: restaurant.hours, timezone: restaurant.timezone, whatsapp: restaurant.contact.whatsapp, gallery: restaurant.gallery.map((g) => g.alt), reservation: { slotMinutes: restaurant.reservation.slotMinutes, lastSlotBeforeClose: restaurant.reservation.lastSlotBeforeClose }, name: restaurant.fullName })} />
-  <script>
-    import '../scripts/main';
-  </script>
+  <PizzaHero />
+  <Marquee />
+
+  <section class="section intro" aria-labelledby="intro-title">
+    <div class="container intro__grid">
+      <SectionLabel num="01" text={s.intro.label} />
+      <h2 class="display h2 reveal-words intro__title" id="intro-title" data-split-auto>{s.intro.title}</h2>
+      <div class="intro__body">
+        <p class="lead" data-reveal="fade">{s.intro.text}</p>
+        <a class="link-line" href="/our-story/" data-reveal="fade">Our story <Icon name="arrow" class="btn__arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <BrandFilm />
+
+  <section class="section section--paper" aria-labelledby="events-title">
+    <div class="container">
+      <header class="section-head section-head--split">
+        <div>
+          <SectionLabel num="03" text="Events & catering" />
+          <h2 class="display h2 reveal-words" id="events-title" data-split-auto>{s.events.title}</h2>
+        </div>
+        <div>
+          <p class="lead" data-reveal="fade">{s.events.lead}</p>
+          <a class="btn btn--primary section-head__cta" href="/contact/#quote" data-reveal="fade" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
+        </div>
+      </header>
+      <EventTypes />
+    </div>
+  </section>
+
+  <PopupStrip num="04" />
+
+  <section class="section" aria-labelledby="menu-title">
+    <div class="container">
+      <header class="section-head section-head--split">
+        <div>
+          <SectionLabel num="05" text="The menu" />
+          <h2 class="display h2 reveal-words" id="menu-title" data-split-auto>Short menu, slow dough.</h2>
+        </div>
+        <p class="lead" data-reveal="fade">A handful of pizzas we know by heart, with vegetarian and vegan options every time.</p>
+      </header>
+      <ul class="favs">
+        {favourites.map((d, i) => (
+          <li class="fav" data-reveal="fade">
+            <span class="fav__pie" aria-hidden="true" style={`--rot:${i * 47}deg`}></span>
+            <h3 class="fav__name">{d.name}</h3>
+            <p class="fav__desc">{d.description}</p>
+            <p class="price">{price(d.price)}{d.diet && <span class="fav__diet">{d.diet.join(' · ')}</span>}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="section-foot" data-reveal="fade"><a class="btn btn--outline" href="/menu/">See the full menu <Icon name="arrow" class="btn__arrow" /></a></p>
+    </div>
+  </section>
+
+  <section class="section section--paper story-teaser" aria-labelledby="story-title">
+    <div class="container story-teaser__grid">
+      <div class="story-teaser__media" data-parallax="-8">
+        <Photo photo={s.story.photos[0]} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 40vw, 100vw" />
+      </div>
+      <div>
+        <SectionLabel num="06" text="Our story" />
+        <h2 class="display h2 reveal-words" id="story-title" data-split-auto>{s.story.title}</h2>
+        <p class="lead" data-reveal="fade">{s.story.lead}</p>
+        <blockquote class="pull-quote" data-reveal="fade">
+          <p>“{s.story.quote}”</p>
+          <cite>{s.story.quoteBy}</cite>
+        </blockquote>
+        <a class="link-line" href="/our-story/" data-reveal="fade">Read our story <Icon name="arrow" class="btn__arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="gallery-title">
+    <div class="container">
+      <header class="section-head section-head--split">
+        <div>
+          <SectionLabel num="07" text="From the oven" />
+          <h2 class="display h2 reveal-words" id="gallery-title" data-split-auto>Blistered, soft, gone in minutes.</h2>
+        </div>
+        {s.contact.social.instagram && (
+          <a class="link-line" href={s.contact.social.instagram} target="_blank" rel="noopener" data-reveal="fade"><Icon name="instagram" class="btn__arrow" /> Follow us on Instagram</a>
+        )}
+      </header>
+      <Gallery />
+    </div>
+  </section>
 </Base>
