@@ -6,9 +6,16 @@ const words = (t: string) => t.split(' ');
 ---
 <section class="hero" id="top" aria-labelledby="hero-title" data-hero>
   <div class="hero__stage">
-    <!-- Main animation: the sliced pizza turns on its board with steam rising (WebGL, see src/scripts/pizza.ts) -->
-    <canvas class="hero__canvas" data-pizza aria-hidden="true"></canvas>
-    <canvas class="hero__canvas hero__steam" data-steam aria-hidden="true"></canvas>
+    <!-- Brand video: the sliced pizza turning with steam. Two copies cross-fade so the loop has no visible jump (src/scripts/pizza.ts) -->
+    <div class="hero__media" aria-hidden="true">
+      {[0, 1].map((i) => (
+        <video class:list={['hero__video', { 'is-front': i === 0 }]} muted playsinline preload={i === 0 ? 'auto' : 'none'} poster="/video/hero-poster.webp" disablepictureinpicture data-hero-video>
+          <source src="/video/hero-854.mp4" type="video/mp4" media="(max-width: 899px)" />
+          <source src="/video/hero-1280.webm" type="video/webm" />
+          <source src="/video/hero-1280.mp4" type="video/mp4" />
+        </video>
+      ))}
+    </div>
     <div class="hero__shade" aria-hidden="true"></div>
 
     <div class="container hero__content">
@@ -28,7 +35,6 @@ const words = (t: string) => t.split(' ');
         <span data-next-popup>Pop-up every {DAYS[s.popup.weekday]}, {popupTimes()}</span>
       </p>
     </div>
-
 
     <div class="hero__scroll" aria-hidden="true">
       Scroll <span class="hero__scroll-line"></span>

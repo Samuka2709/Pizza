@@ -37,18 +37,16 @@ After changing the name or tagline, regenerate the share image and favicon: `npm
 
 ## Animations
 
-- **Main animation (home hero)**: the sliced pepperoni pizza turns slowly on its wooden board, with
-  steam rising, over a full-bleed photo (desktop) or at the bottom of the cream hero (phones).
-  It is one still photo (`public/img/hero/scene*.webp`): in WebGL each pixel of the pizza's top is
-  mapped onto the table plane, rotated and projected back, so the turn keeps the camera perspective
-  (`src/scripts/pizza.ts`). Scrolling turns it a little further and brings the camera slightly closer.
-  To use another photo, re-measure `PLANE` and `PIZZA` in that file.
+- **Main animation (home hero)**: an AI-generated brand video of the sliced pizza turning on its
+  board, steam rising (`public/video`, made with an image-to-video tool from a still photo).
+  Two copies of the clip cross-fade at the loop point so there is no visible jump; scrolling pushes
+  in slightly (`src/scripts/pizza.ts`). Phones get a smaller 854px file. To replace it, export the new
+  clip with ffmpeg to `hero-1280.mp4`, `hero-1280.webm`, `hero-854.mp4` and a poster frame.
 - Titles rise word by word, sections fade in, a few photos have light parallax.
 - Pizza details: slice icons, crust-shaped section edges, a CSS mini Margherita on each favourite, a
   turning "Every Fri" badge, buttons that fill from the bottom like sauce, event photos that round into
   a "pizza" on hover, a big pizza on inner page heroes that rolls away on scroll.
-- **Reduced motion**: with "reduce motion" on, the photo is shown still and nothing moves on its own.
-  Without WebGL the still photo is shown as a background. If the script fails, all content shows after 4 seconds.
+- **Reduced motion**: with "reduce motion" on, the video does not play; its first frame stays as a still photo. If the script fails, all content shows after 4 seconds.
 
 ## WordPress build (for launch)
 
