@@ -14,5 +14,5 @@ const { label, title, lead } = Astro.props;
     {lead && <p class="lead page-hero__lead" data-reveal="fade">{lead}</p>}
     <slot />
   </div>
-  <div class="page-hero__pizza" aria-hidden="true" data-spin></div>
+  <div class="page-hero__pizza" aria-hidden="true" data-spin><span class="page-hero__pizza-img"></span></div>
 </section>

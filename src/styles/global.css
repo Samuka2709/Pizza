@@ -1602,7 +1602,7 @@ main:focus {
 }
 .page-hero__title {
   margin-top: 18px;
-  max-width: 14em;
+  max-width: min(14em, 72vw);
   font-size: clamp(2.75rem, 1.4rem + 5.6vw, 6.25rem);
 }
 .page-hero__lead {
@@ -1619,23 +1619,24 @@ main:focus {
   position: absolute;
   z-index: -1;
   top: calc(var(--header-h) + 24px);
-  right: -12vw;
-  width: clamp(240px, 34vw, 520px);
+  right: -15vw;
+  width: clamp(240px, 32vw, 500px);
   aspect-ratio: 1;
   border-radius: 50%;
-  opacity: 0.9;
-  background:
-    radial-gradient(circle at 30% 34%, #fffaf0 0 8%, transparent 8.6%),
-    radial-gradient(circle at 62% 26%, #fffaf0 0 7%, transparent 7.6%),
-    radial-gradient(circle at 52% 62%, #fffaf0 0 9%, transparent 9.6%),
-    radial-gradient(circle at 26% 66%, #fffaf0 0 6%, transparent 6.6%),
-    radial-gradient(circle at 44% 44%, var(--basil) 0 4.5%, transparent 5%),
-    radial-gradient(circle at 70% 48%, var(--basil) 0 4%, transparent 4.5%),
-    radial-gradient(circle at 18% 44%, rgb(48 26 14 / 0.55) 0 1.4%, transparent 2%),
-    radial-gradient(circle at 84% 70%, rgb(48 26 14 / 0.55) 0 1.6%, transparent 2.2%),
-    radial-gradient(circle at 60% 90%, rgb(48 26 14 / 0.55) 0 1.2%, transparent 1.8%),
-    radial-gradient(circle, var(--tomato) 0 68%, #e3b06d 69% 86%, var(--crust) 87%);
-  box-shadow: 0 30px 60px rgb(60 30 10 / 0.16);
+  box-shadow: 0 30px 60px rgb(60 30 10 / 0.22);
+}
+/* Real pizza photo (seen from above), turning slowly */
+.page-hero__pizza-img {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: url('/img/pizza-top.webp') center / cover no-repeat;
+  animation: pizza-turn 60s linear infinite;
+}
+@keyframes pizza-turn {
+  to {
+    rotate: 360deg;
+  }
 }
 @media (max-width: 899px) {
   .page-hero__pizza {
@@ -1643,7 +1644,7 @@ main:focus {
     bottom: -14vw;
     right: -22vw;
     width: 58vw;
-    opacity: 0.18;
+    opacity: 0.28;
   }
 }
 
