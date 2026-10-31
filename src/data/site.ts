@@ -6,9 +6,9 @@
  * Values marked // DEMO are sample content for the design mock-up.
  * Replace them with Jiani's real details before anything goes live.
  *
- * Photos: leave `id` empty to show a labelled placeholder (the caption says
- * which photo goes there). To use a free Unsplash photo, paste its ID
- * (the part after "photo-"). For the client's own photos, adapt `src/lib/img.ts`.
+ * Photos: free Unsplash photos used as illustration for the mock-up (not Jiani's own).
+ * Swap the ID for another Unsplash photo (the part after "photo-"), or leave `id`
+ * empty to show a labelled placeholder. For the client's own photos, adapt `src/lib/img.ts`.
  */
 
 export interface Photo {
@@ -114,7 +114,7 @@ export const site = {
    */
   film: {
     src: '', // e.g. '/video/jianis-brand-film.mp4'
-    poster: { id: '', alt: 'Brand film poster: the oven at full flame during an evening event' } as Photo,
+    poster: { id: '1622880833523-7cf1c0bd4296', alt: 'Pizza blistering in a wood-fired oven, flames curling over the dome' } as Photo,
     title: 'Pizza that turns up and turns it on.', // DEMO
     text: 'A short film about the oven, the dough and the people around it. Coming soon.', // DEMO
   },
@@ -136,31 +136,31 @@ export const site = {
         id: 'weddings',
         name: 'Weddings',
         text: 'Evening food that gets everyone back on their feet. Served from the oven or passed around as the party goes on.', // DEMO
-        photo: { id: '', alt: 'Wedding guests gathered around the pizza oven at dusk' },
+        photo: { id: '1676027647672-1230463791a9', alt: 'Long wedding table under string lights, with the couple standing at the end' },
       },
       {
         id: 'private-parties',
         name: 'Private parties',
         text: 'Birthdays, anniversaries and garden gatherings. We set up, cook to order and leave the garden as we found it.', // DEMO
-        photo: { id: '', alt: 'Pizzas on a long garden table during a private party' },
+        photo: { id: '1782500161728-3920566cd907', alt: 'Friends eating together at an outdoor garden party' },
       },
       {
         id: 'corporate',
         name: 'Corporate events',
         text: 'Team days, launches and office parties, with clear invoicing and timings that fit your agenda.', // DEMO
-        photo: { id: '', alt: 'Colleagues collecting slices at an office event' },
+        photo: { id: '1786206570631-5ab96f60fd14', alt: 'Caterer in an apron behind a buffet with salads and pizza at a garden event' },
       },
       {
         id: 'schools',
         name: 'Schools',
         text: 'Summer fairs, leavers’ days and staff events. Simple menus that children love and parents trust.', // DEMO
-        photo: { id: '', alt: 'Pizza being served at a school summer fair' },
+        photo: { id: '1714978444570-729693fde1f3', alt: 'A group gathered around a low table sharing pizzas from the box' },
       },
       {
         id: 'festivals',
         name: 'Festivals',
         text: 'High-volume service with a compact footprint. We can trade or be booked as a paid-for food option.', // DEMO
-        photo: { id: '', alt: 'Pizza stall at an outdoor festival with a queue forming' },
+        photo: { id: '1581542241119-a3094c6702a2', alt: 'Friends pulling apart cheesy slices of pizza' },
       },
     ] as { id: string; name: string; text: string; photo: Photo }[],
     steps: [
@@ -217,7 +217,7 @@ export const site = {
       { title: 'By car', text: 'Street and pay-and-display parking nearby. Please check local restrictions.' }, // DEMO
     ],
     notes: ['Card and contactless accepted', 'Vegetarian and vegan options every week', 'Follow us for weekly specials'], // DEMO
-    photo: { id: '', alt: 'The Friday pop-up in Stanmore at dusk, with the oven glowing' } as Photo,
+    photo: { id: '1564936281403-f92f66f89ee0', alt: 'Pizza oven glowing in the evening, fire burning inside' } as Photo,
   },
 
   /* ------------------------------------------------------------------------
@@ -239,8 +239,8 @@ export const site = {
       { title: 'Cooked in front of you', text: 'The oven is part of the event. Guests watch every pizza go in and come out.' }, // DEMO
     ],
     photos: [
-      { id: '', alt: 'The founder stretching dough by hand on a floured board' },
-      { id: '', alt: 'Close-up of a blistered crust coming out of the oven' },
+      { id: '1537734796389-e1fc293cf856', alt: 'Floured hands holding a smooth ball of pizza dough' },
+      { id: '1693307090398-2a6d5cc39c77', alt: 'Pizza on a peel inside the oven, lit by the flames' },
     ] as Photo[],
   },
 
@@ -296,12 +296,12 @@ export const site = {
      Gallery and shared photos
      ------------------------------------------------------------------------ */
   gallery: [
-    { id: '', alt: 'Margherita straight from the oven, leopard-spotted crust', span: 'tall' },
-    { id: '', alt: 'Hands stretching a dough ball on a floured board', span: '' },
-    { id: '', alt: 'Guests queuing at the oven during an evening wedding', span: 'wide' },
-    { id: '', alt: 'Basil leaves on a just-baked pizza, close-up', span: '' },
-    { id: '', alt: 'The oven flame at full heat, seen from the opening', span: '' },
-    { id: '', alt: 'A slice being lifted with a stretch of mozzarella', span: '' },
+    { id: '1604068549290-dea0e4a305ca', alt: 'Margherita with basil and torn mozzarella on a wooden peel', span: 'tall' },
+    { id: '1710575326152-4a397c13716d', alt: 'Hands pressing out pizza dough on a floured counter', span: '' },
+    { id: '1689150911817-3e27168ab6a3', alt: 'Pizzas baking on the floor of a stone oven, fire on both sides', span: 'wide' },
+    { id: '1598023696416-0193a0bcd302', alt: 'Pizza with basil leaves and tomato on a wooden board', span: '' },
+    { id: '1636581563748-dcb80f710950', alt: 'Flames rising inside the dark mouth of a brick oven', span: '' },
+    { id: '1600628421055-4d30de868b8f', alt: 'A hand lifting a slice from a pizza topped with rocket', span: '' },
   ] as (Photo & { span: '' | 'tall' | 'wide' })[],
 
   footer: {

@@ -1051,6 +1051,14 @@ main:focus {
     transform: scale(1.06);
   }
 }
+.film__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+}
 .film__play {
   position: relative;
   display: grid;

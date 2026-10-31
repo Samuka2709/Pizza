@@ -1,6 +1,6 @@
 ---
 import { site as s } from '../data/site';
-import { photoUrl } from '../lib/img';
+import { photoUrl, photoSrcset } from '../lib/img';
 import SectionLabel from './SectionLabel.astro';
 import Icon from './Icon.astro';
 const f = s.film;
@@ -22,6 +22,9 @@ const poster = f.poster.id ? photoUrl(f.poster.id, 1600, 16 / 9, 75) : undefined
         </video>
       ) : (
         <div class="film__placeholder" role="img" aria-label="Space reserved for the brand film">
+          {f.poster.id && (
+            <img class="film__poster" src={photoUrl(f.poster.id, 960, 16 / 9)} srcset={photoSrcset(f.poster.id, 16 / 9, [640, 960, 1400, 1920])} sizes="(min-width: 1400px) 1300px, 100vw" width="960" height="540" alt="" loading="lazy" decoding="async" />
+          )}
           <span class="film__play" aria-hidden="true"><Icon name="play" /></span>
           <span class="film__soon">Brand film · coming soon</span>
           <span class="film__spec" aria-hidden="true">16:9 · MP4 · drops into this frame</span>

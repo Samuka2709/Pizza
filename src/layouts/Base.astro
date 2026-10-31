@@ -74,6 +74,8 @@ const schema = {
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap.xml" />
 
+    <!-- Photos come from the Unsplash CDN; no crossorigin, images are requested without CORS -->
+    <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preload" href={serifDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansBody} as="font" type="font/woff2" crossorigin />
 
