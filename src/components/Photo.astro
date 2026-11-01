@@ -1,6 +1,6 @@
 ---
 import type { Photo as PhotoT } from '../data/site';
-import { photoUrl, photoSrcset } from '../lib/img';
+import { photoUrl, photoSrcset, localUrl, localSrcset } from '../lib/img';
 
 interface Props {
   photo: PhotoT;
@@ -15,11 +15,11 @@ interface Props {
 const { photo, ratio, widths = [400, 640, 900, 1200], sizes = '100vw', priority = false, class: cls = '', reveal = 'clip' } = Astro.props;
 const base = widths[Math.min(1, widths.length - 1)];
 ---
-{photo.id ? (
+{photo.id || photo.src ? (
   <div class:list={['ph', cls]} style={`aspect-ratio:${ratio}`} data-reveal={reveal || undefined}>
     <img
-      src={photoUrl(photo.id, base, ratio)}
-      srcset={photoSrcset(photo.id, ratio, widths)}
+      src={photo.src ? localUrl(photo.src, base) : photoUrl(photo.id, base, ratio)}
+      srcset={photo.src ? localSrcset(photo.src, widths) : photoSrcset(photo.id, ratio, widths)}
       sizes={sizes}
       width={base}
       height={Math.round(base / ratio)}

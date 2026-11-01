@@ -12,6 +12,8 @@ const dietTags = (d: MenuItem) => {
   if (t.has('VG')) t.add('V');
   return [...t].join(' ');
 };
+/** Stable id for the order: "Frango com catupiry" → "frango-com-catupiry" */
+const slug = (t: string) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
 ---
 <div class="tabs" data-tabs>
@@ -48,11 +50,11 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
         <>
           <div class="menu-tools">
             <p class="menu-panel__note">{c.note}</p>
-            <div class="chips" role="group" aria-label="Filtrar pizzas" data-filter>
+            {c.id === 'pizzas' && <div class="chips" role="group" aria-label="Filtrar pizzas" data-filter>
               <button class="chip" type="button" aria-pressed="true" data-filter-value="">Todas</button>
               <button class="chip" type="button" aria-pressed="false" data-filter-value="V">Vegetarianas</button>
               <button class="chip" type="button" aria-pressed="false" data-filter-value="VG">Veganas</button>
-            </div>
+            </div>}
           </div>
           <p class="sr-only" aria-live="polite" data-filter-status></p>
           <ul class="pizza-grid">
@@ -71,6 +73,9 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
                     <p class="pizza-card__diet">{d.diet ? d.diet.map(dietLabel).join(' · ') : ''}</p>
                     <p class="pill">{price(d.price)}</p>
                   </div>
+                  <div class="qty" data-cart-item={slug(d.name)} data-name={d.name} data-price={d.price}>
+                    <button class="qty__add" type="button" data-cart-add aria-label={`Adicionar ${d.name} ao pedido`}><Icon name="plus" class="btn__arrow" /> Adicionar ao pedido</button>
+                  </div>
                 </div>
               </li>
             ))}
@@ -80,12 +85,21 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
             <div class="extras">
               <p class="label">Monte do seu jeito</p>
               <ul>
-                {c.extras.map((e) => <li><span>{e.name}</span><span class="extras__price">{extraPrice(e.price)}</span></li>)}
+                {c.extras.map((e) => (
+                  <li>
+                    <span>{e.name}</span><span class="extras__price">{extraPrice(e.price)}</span>
+                    {e.price > 0 && (
+                      <span class="qty qty--sm" data-cart-item={slug(e.name)} data-name={e.name} data-price={e.price}>
+                        <button class="qty__add" type="button" data-cart-add aria-label={`Adicionar ${e.name} ao pedido`}><Icon name="plus" class="btn__arrow" /></button>
+                      </span>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
           )}
 
-          <ul class="callouts">
+          {c.id === 'pizzas' && <ul class="callouts">
             {s.menuCallouts.map((m) => (
               <li class="callout">
                 <Icon name="info" class="callout__icon" />
@@ -95,7 +109,7 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
                 </div>
               </li>
             ))}
-          </ul>
+          </ul>}
         </>
       ) : (
         <>
@@ -109,7 +123,12 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
                   <span class="menu-row__leader" aria-hidden="true"></span>
                   <p class="price">{price(d.price)}</p>
                 </div>
-                <p class="menu-row__desc">{d.description}</p>
+                <div class="menu-row__bottom">
+                  <p class="menu-row__desc">{d.description}</p>
+                  <span class="qty qty--sm" data-cart-item={slug(d.name)} data-name={d.name} data-price={d.price}>
+                    <button class="qty__add" type="button" data-cart-add aria-label={`Adicionar ${d.name} ao pedido`}><Icon name="plus" class="btn__arrow" /></button>
+                  </span>
+                </div>
                 {d.diet && (
                   <p class="menu-row__diet">
                     {d.diet.map((x) => <abbr class="diet" title={dietLabel(x)}>{x}<span class="sr-only"> ({dietLabel(x)})</span></abbr>)}

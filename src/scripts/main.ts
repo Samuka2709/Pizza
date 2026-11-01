@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import { initPizza } from './pizza';
 import { initDeck } from './deck';
 import { initFlavorWheel } from './flavor-wheel';
+import { initCart } from './cart';
 
 gsap.registerPlugin(ScrollTrigger);
 (window as unknown as { __motionReady: boolean }).__motionReady = true;
@@ -218,6 +219,7 @@ if (data.hours.some(Boolean)) {
    Main animation (home)
    -------------------------------------------------------------------------- */
 initPizza({ reduced });
+initCart({ reduced });
 initDeck({ reduced });
 initFlavorWheel({ reduced, scrollTo: lenis ? (y) => lenis!.scrollTo(y, { duration: 1 }) : undefined });
 

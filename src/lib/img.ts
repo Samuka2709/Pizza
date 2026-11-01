@@ -11,6 +11,10 @@ export function photoSrcset(id: string, ratio: number, widths: number[]) {
   return widths.map((w) => `${photoUrl(id, w, ratio)} ${w}w`).join(', ');
 }
 
+/** Own photos in public/: one WebP per width, named "<src>-<width>.webp" */
+export const localUrl = (src: string, w: number) => `${src}-${w}.webp`;
+export const localSrcset = (src: string, widths: number[]) => widths.map((w) => `${localUrl(src, w)} ${w}w`).join(', ');
+
 /** Recorte da foto do hero: usado no <img> e no preload do <head>, que precisam bater */
 export const heroImage = {
   ratio: 0.86,

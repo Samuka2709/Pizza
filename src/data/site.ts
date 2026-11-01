@@ -12,8 +12,10 @@
  */
 
 export interface Photo {
-  /** ID da foto no Unsplash. Vazio = espaço reservado */
+  /** ID da foto no Unsplash. Vazio (e sem `src`) = espaço reservado */
   id: string;
+  /** Foto própria em public/: caminho sem o fim "-<largura>.webp" (ex.: '/img/cardapio/brigadeiro') */
+  src?: string;
   /** Texto alternativo descritivo (também vira a legenda do espaço reservado) */
   alt: string;
 }
@@ -62,7 +64,7 @@ export const site = {
   contact: {
     phone: '(11) 0000-0000', // EXEMPLO
     phoneHref: '+551100000000', // EXEMPLO
-    whatsapp: '5511900000000', // EXEMPLO (só números, com DDI e DDD)
+    whatsapp: '557398258544', // número que recebe os pedidos (só números, com DDI e DDD)
     email: 'contato@exemplo.com.br', // EXEMPLO
     /** Redes sociais. Texto vazio esconde o link. */
     social: {
@@ -285,9 +287,9 @@ export const site = {
       id: 'doces',
       label: 'Pizzas doces',
       items: [
-        { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'] }, // EXEMPLO
-        { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'] }, // EXEMPLO
-        { name: 'Banana com canela', description: 'Banana, açúcar, canela e leite condensado.', price: 44, diet: ['V'] }, // EXEMPLO
+        { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'], signature: true, photo: { id: '', src: '/img/cardapio/brigadeiro', alt: 'Pizza de brigadeiro com granulado, cortada em fatias' } }, // EXEMPLO
+        { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'], photo: { id: '', src: '/img/cardapio/romeu-e-julieta', alt: 'Pizza de goiabada com queijo minas, cortada em fatias' } }, // EXEMPLO
+        { name: 'Banana com canela', description: 'Banana, açúcar, canela e leite condensado.', price: 44, diet: ['V'], photo: { id: '', src: '/img/cardapio/banana-com-canela', alt: 'Pizza de banana com canela e leite condensado, cortada em fatias' } }, // EXEMPLO
       ],
     },
     {

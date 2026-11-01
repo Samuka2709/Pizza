@@ -4,10 +4,11 @@ import PageHero from '../../components/PageHero.astro';
 import Menu from '../../components/Menu.astro';
 import Icon from '../../components/Icon.astro';
 import Decor from '../../components/Decor.astro';
+import Cart from '../../components/Cart.astro';
 import { site as s } from '../../data/site';
 ---
-<Base title="Cardápio" path="/cardapio/" description={`Cardápio da ${s.name}: pizzas salgadas e doces, bordas recheadas, bebidas e bordas recheadas.`}>
-  <PageHero label="Cardápio" title="Pizza salgada, pizza doce e borda recheada." lead="O mesmo cardápio do salão, do delivery e do rodízio. Peça pelo WhatsApp ou chame a gente para a sua festa." />
+<Base title="Cardápio" path="/cardapio/" description={`Cardápio da ${s.name}: pizzas salgadas e doces, bordas recheadas e bebidas. Monte o pedido e envie pelo WhatsApp.`}>
+  <PageHero label="Cardápio" title="Pizza salgada, pizza doce e borda recheada." lead="Escolha as pizzas, monte o pedido e envie direto pelo WhatsApp. O mesmo cardápio do salão, do delivery e do rodízio." />
   <section class="section section--tight menu-section" aria-label="Cardápio">
     <Decor items={[
       { x: 96, y: 22, size: 90, speed: 0.6 },
@@ -24,4 +25,5 @@ import { site as s } from '../../data/site';
       </div>
     </div>
   </section>
+  <Cart />
 </Base>

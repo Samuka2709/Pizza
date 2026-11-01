@@ -1,0 +1,107 @@
+---
+/**
+ * Pedido (cardápio): a bar at the bottom shows how many items were picked and the total;
+ * it opens a panel to review quantities, fill in name, delivery or pickup, payment and notes,
+ * and send everything as one ready WhatsApp message (see src/scripts/cart.ts).
+ */
+import { site as s } from '../data/site';
+import Icon from './Icon.astro';
+---
+<div class="cart-bar" data-cart-bar hidden>
+  <button class="cart-bar__btn" type="button" data-cart-open>
+    <span class="cart-bar__icon"><Icon name="bag" /><span class="cart-bar__count" data-cart-count>0</span></span>
+    <span class="cart-bar__text"><span class="cart-bar__label">Ver pedido</span><span class="cart-bar__total" data-cart-total>R$ 0,00</span></span>
+    <Icon name="arrow" class="btn__arrow" />
+  </button>
+</div>
+
+<dialog class="cart" data-cart data-lenis-prevent aria-labelledby="cart-title" data-wa={s.contact.whatsapp}>
+  <form class="cart__inner" method="dialog" data-cart-form novalidate>
+    <header class="cart__head">
+      <h2 class="display h3" id="cart-title">Seu pedido</h2>
+      <button class="icon-round" type="button" data-cart-close><Icon name="close" /><span class="sr-only">Fechar</span></button>
+    </header>
+
+    <div class="cart__body">
+      <!-- Etapa 1: itens -->
+      <div class="cart__step" data-cart-step="1">
+        <p class="cart__steps" aria-hidden="true"><b>1. Itens</b> <span>2. Seus dados</span></p>
+        <p class="cart__empty" data-cart-empty>Seu pedido está vazio. Escolha as pizzas no cardápio.</p>
+        <ul class="cart__list" data-cart-list></ul>
+      </div>
+
+      <!-- Etapa 2: dados do cliente -->
+      <div class="cart__step" data-cart-step="2" hidden>
+        <p class="cart__steps" aria-hidden="true"><span>1. Itens</span> <b>2. Seus dados</b></p>
+        <h3 class="cart__subtitle" tabindex="-1" data-cart-step2-title>Para quem é o pedido?</h3>
+        <div class="cart__fields">
+          <div class="field">
+            <label class="field__label" for="c-name">Nome <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="c-name" name="name" autocomplete="name" required aria-describedby="c-name-err" />
+            <p class="field__error" id="c-name-err"></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="c-phone">Telefone / WhatsApp <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(73) 90000-0000" required aria-describedby="c-phone-err" />
+            <p class="field__error" id="c-phone-err"></p>
+          </div>
+
+          <fieldset class="field">
+            <legend class="field__label">Como quer receber?</legend>
+            <div class="seg">
+              <label><input type="radio" name="mode" value="entrega" checked /> <span>Entrega</span></label>
+              <label><input type="radio" name="mode" value="retirada" /> <span>Retirar no balcão</span></label>
+            </div>
+          </fieldset>
+
+          <div class="cart__address" data-cart-address>
+            <div class="field">
+              <label class="field__label" for="c-street">Rua e número <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="c-street" name="street" autocomplete="address-line1" aria-describedby="c-street-err" />
+              <p class="field__error" id="c-street-err"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="c-district">Bairro <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="c-district" name="district" autocomplete="address-level3" aria-describedby="c-district-err" />
+              <p class="field__error" id="c-district-err"></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="c-ref">Complemento ou ponto de referência</label>
+              <input class="input" id="c-ref" name="ref" autocomplete="address-line2" placeholder="Apto, bloco, perto de..." />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="c-pay">Pagamento</label>
+            <select class="input" id="c-pay" name="pay">
+              <option>Pix</option>
+              <option>Cartão na entrega</option>
+              <option>Dinheiro</option>
+            </select>
+          </div>
+          <div class="field" data-cart-change hidden>
+            <label class="field__label" for="c-change">Troco para quanto?</label>
+            <input class="input" id="c-change" name="change" inputmode="decimal" placeholder="Ex.: R$ 100" />
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="c-notes">Observações</label>
+            <textarea class="input" id="c-notes" name="notes" rows="2" placeholder="Ex.: meio a meio calabresa e frango, sem cebola"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="cart__foot">
+      <div class="cart__sum">
+        <span>Total</span>
+        <strong data-cart-sum>R$ 0,00</strong>
+      </div>
+      <p class="cart__hint" data-cart-fee>Taxa de entrega combinada no WhatsApp.</p>
+      <button class="btn btn--primary cart__send" type="button" data-cart-next>Continuar <Icon name="arrow" class="btn__arrow" /></button>
+      <button class="btn btn--primary cart__send" type="submit" data-cart-send hidden><Icon name="whatsapp" class="btn__arrow" /> Enviar pedido pelo WhatsApp</button>
+      <button class="cart__clear link-line" type="button" data-cart-clear>Limpar pedido</button>
+      <button class="cart__clear link-line" type="button" data-cart-back hidden>Voltar para os itens</button>
+    </footer>
+  </form>
+</dialog>
