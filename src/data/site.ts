@@ -204,10 +204,10 @@ export const site = {
     weekday: 5,
     open: '17:00', // DEMO
     close: '21:00', // DEMO
-    place: 'Stanmore, London', // DEMO (exact pitch to confirm)
-    addressLines: ['Exact pitch to be confirmed', 'Stanmore, London HA7'], // DEMO
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Stanmore%2C+London', // DEMO
-    mapsEmbed: 'https://www.google.com/maps?q=Stanmore,+London&output=embed', // DEMO
+    place: 'Stanmore Place, London', // from the brief (exact pitch to confirm)
+    addressLines: ['Stanmore Place', 'Stanmore, London HA7'], // from the brief (confirm the exact pitch)
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Stanmore+Place%2C+Stanmore%2C+London', // confirm
+    mapsEmbed: 'https://www.google.com/maps?q=Stanmore+Place,+Stanmore,+London&output=embed', // confirm
     gettingThere: [
       { title: 'By Tube', text: 'Stanmore station, at the end of the Jubilee line, is a short walk away.' }, // DEMO (confirm walking time)
       { title: 'By bus', text: 'Several local routes stop nearby. Check TfL Journey Planner for the best one from you.' }, // DEMO
