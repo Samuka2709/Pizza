@@ -300,46 +300,82 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
     const { cx, cy, r, base } = geo;
     ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx!.clearRect(0, 0, W, H);
-    ctx!.save();
-    ctx!.shadowColor = 'rgba(60,30,10,.22)'; ctx!.shadowBlur = 40; ctx!.shadowOffsetY = 18;
-    ctx!.fillStyle = PAPER; ctx!.beginPath(); ctx!.arc(cx, cy, r * (real ? 0.985 : 1.07), 0, 7); ctx!.fill();
-    ctx!.restore();
     const k = r / R;
-    ctx!.save();
-    ctx!.translate(cx, cy); ctx!.rotate(base + rot);
-    ctx!.drawImage(pizza, -CX * k, -CY * k, S * k, S * k);
-    ctx!.restore();
-    // the current flavour's slice lifts out a little, with its own shadow
-    if (pop > 0.01) {
-      const ang = base + rot + target * STEP;
+    const R0 = r * (real ? 0.995 : 1.002); // slice radius on screen
+    const T = r * 0.022; // dough thickness
+    const GAP = r * 0.0035; // slices sit slightly apart, like a cut pizza
+    const tilt = 0.93; // a slight view from above-front: the pizza is a disc, not a sticker
+    const c = ctx!;
+
+    /** One slice as an object: shadow, baked side, photo top, fixed light */
+    const slice = (i: number, lift: number) => {
+      const mid = base + rot + i * STEP;
+      const out = GAP + lift * r * 0.07;
+      const up = lift * r * 0.05; // raised slices float towards the viewer
       const wedge = () => {
-        ctx!.beginPath();
-        ctx!.moveTo(0, 0);
-        ctx!.arc(0, 0, r * (real ? 0.995 : 1.002), ang - STEP / 2, ang + STEP / 2);
-        ctx!.closePath();
+        c.beginPath();
+        c.moveTo(0, 0);
+        c.arc(0, 0, R0, mid - STEP / 2, mid + STEP / 2);
+        c.closePath();
       };
-      ctx!.save();
-      ctx!.translate(cx, cy);
-      // the gap the slice leaves behind
-      wedge();
-      ctx!.fillStyle = PAPER;
-      ctx!.fill();
-      const lift = r * 0.06 * pop;
-      ctx!.translate(Math.cos(ang) * lift, Math.sin(ang) * lift);
-      ctx!.scale(1 + 0.025 * pop, 1 + 0.025 * pop);
-      ctx!.shadowColor = `rgba(40,20,5,${0.3 * pop})`;
-      ctx!.shadowBlur = 28 * pop;
-      ctx!.shadowOffsetY = 12 * pop;
-      wedge();
-      ctx!.fillStyle = PAPER;
-      ctx!.fill();
-      ctx!.shadowColor = 'transparent';
-      wedge();
-      ctx!.clip();
-      ctx!.rotate(base + rot);
-      ctx!.drawImage(pizza, -CX * k, -CY * k, S * k, S * k);
-      ctx!.restore();
-    }
+      c.save();
+      c.translate(cx + Math.cos(mid) * out, cy + Math.sin(mid) * out * tilt - up);
+      c.scale(1 + lift * 0.02, (1 + lift * 0.02) * tilt);
+      // contact shadow on the table: closer and darker when resting, wider when lifted
+      c.save();
+      c.translate(0, T * 0.9 + up * 1.4);
+      c.shadowColor = `rgba(40,20,5,${0.32 - lift * 0.1})`;
+      c.shadowBlur = 10 + lift * 34;
+      c.shadowOffsetY = 4 + lift * 16;
+      wedge(); c.fillStyle = PAPER; c.fill();
+      c.restore();
+      // baked side of the dough, visible along the front edge
+      const steps = 5;
+      for (let s2 = steps; s2 >= 1; s2--) {
+        c.save();
+        c.translate(0, (T * s2) / steps);
+        wedge();
+        const t = s2 / steps;
+        // golden baked dough, a touch darker towards the bottom
+        c.fillStyle = `rgb(${Math.round(226 - t * 34)} ${Math.round(178 - t * 38)} ${Math.round(112 - t * 34)})`;
+        c.fill();
+        c.restore();
+      }
+      // photo top
+      c.save();
+      wedge(); c.clip();
+      c.save(); c.rotate(base + rot); c.drawImage(pizza, -CX * k, -CY * k, S * k, S * k); c.restore();
+      // light stays put while the pizza turns: bright top-left, deeper bottom-right
+      const lg = c.createLinearGradient(-R0 * 0.8, -R0 * 0.8, R0 * 0.8, R0 * 0.8);
+      lg.addColorStop(0, 'rgba(255,248,230,.16)');
+      lg.addColorStop(0.5, 'rgba(255,248,230,0)');
+      lg.addColorStop(1, 'rgba(40,20,5,.22)');
+      c.fillStyle = lg; c.fillRect(-R0, -R0, R0 * 2, R0 * 2);
+      // soft inner shade along the cut edges and the crust: each slice reads as a separate piece
+      const rim = c.createRadialGradient(0, 0, R0 * 0.82, 0, 0, R0);
+      rim.addColorStop(0, 'rgba(60,30,10,0)');
+      rim.addColorStop(1, 'rgba(60,30,10,.22)');
+      c.fillStyle = rim; c.fillRect(-R0, -R0, R0 * 2, R0 * 2);
+      c.lineWidth = Math.max(1, r * 0.006);
+      c.strokeStyle = 'rgba(70,35,10,.18)';
+      wedge(); c.stroke();
+      c.restore();
+      // edge highlight on the lit side when the slice is up
+      if (lift > 0.05) {
+        c.globalAlpha = lift * 0.5;
+        c.strokeStyle = 'rgba(255,240,215,.9)';
+        c.lineWidth = Math.max(1, r * 0.004);
+        c.beginPath(); c.arc(0, 0, R0 - r * 0.004, mid - STEP / 2, mid + STEP / 2); c.stroke();
+        c.globalAlpha = 1;
+      }
+      c.restore();
+    };
+
+    // back to front so lower slices overlap correctly
+    const order = flavors.map((_, i) => i).filter((i) => !(i === target && pop > 0.01));
+    order.sort((a, b2) => Math.sin(base + rot + a * STEP) - Math.sin(base + rot + b2 * STEP));
+    order.forEach((i) => slice(i, 0));
+    if (pop > 0.01) slice(target, pop);
     // names around the pizza
     const rr = r * (geo.mobile ? 1.2 : 1.17);
     const fs = geo.mobile ? 12 : Math.max(13, Math.min(22, r * 0.048));
