@@ -22,21 +22,23 @@
    Tokens
    ========================================================================== */
 :root {
-  --cream: #f4ecdf;
-  --paper: #fbf6ee;
-  --flour: #fffdf8;
-  --ink: #241b16;
-  --ink-soft: #4d4038;
-  --tomato: #b7321d;
-  --tomato-deep: #922514;
-  --basil: #3b5a34;
+  --cream: #f5ebdd;
+  --paper: #faf4ea;
+  --flour: #fffcf6;
+  --ink: #24231f;
+  --ink-soft: #4a4842;
+  --tomato: #c74332;
+  --tomato-deep: #a3352a;
+  --tomato-ink: #a8372a; /* tomato for small text on cream: keeps 4.5:1 contrast */
+  --tomato-on-dark: #ec7d6a;
+  --basil: #173d2d;
   --crust: #c98b4a;
-  --char: #1d1613;
-  --char-2: #2a211c;
-  --on-dark: #f6eee2;
-  --on-dark-soft: #d6c8b6;
-  --line: rgb(36 27 22 / 0.14);
-  --line-dark: rgb(246 238 226 / 0.16);
+  --char: #173d2d;
+  --char-2: #1f4a37;
+  --on-dark: #f5ebdd;
+  --on-dark-soft: #cdd5c8;
+  --line: rgb(36 35 31 / 0.14);
+  --line-dark: rgb(245 235 221 / 0.16);
 
   --serif: 'Fraunces Variable', 'Fraunces Fallback', Georgia, serif;
   --sans: 'Manrope', 'Manrope Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -221,7 +223,7 @@ main:focus {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .label__num {
   font-variant-numeric: tabular-nums;
@@ -349,7 +351,7 @@ main:focus {
   padding: clamp(14px, 2vw, 20px);
   background:
     repeating-linear-gradient(-45deg, rgb(201 139 74 / 0.16) 0 10px, rgb(201 139 74 / 0.05) 10px 20px),
-    radial-gradient(circle at 70% 30%, rgb(183 50 29 / 0.14), transparent 60%),
+    radial-gradient(circle at 70% 30%, rgb(199 67 50 / 0.14), transparent 60%),
     var(--paper);
   border: 1px solid var(--line);
 }
@@ -367,7 +369,7 @@ main:focus {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 
 /* ==========================================================================
@@ -500,7 +502,7 @@ main:focus {
   align-items: center;
   padding: 3px 10px;
   border-radius: var(--radius-pill);
-  background: rgb(59 90 52 / 0.12);
+  background: rgb(23 61 45 / 0.12);
   color: var(--basil);
   font-size: 0.6875rem;
   font-weight: 700;
@@ -512,7 +514,7 @@ main:focus {
   font-family: var(--serif);
   font-size: 1.375rem;
   font-weight: 600;
-  color: var(--tomato);
+  color: var(--tomato-ink);
   font-variant-numeric: lining-nums;
 }
 
@@ -532,7 +534,7 @@ main:focus {
     border-color 320ms var(--ease);
 }
 .header.is-scrolled {
-  background: rgb(244 236 223 / 0.86);
+  background: rgb(245 235 221 / 0.86);
   -webkit-backdrop-filter: blur(14px) saturate(1.3);
   backdrop-filter: blur(14px) saturate(1.3);
   border-bottom-color: var(--line);
@@ -693,13 +695,13 @@ main:focus {
   padding-block: 2px;
 }
 .mobile-menu__list a[aria-current='page'] {
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .mobile-menu__list .label__num {
   font-family: var(--sans);
   font-size: 0.75rem;
   letter-spacing: 0.14em;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .mobile-menu__item {
   overflow: hidden;
@@ -798,7 +800,7 @@ main:focus {
   color: var(--ink);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgb(30 15 5 / 0.18);
+  box-shadow: 0 4px 16px rgb(24 24 21 / 0.18);
   transition:
     background-color var(--dur-hover) var(--ease),
     scale 160ms var(--ease);
@@ -865,7 +867,7 @@ main:focus {
 .hero__info-icon {
   width: 18px;
   height: 18px;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .hero__info.is-live {
   color: var(--basil);
@@ -888,14 +890,14 @@ main:focus {
 }
 @media (min-width: 900px) {
   .hero {
-    background: #2a1c14;
+    background: #173d2d;
     color: var(--flour);
   }
   .hero__shade {
     background:
-      linear-gradient(90deg, rgb(28 16 10 / 0.86) 0%, rgb(28 16 10 / 0.62) 32%, rgb(28 16 10 / 0.12) 58%, rgb(28 16 10 / 0) 72%),
-      linear-gradient(0deg, rgb(28 16 10 / 0.45) 0%, rgb(28 16 10 / 0) 28%),
-      linear-gradient(180deg, rgb(28 16 10 / 0.5) 0%, rgb(28 16 10 / 0) 22%);
+      linear-gradient(90deg, rgb(14 30 23 / 0.86) 0%, rgb(14 30 23 / 0.62) 32%, rgb(14 30 23 / 0.12) 58%, rgb(14 30 23 / 0) 72%),
+      linear-gradient(0deg, rgb(14 30 23 / 0.45) 0%, rgb(14 30 23 / 0) 28%),
+      linear-gradient(180deg, rgb(14 30 23 / 0.5) 0%, rgb(14 30 23 / 0) 22%);
   }
   .hero__content {
     padding-top: calc(var(--header-h) + 14vh);
@@ -903,7 +905,7 @@ main:focus {
     margin-left: max(0px, (100vw - var(--max)) / 2);
   }
   .hero__eyebrow {
-    color: #f3b088;
+    color: #f4a898;
   }
   .hero__title {
     color: var(--flour);
@@ -911,10 +913,10 @@ main:focus {
   }
   .hero__tagline,
   .hero__info {
-    color: #eadccb;
+    color: #e6ddcc;
   }
   .hero__info-icon {
-    color: #f3b088;
+    color: #f4a898;
   }
   .hero .btn--outline {
     border-color: rgb(255 253 248 / 0.7);
@@ -938,7 +940,7 @@ main:focus {
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #eadccb;
+    color: #e6ddcc;
   }
   .hero__scroll-line {
     position: relative;
@@ -951,7 +953,7 @@ main:focus {
     content: '';
     position: absolute;
     inset: 0;
-    background: #f3b088;
+    background: #f4a898;
     animation: scrollcue 2.2s var(--ease) infinite;
   }
   /* Header while it sits over the photo */
@@ -961,7 +963,7 @@ main:focus {
     color: var(--flour);
   }
   .header.is-on-dark:not(.is-scrolled) .nav a {
-    color: #eadccb;
+    color: #e6ddcc;
   }
   .header.is-on-dark:not(.is-scrolled) .menu-toggle__lines::before,
   .header.is-on-dark:not(.is-scrolled) .menu-toggle__lines::after {
@@ -1088,7 +1090,7 @@ main:focus {
   text-align: center;
   background:
     radial-gradient(ellipse at 50% 120%, rgb(240 120 40 / 0.55), transparent 55%),
-    radial-gradient(ellipse at 30% 110%, rgb(183 50 29 / 0.5), transparent 50%),
+    radial-gradient(ellipse at 30% 110%, rgb(199 67 50 / 0.5), transparent 50%),
     var(--char);
 }
 /* Slow flicker, like an oven mouth */
@@ -1210,7 +1212,7 @@ main:focus {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .event__name {
   margin-top: 4px;
@@ -1232,7 +1234,7 @@ main:focus {
   padding-top: 14px;
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 @media (hover: hover) and (pointer: fine) {
   /* Hover: the photo turns into a "pizza", rounding off as it zooms */
@@ -1256,7 +1258,7 @@ main:focus {
   color: var(--on-dark-soft);
 }
 .popup .label {
-  color: #f0a57a;
+  color: #f4a898;
 }
 .popup .label__num {
   color: var(--on-dark-soft);
@@ -1339,7 +1341,7 @@ main:focus {
 }
 .popup__media .ph--empty {
   background:
-    repeating-linear-gradient(-45deg, rgb(246 238 226 / 0.07) 0 10px, rgb(246 238 226 / 0.02) 10px 20px),
+    repeating-linear-gradient(-45deg, rgb(245 235 221 / 0.07) 0 10px, rgb(245 235 221 / 0.02) 10px 20px),
     radial-gradient(circle at 50% 100%, rgb(240 120 40 / 0.35), transparent 60%),
     var(--char-2);
   border-color: var(--line-dark);
@@ -1348,7 +1350,7 @@ main:focus {
   color: var(--on-dark-soft);
 }
 .popup__media .ph__tag {
-  color: #f0a57a;
+  color: #f4a898;
 }
 /* Round "Every Fri" badge that slowly turns, like a pizza on a peel */
 .popup__badge {
@@ -1425,7 +1427,7 @@ main:focus {
 @media (hover: hover) and (pointer: fine) {
   .fav:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 40px rgb(60 30 10 / 0.1);
+    box-shadow: 0 18px 40px rgb(30 32 28 / 0.1);
   }
 }
 .fav__media {
@@ -1459,7 +1461,7 @@ main:focus {
     radial-gradient(circle at 22% 62%, rgb(48 26 14 / 0.6) 0 2%, transparent 3%),
     radial-gradient(circle at 86% 40%, rgb(48 26 14 / 0.6) 0 2.5%, transparent 3.5%),
     radial-gradient(circle, var(--tomato) 0 66%, #e3b06d 67% 84%, var(--crust) 85%);
-  box-shadow: 0 8px 18px rgb(60 30 10 / 0.18);
+  box-shadow: 0 8px 18px rgb(30 32 28 / 0.18);
 }
 .fav__name {
   font-family: var(--serif);
@@ -1551,7 +1553,7 @@ main:focus {
   font-size: 4.2em;
   line-height: 0.85;
   padding: 0.06em 0.1em 0 0;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 @media (min-width: 900px) {
   .story-teaser__grid {
@@ -1630,7 +1632,7 @@ main:focus {
   width: clamp(240px, 32vw, 500px);
   aspect-ratio: 1;
   /* Shadow follows the pizza's own outline, not a perfect circle */
-  filter: drop-shadow(0 24px 36px rgb(60 30 10 / 0.22));
+  filter: drop-shadow(0 24px 36px rgb(30 32 28 / 0.22));
 }
 /* Real pizza photo (seen from above), turning slowly */
 .page-hero__pizza-img {
@@ -1687,13 +1689,13 @@ main:focus {
   font-size: 3rem;
   font-style: italic;
   line-height: 1;
-  color: var(--tomato);
+  color: var(--tomato-ink);
   margin-bottom: 18px;
 }
 .step__icon {
   width: 32px;
   height: 32px;
-  color: var(--tomato);
+  color: var(--tomato-ink);
   margin-bottom: 18px;
 }
 .step p {
@@ -1801,7 +1803,7 @@ main:focus {
   z-index: 20;
   margin-inline: calc(var(--gutter) * -1);
   padding-inline: var(--gutter);
-  background: rgb(244 236 223 / 0.92);
+  background: rgb(245 235 221 / 0.92);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
@@ -1898,7 +1900,7 @@ main:focus {
 .menu-row__leader {
   flex: 1;
   min-width: 16px;
-  border-bottom: 1.5px dotted rgb(36 27 22 / 0.3);
+  border-bottom: 1.5px dotted rgb(36 35 31 / 0.3);
   translate: 0 -6px;
 }
 .menu-row__desc {
@@ -2043,8 +2045,8 @@ main:focus {
   border-radius: calc(var(--radius) * 1.5);
   overflow: hidden;
   background:
-    linear-gradient(90deg, rgb(36 27 22 / 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
-    linear-gradient(rgb(36 27 22 / 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgb(36 35 31 / 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(rgb(36 35 31 / 0.05) 1px, transparent 1px) 0 0 / 40px 40px,
     var(--paper);
   border: 1px solid var(--line);
 }
@@ -2066,7 +2068,7 @@ main:focus {
 .map__pin {
   width: 44px;
   height: 44px;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .map__placeholder > p:first-of-type {
   font-family: var(--serif);
@@ -2139,7 +2141,7 @@ main:focus {
   width: 22px;
   height: 22px;
   flex: none;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .contact__social {
   display: flex;
@@ -2173,14 +2175,14 @@ main:focus {
   font-weight: 700;
 }
 .req {
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .input {
   width: 100%;
   min-height: 52px;
   padding: 12px 16px;
   border-radius: 10px;
-  border: 1.5px solid rgb(36 27 22 / 0.2);
+  border: 1.5px solid rgb(36 35 31 / 0.2);
   background: var(--flour);
   font-size: 1rem; /* 16px: no zoom on iOS */
   transition:
@@ -2191,12 +2193,12 @@ main:focus {
   color: rgb(95 81 72 / 0.7);
 }
 .input:hover {
-  border-color: rgb(36 27 22 / 0.4);
+  border-color: rgb(36 35 31 / 0.4);
 }
 .input:focus {
   outline: none;
   border-color: var(--tomato);
-  box-shadow: 0 0 0 4px rgb(183 50 29 / 0.14);
+  box-shadow: 0 0 0 4px rgb(199 67 50 / 0.14);
 }
 .input[aria-invalid='true'] {
   border-color: var(--tomato-deep);
@@ -2318,7 +2320,7 @@ textarea.input {
   color: var(--ink);
 }
 .prose a {
-  color: var(--tomato);
+  color: var(--tomato-ink);
   text-decoration: underline;
 }
 
@@ -2335,7 +2337,7 @@ textarea.input {
   overflow: hidden;
 }
 .footer .label {
-  color: #f0a57a;
+  color: #f4a898;
   margin-bottom: 14px;
 }
 .footer__cta {
@@ -2350,7 +2352,7 @@ textarea.input {
   max-width: 12em;
 }
 .footer__cta-title em {
-  color: #f0a57a;
+  color: #f4a898;
 }
 @media (min-width: 900px) {
   .footer__cta {
@@ -2405,7 +2407,7 @@ textarea.input {
   line-height: 0.82;
   letter-spacing: -0.04em;
   white-space: nowrap;
-  color: #d24f35;
+  color: var(--tomato-on-dark);
 }
 .footer__bottom {
   display: flex;
@@ -2443,7 +2445,7 @@ textarea.input {
   grid-template-columns: 1fr 1.6fr;
   gap: 8px;
   padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
-  background: rgb(244 236 223 / 0.94);
+  background: rgb(245 235 221 / 0.94);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--line);
@@ -2479,7 +2481,7 @@ textarea.input {
   color: var(--on-dark);
   font-size: 0.8125rem;
   line-height: 1.4;
-  box-shadow: 0 16px 40px rgb(30 15 5 / 0.25);
+  box-shadow: 0 16px 40px rgb(24 24 21 / 0.25);
 }
 .cookie[hidden] {
   display: none;
@@ -2598,7 +2600,7 @@ textarea.input {
   font-family: var(--serif);
   font-weight: 540;
   font-size: 1.125rem;
-  color: #f3b088;
+  color: #f4a898;
 }
 @media (min-width: 900px) {
   .menu-intro {
@@ -2701,7 +2703,7 @@ textarea.input {
 @media (hover: hover) and (pointer: fine) {
   .pizza-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgb(60 30 10 / 0.12);
+    box-shadow: 0 18px 40px rgb(30 32 28 / 0.12);
   }
   .pizza-card:hover .pizza-card__media img {
     transform: scale(1.05);
@@ -2758,7 +2760,7 @@ textarea.input {
   margin-top: clamp(32px, 4vw, 48px);
   padding: 22px 24px;
   border-radius: calc(var(--radius) * 1.2);
-  border: 1.5px dashed rgb(36 27 22 / 0.25);
+  border: 1.5px dashed rgb(36 35 31 / 0.25);
 }
 .extras ul {
   display: flex;
@@ -2774,7 +2776,7 @@ textarea.input {
 .extras__price {
   font-family: var(--serif);
   font-weight: 560;
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 @media (min-width: 900px) {
   .extras {
@@ -2799,7 +2801,7 @@ textarea.input {
   gap: 14px;
   padding: 20px;
   border-radius: calc(var(--radius) * 1.2);
-  background: rgb(59 90 52 / 0.09);
+  background: rgb(23 61 45 / 0.09);
 }
 .callout__icon {
   width: 22px;
@@ -2956,7 +2958,7 @@ textarea.input {
   border-radius: calc(var(--w) / 2) calc(var(--w) / 2) 24px 24px;
   background: var(--bg);
   color: var(--fg);
-  box-shadow: 0 18px 40px rgb(60 30 10 / 0.18);
+  box-shadow: 0 18px 40px rgb(30 32 28 / 0.18);
   cursor: grab;
   transition:
     transform 520ms cubic-bezier(0.23, 1, 0.32, 1),
@@ -3031,7 +3033,7 @@ textarea.input {
   border: 0;
   border-radius: calc(var(--card-w) / 2) calc(var(--card-w) / 2) 22px 22px;
   padding: 12px;
-  box-shadow: 0 10px 26px rgb(60 30 10 / 0.12);
+  box-shadow: 0 10px 26px rgb(30 32 28 / 0.12);
   transition:
     rotate 450ms cubic-bezier(0.23, 1, 0.32, 1),
     translate 450ms cubic-bezier(0.23, 1, 0.32, 1),
@@ -3097,7 +3099,7 @@ textarea.input {
 @media (hover: hover) and (pointer: fine) {
   .pizza-card:hover {
     translate: 0 -6px;
-    box-shadow: 0 22px 44px rgb(60 30 10 / 0.2);
+    box-shadow: 0 22px 44px rgb(30 32 28 / 0.2);
   }
 }
 @media (max-width: 639px) {
@@ -3199,7 +3201,7 @@ textarea.input {
 .decor__item--ring {
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 1.5px solid rgb(183 50 29 / 0.32);
+  border: 1.5px solid rgb(199 67 50 / 0.32);
 }
 @media (max-width: 899px) {
   .decor__item {
@@ -3252,7 +3254,7 @@ textarea.input {
   .deck--spread .deck__card:hover {
     translate: 0 -26px;
     z-index: 50 !important;
-    box-shadow: 0 30px 50px rgb(60 30 10 / 0.25);
+    box-shadow: 0 30px 50px rgb(30 32 28 / 0.25);
   }
 }
 
@@ -3263,7 +3265,7 @@ textarea.input {
 .pizza-card {
   box-shadow:
     inset 0 0 0 1px color-mix(in srgb, var(--line) 55%, transparent),
-    0 18px 40px rgb(30 15 5 / 0.2);
+    0 18px 40px rgb(24 24 21 / 0.2);
 }
 .deck__card::after,
 .pizza-card::after {
@@ -3304,7 +3306,7 @@ textarea.input {
 }
 .pizza-card__badge {
   background: var(--line);
-  color: #1f1814;
+  color: #24231f;
 }
 @media (min-width: 900px) {
   .deck--spread .deck__name {
@@ -3338,8 +3340,8 @@ textarea.input {
    out, flavour names on an arc around it (Figma rotating slider reference)
    ========================================================================== */
 .wheel {
-  --step: 23deg; /* angle between two names on the arc */
-  --anchor: -152deg; /* where the current name sits (left of the top) */
+  --step: calc(360deg / var(--n)); /* names spread round the whole ring, so the visible arc is always full */
+  --anchor: -157.5deg; /* where the current name sits (left of the top) */
   position: relative;
   background: var(--paper);
   height: calc(100vh + 8 * 50vh);
@@ -3384,7 +3386,7 @@ textarea.input {
   font-family: var(--serif);
   font-weight: 560;
   font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
-  color: var(--tomato);
+  color: var(--tomato-ink);
 }
 .wheel__desc {
   margin-top: 10px;
@@ -3405,7 +3407,7 @@ textarea.input {
   padding: 6px 13px;
   border-radius: var(--radius-pill);
   background: var(--flour);
-  box-shadow: 0 2px 10px rgb(60 30 10 / 0.08);
+  box-shadow: 0 2px 10px rgb(30 32 28 / 0.08);
   font-size: 0.8125rem;
   font-weight: 700;
 }
@@ -3462,7 +3464,7 @@ textarea.input {
   width: 100%;
   height: 100%;
   fill: none;
-  stroke: rgb(36 27 22 / 0.16);
+  stroke: rgb(36 35 31 / 0.16);
   stroke-width: 0.18;
 }
 .wheel__dot {
@@ -3474,7 +3476,7 @@ textarea.input {
   margin: -6px 0 0 -6px;
   border-radius: 50%;
   background: var(--tomato);
-  box-shadow: 0 0 0 5px rgb(183 50 29 / 0.15);
+  box-shadow: 0 0 0 5px rgb(199 67 50 / 0.15);
   transform: rotate(var(--anchor)) translateX(calc(var(--d) * 1.5 * 0.405));
 }
 .wheel__names {
@@ -3533,7 +3535,7 @@ textarea.input {
   inset: 0;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 18px 30px rgb(60 30 10 / 0.25));
+  filter: drop-shadow(0 18px 30px rgb(30 32 28 / 0.25));
   transition:
     transform 950ms cubic-bezier(0.65, 0, 0.35, 1),
     opacity 650ms ease;
@@ -3567,8 +3569,6 @@ textarea.input {
 
 @media (max-width: 899px) {
   .wheel {
-    --step: 30deg;
-    --anchor: -150deg;
     height: calc(100vh + 8 * 40vh);
     height: calc(100svh + 8 * 40svh);
   }

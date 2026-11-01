@@ -38,7 +38,7 @@ function pizza(cx, cy, R) {
 }
 
 const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-  <rect width="1200" height="630" fill="#f4ecdf"/>
+  <rect width="1200" height="630" fill="#f5ebdd"/>
   <circle cx="930" cy="330" r="380" fill="#c98b4a" fill-opacity=".14"/>
   ${pizza(930, 330, 280)}
   <rect x="80" y="104" width="10" height="10" rx="5" fill="#b7321d"/>
@@ -58,7 +58,7 @@ const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 </svg>`;
 fs.writeFileSync(path.join(pub, 'favicon.svg'), favicon);
 await sharp(Buffer.from(favicon)).resize(32, 32).png().toFile(path.join(pub, 'favicon-32.png'));
-const touch = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#f4ecdf"/>${favicon.replace(/<\/?svg[^>]*>/g, '')}</svg>`;
+const touch = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#f5ebdd"/>${favicon.replace(/<\/?svg[^>]*>/g, '')}</svg>`;
 await sharp(Buffer.from(touch)).resize(180, 180).png().toFile(path.join(pub, 'apple-touch-icon.png'));
 
 console.log('OK: og.jpg, favicon.svg, favicon-32.png, apple-touch-icon.png');
