@@ -3332,3 +3332,202 @@ textarea.input {
 .pizza-card__diet {
   font-weight: 800;
 }
+
+/* ==========================================================================
+   "Gire a pizza": pinned section, the pizza turns one slice per scroll step
+   (from the Figma "Pizzeria Website" Accueil/{pizza} frame)
+   ========================================================================== */
+.wheel {
+  position: relative;
+  background: var(--paper);
+  height: calc(100vh + 8 * 45vh);
+  height: calc(100svh + 8 * 45svh);
+}
+.wheel__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+.wheel__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.wheel__layout {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  pointer-events: none;
+}
+.wheel__info {
+  position: absolute;
+  left: var(--gutter);
+  top: calc(var(--header-h) + clamp(16px, 6vh, 64px));
+  width: min(520px, 38vw);
+  pointer-events: auto;
+}
+.wheel__swap {
+  margin-top: 18px;
+  transition:
+    opacity 280ms ease,
+    transform 280ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.wheel__swap.is-leaving {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.wheel__title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+.wheel__name {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.wheel__price {
+  font-family: var(--serif);
+  font-weight: 560;
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+  color: var(--tomato);
+}
+.wheel__desc {
+  margin-top: clamp(14px, 2.4vh, 26px);
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.wheel__desc p + p {
+  margin-top: 1em;
+}
+.wheel__ing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: clamp(14px, 2.6vh, 28px);
+}
+.wheel__ing li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--flour);
+  box-shadow: 0 2px 10px rgb(60 30 10 / 0.08);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.wheel__ing i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+.wheel__dots {
+  display: flex;
+  gap: 4px;
+  margin-top: clamp(18px, 3vh, 32px);
+}
+.wheel__dots button {
+  position: relative;
+  width: 22px;
+  height: 24px;
+}
+.wheel__dots button::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 4px;
+  background: rgb(36 27 22 / 0.2);
+  transition:
+    background-color 200ms ease,
+    width 200ms ease,
+    margin 200ms ease;
+}
+.wheel__dots button.is-active::after {
+  width: 20px;
+  margin-left: -10px;
+  background: var(--tomato);
+}
+.wheel__order {
+  margin-top: clamp(16px, 2.6vh, 28px);
+}
+.wheel__hint {
+  position: absolute;
+  z-index: 1;
+  right: calc(var(--gutter) + 10px);
+  top: calc(var(--header-h) + clamp(16px, 6vh, 64px));
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--ink-soft);
+  rotate: 10deg;
+  pointer-events: none;
+}
+.wheel__hint svg {
+  display: block;
+  width: 34px;
+  height: 34px;
+  margin: 8px auto 0;
+}
+@media (max-width: 899px) {
+  .wheel {
+    height: calc(100vh + 8 * 38vh);
+    height: calc(100svh + 8 * 38svh);
+  }
+  .wheel__info {
+    left: var(--gutter);
+    right: var(--gutter);
+    width: auto;
+    top: calc(var(--header-h) + 12px);
+  }
+  .wheel__swap {
+    margin-top: 10px;
+  }
+  .wheel__desc {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+  .wheel__desc p + p {
+    display: none;
+  }
+  .wheel__ing {
+    margin-top: 12px;
+    gap: 6px;
+  }
+  .wheel__ing li {
+    padding: 5px 11px;
+    font-size: 0.75rem;
+  }
+  .wheel__dots {
+    display: none;
+  }
+  .wheel__order {
+    margin-top: 14px;
+    min-height: 46px;
+  }
+  .wheel__hint {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wheel__swap {
+    transition: none;
+  }
+}

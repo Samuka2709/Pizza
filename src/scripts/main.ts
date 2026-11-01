@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { initPizza } from './pizza';
 import { initDeck } from './deck';
+import { initFlavorWheel } from './flavor-wheel';
 
 gsap.registerPlugin(ScrollTrigger);
 (window as unknown as { __motionReady: boolean }).__motionReady = true;
@@ -183,6 +184,7 @@ $$('[data-next-popup-long]').forEach((el) => {
    -------------------------------------------------------------------------- */
 initPizza({ reduced });
 initDeck({ reduced });
+initFlavorWheel({ reduced, scrollTo: lenis ? (y) => lenis!.scrollTo(y, { duration: 1 }) : undefined });
 
 /* --------------------------------------------------------------------------
    Entrance and scroll animations

@@ -1,0 +1,59 @@
+---
+/**
+ * "Gire a pizza": seção presa na tela; a cada trecho de rolagem a pizza gira uma fatia
+ * e o sabor (nome, preço, descrição, ingredientes) troca junto.
+ * Baseada no frame "Accueil/{pizza}" do Figma Pizzeria Website (Community), adaptada às
+ * cores e fontes do site. A pizza é desenhada em canvas (src/scripts/flavor-wheel.ts).
+ */
+import { flavors } from '../data/flavors';
+import { price, whatsappLink } from '../lib/format';
+import Icon from './Icon.astro';
+import SectionLabel from './SectionLabel.astro';
+
+interface Props {
+  num?: string;
+}
+const { num } = Astro.props;
+const first = flavors[0];
+const light = ['#f6f1e4', '#efe3c4', '#f3efe6'];
+const data = flavors.map((f) => ({ ...f, priceLabel: price(f.price), order: whatsappLink(`Olá! Quero pedir uma pizza de ${f.name}.`) }));
+---
+<section class="wheel" aria-labelledby="wheel-title" data-wheel>
+  <div class="wheel__stage">
+    <canvas class="wheel__canvas" data-wheel-canvas role="img" aria-label="Pizza em oito fatias, cada fatia de um sabor diferente"></canvas>
+
+    <div class="container wheel__layout">
+      <div class="wheel__info">
+        <SectionLabel num={num} text="Gire a pizza" />
+        <h2 class="sr-only" id="wheel-title">Sabores da casa</h2>
+        <div class="wheel__swap" data-wheel-info aria-live="polite">
+          <div class="wheel__title">
+            <p class="wheel__name" data-wheel-name>{first.name}</p>
+            <p class="wheel__price" data-wheel-price>{price(first.price)}</p>
+          </div>
+          <div class="wheel__desc" data-wheel-desc>
+            {first.desc.map((t) => <p>{t}</p>)}
+          </div>
+          <ul class="wheel__ing" data-wheel-ing>
+            {first.ing.map(([n, c]) => <li><i style={`background:${c}${light.includes(c) ? ';box-shadow:inset 0 0 0 1px #d9cfb6' : ''}`}></i>{n}</li>)}
+          </ul>
+        </div>
+        <div class="wheel__dots" data-wheel-dots>
+          {flavors.map((f, i) => <button type="button" class:list={{ 'is-active': i === 0 }} aria-label={f.name} aria-pressed={i === 0 ? 'true' : 'false'}></button>)}
+        </div>
+        <a class="btn btn--primary wheel__order" href={data[0].order} target="_blank" rel="noopener" data-wheel-order data-magnetic>
+          <Icon name="whatsapp" class="btn__arrow" /> Pedir pelo WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="wheel__hint" aria-hidden="true">
+      Gire<br />a pizza!
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M31 14a13 13 0 0 0-22-2" /><path d="M9 6v6h6" />
+        <path d="M9 26a13 13 0 0 0 22 2" /><path d="M31 34v-6h-6" />
+      </svg>
+    </div>
+  </div>
+  <script type="application/json" data-wheel-data set:html={JSON.stringify(data)} />
+</section>
