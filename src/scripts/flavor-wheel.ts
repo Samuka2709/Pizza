@@ -164,22 +164,14 @@ function drawPizza(flavors: Flavor[], tex: (HTMLImageElement | null)[] = []) {
   return img;
 }
 
-/** Wooden board + the photo pizza (one generated slice per flavour, same order) */
+/** The photo pizza alone, no board (one generated slice per flavour, same order) */
 function composeReal(photo: HTMLImageElement) {
   const img = document.createElement('canvas');
   img.width = img.height = S;
   const g = img.getContext('2d')!;
-  const gr = g.createRadialGradient(CX, CY, R * 0.9, CX, CY, R * 1.07);
-  gr.addColorStop(0, '#b77a45'); gr.addColorStop(0.7, '#a46634'); gr.addColorStop(1, '#7f4a22');
-  g.fillStyle = gr; g.beginPath(); g.arc(CX, CY, R * 1.07, 0, 7); g.fill();
-  g.strokeStyle = 'rgba(90,50,20,.25)'; g.lineWidth = 2;
-  for (let k = 0; k < 6; k++) { g.beginPath(); g.arc(CX, CY, R * (1.0 + k * 0.012), 0, 7); g.stroke(); }
-  // in the photo the pizza radius is 552 of 1200 px
-  const size = (R * 1200) / 552;
-  g.save();
-  g.shadowColor = 'rgba(60,30,10,.35)'; g.shadowBlur = 18; g.shadowOffsetY = 6;
+  // in the photo the pizza radius is 554 of 1200 px
+  const size = (R * 1200) / 554;
   g.drawImage(photo, CX - size / 2, CY - size / 2, size, size);
-  g.restore();
   return img;
 }
 
@@ -199,12 +191,15 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
   const dots = [...section.querySelectorAll<HTMLButtonElement>('[data-wheel-dots] button')];
   const N = flavors.length;
   const STEP = (Math.PI * 2) / N;
+  const PAPER = getComputedStyle(section).backgroundColor || '#fbf6ee';
+  let real = false;
   let pizza = drawPizza(flavors);
   // swap in the real photo pizza once it has loaded (drawn toppings meanwhile)
   const photo = new Image();
   photo.decoding = 'async';
   photo.onload = () => {
     pizza = composeReal(photo);
+    real = true;
     render();
   };
   photo.src = window.innerWidth < 900 ? '/img/fatias/pizza-sabores-sm.webp' : '/img/fatias/pizza-sabores.webp';
@@ -307,7 +302,7 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
     ctx!.clearRect(0, 0, W, H);
     ctx!.save();
     ctx!.shadowColor = 'rgba(60,30,10,.22)'; ctx!.shadowBlur = 40; ctx!.shadowOffsetY = 18;
-    ctx!.fillStyle = '#a46634'; ctx!.beginPath(); ctx!.arc(cx, cy, r * 1.07, 0, 7); ctx!.fill();
+    ctx!.fillStyle = PAPER; ctx!.beginPath(); ctx!.arc(cx, cy, r * (real ? 0.985 : 1.07), 0, 7); ctx!.fill();
     ctx!.restore();
     const k = r / R;
     ctx!.save();
@@ -320,22 +315,23 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
       const wedge = () => {
         ctx!.beginPath();
         ctx!.moveTo(0, 0);
-        ctx!.arc(0, 0, r * 1.002, ang - STEP / 2, ang + STEP / 2);
+        ctx!.arc(0, 0, r * (real ? 0.995 : 1.002), ang - STEP / 2, ang + STEP / 2);
         ctx!.closePath();
       };
       ctx!.save();
       ctx!.translate(cx, cy);
+      // the gap the slice leaves behind
       wedge();
-      ctx!.fillStyle = `rgba(60,30,10,${0.35 * pop})`;
+      ctx!.fillStyle = PAPER;
       ctx!.fill();
       const lift = r * 0.06 * pop;
       ctx!.translate(Math.cos(ang) * lift, Math.sin(ang) * lift);
       ctx!.scale(1 + 0.025 * pop, 1 + 0.025 * pop);
-      ctx!.shadowColor = `rgba(40,20,5,${0.35 * pop})`;
-      ctx!.shadowBlur = 30 * pop;
-      ctx!.shadowOffsetY = 14 * pop;
+      ctx!.shadowColor = `rgba(40,20,5,${0.3 * pop})`;
+      ctx!.shadowBlur = 28 * pop;
+      ctx!.shadowOffsetY = 12 * pop;
       wedge();
-      ctx!.fillStyle = '#d99a45';
+      ctx!.fillStyle = PAPER;
       ctx!.fill();
       ctx!.shadowColor = 'transparent';
       wedge();
