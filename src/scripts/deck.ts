@@ -26,47 +26,67 @@ export function initDeck(opts: { reduced: boolean }) {
     let order = cards.map((_, i) => i); // order[0] is the front card
     let busy = false;
 
-    function layout(animate = true) {
+    function layout(animate = true, skip = -1) {
       order.forEach((idx, pos) => {
         const c = cards[idx];
+        const front = pos === 0;
+        c.toggleAttribute('inert', !front);
+        c.setAttribute('aria-hidden', String(!front));
+        if (idx === skip) return;
         const f = FAN[Math.min(pos, FAN.length - 1)];
         c.style.transition = animate ? '' : 'none';
         c.style.zIndex = String(cards.length - pos);
         c.style.transform = `translate(${f.x}px, ${f.y}px) rotate(${f.r}deg)`;
         c.style.opacity = pos < FAN.length ? '1' : '0';
-        const front = pos === 0;
-        c.toggleAttribute('inert', !front);
-        c.setAttribute('aria-hidden', String(!front));
       });
       if (count) count.textContent = `${order[0] + 1} / ${cards.length}`;
     }
 
+    const timers = new Map<HTMLElement, number>();
     function next(dir = 1) {
       if (busy || deck.classList.contains('deck--spread')) return;
-      const front = cards[order[0]];
+      const leaving = order.shift()!;
+      order.push(leaving);
       if (opts.reduced) {
-        order.push(order.shift()!);
         layout(false);
         return;
       }
+      // the card behind rises at the same moment the front one is tossed aside, so the
+      // swap reads as one movement; the tossed card then fades back in at the bottom
       busy = true;
-      // fly off to the side, then slide in at the back of the stack
-      front.style.transition = 'transform 260ms cubic-bezier(0.23, 1, 0.32, 1), opacity 260ms ease';
-      front.style.transform = `translate(${dir * 120}%, -6%) rotate(${dir * 18}deg)`;
-      window.setTimeout(() => {
-        order.push(order.shift()!);
-        layout();
-        busy = false;
-      }, 220);
+      const card = cards[leaving];
+      card.style.zIndex = String(cards.length + 1);
+      card.style.transition = 'transform 460ms cubic-bezier(0.23, 1, 0.32, 1), opacity 260ms ease 140ms';
+      card.style.transform = `translate(${dir * 115}%, -4%) rotate(${dir * 16}deg)`;
+      card.style.opacity = '0';
+      layout(true, leaving);
+      window.setTimeout(() => (busy = false), 180);
+      clearTimeout(timers.get(card));
+      timers.set(
+        card,
+        window.setTimeout(() => {
+          if (order[0] === leaving) return; // came back to the front meanwhile
+          const pos = order.indexOf(leaving);
+          const f = FAN[Math.min(pos, FAN.length - 1)];
+          card.style.transition = 'none';
+          card.style.zIndex = String(cards.length - pos);
+          card.style.transform = `translate(${f.x}px, ${f.y + 18}px) rotate(${f.r}deg) scale(0.96)`;
+          void card.offsetWidth;
+          layout(true);
+        }, 460)
+      );
     }
 
     function prev() {
       if (busy || deck.classList.contains('deck--spread')) return;
       order.unshift(order.pop()!);
       const back = cards[order[0]];
+      clearTimeout(timers.get(back));
       if (!opts.reduced) {
         back.style.transition = 'none';
-        back.style.transform = 'translate(-120%, -6%) rotate(-18deg)';
+        back.style.transform = 'translate(-115%, -4%) rotate(-16deg)';
+        back.style.opacity = '0';
+        back.style.zIndex = String(cards.length + 1);
         void back.offsetWidth;
       }
       layout(!opts.reduced);
