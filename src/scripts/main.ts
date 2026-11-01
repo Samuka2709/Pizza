@@ -299,6 +299,37 @@ if (tabs.length) {
 }
 
 /* --------------------------------------------------------------------------
+   Menu: filter pizzas by diet (all / vegetarian / vegan)
+   -------------------------------------------------------------------------- */
+$$('[data-filter]').forEach((group) => {
+  const panel = group.closest('.menu-panel')!;
+  const cards = $$<HTMLElement>('.pizza-card', panel);
+  const status = $('[data-filter-status]', panel);
+  const buttons = $$<HTMLButtonElement>('[data-filter-value]', group);
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const value = btn.dataset.filterValue!;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      let n = 0;
+      cards.forEach((card) => {
+        const show = !value || (card.dataset.diet ?? '').split(' ').includes(value);
+        card.hidden = !show;
+        card.classList.remove('is-in');
+        if (show && !reduced) {
+          card.style.setProperty('--n', String(n));
+          void card.offsetWidth; // restart the entrance animation
+          card.classList.add('is-in');
+        }
+        if (show) n++;
+      });
+      if (status) status.textContent = `${n} ${n === 1 ? 'pizza' : 'pizzas'} shown`;
+      lenis?.resize();
+      ScrollTrigger.refresh();
+    })
+  );
+});
+
+/* --------------------------------------------------------------------------
    FAQ: one answer open at a time, page height kept in sync
    -------------------------------------------------------------------------- */
 const faqItems = $$<HTMLDetailsElement>('.faq__item');

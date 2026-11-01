@@ -37,6 +37,10 @@ export interface MenuGroup {
   id: string;
   label: string;
   note?: string;
+  /** Short story above the list (pizzas) */
+  intro?: { title: string; text: string; facts: string[] };
+  /** Add-ons with price (0 = free swap) */
+  extras?: { name: string; price: number }[];
   items: MenuItem[];
 }
 
@@ -247,15 +251,26 @@ export const site = {
       id: 'pizzas',
       label: 'Pizzas',
       note: 'Around 11 inches, made to order. Gluten-free bases available on request at events.', // DEMO
+      intro: {
+        title: 'Slow dough, a very hot oven, ninety seconds.', // DEMO
+        text: 'Our dough rests for at least 48 hours, so it bakes light, airy and easy to digest. Each pizza is stretched by hand and fired at around 450°C until the crust puffs up and picks up its leopard spots.', // DEMO
+        facts: ['48h dough', '450°C oven', '90 seconds'], // DEMO
+      },
+      extras: [
+        { name: 'Hot honey', price: 1.5 }, // DEMO
+        { name: 'Burrata', price: 3 }, // DEMO
+        { name: 'Nduja', price: 2 }, // DEMO
+        { name: 'Vegan mozzarella', price: 0 }, // DEMO
+      ],
       items: [
-        { name: 'Marinara', description: 'Tomato, garlic, oregano, extra virgin olive oil.', price: 8, diet: ['VG'], allergens: ['Gluten'] }, // DEMO
+        { name: 'Marinara', description: 'Tomato, garlic, oregano, extra virgin olive oil.', price: 8, diet: ['VG'], allergens: ['Gluten'], photo: { id: '1696919539670-1ac9fb7d5964', alt: 'Tomato sauce and basil leaves on a stretched pizza base, close-up' } }, // DEMO
         { name: 'Margherita', description: 'Tomato, fior di latte, basil, olive oil.', price: 10, diet: ['V'], allergens: ['Gluten', 'Milk'], signature: true, photo: { id: '1574071318508-1cdbab80d002', alt: 'Margherita with basil and a blistered, leopard-spotted crust' } }, // DEMO
         { name: 'Diavola', description: 'Tomato, fior di latte, spicy salami, chilli oil.', price: 12, allergens: ['Gluten', 'Milk'], photo: { id: '1716237388526-9dfc45d0d5ad', alt: 'Spicy salami pizza with basil and grated cheese' } }, // DEMO
-        { name: 'Funghi e salsiccia', description: 'Fior di latte, roasted mushrooms, fennel sausage, parmesan.', price: 13, allergens: ['Gluten', 'Milk'] }, // DEMO
+        { name: 'Funghi e salsiccia', description: 'Fior di latte, roasted mushrooms, fennel sausage, parmesan.', price: 13, allergens: ['Gluten', 'Milk'], photo: { id: '1620374645310-f9d97e733268', alt: 'White pizza with roasted mushrooms on a wooden board' } }, // DEMO
         { name: 'Nduja e miele', description: 'Tomato, fior di latte, spicy nduja, a drizzle of hot honey.', price: 13, allergens: ['Gluten', 'Milk'], signature: true, photo: { id: '1788272983172-dab082ca5936', alt: 'Wood-fired pizza with spicy salami and melted mozzarella' } }, // DEMO
-        { name: 'Quattro formaggi', description: 'Fior di latte, gorgonzola, parmesan, smoked provola, black pepper.', price: 12, diet: ['V'], allergens: ['Gluten', 'Milk'] }, // DEMO
-        { name: 'Verdure', description: 'Tomato, vegan mozzarella, grilled courgette, peppers, olives.', price: 11, diet: ['VG'], allergens: ['Gluten'] }, // DEMO
-        { name: 'Pesto e burrata', description: 'Basil pesto, burrata added after the oven, cherry tomatoes.', price: 14, diet: ['V'], allergens: ['Gluten', 'Milk', 'Nuts'] }, // DEMO
+        { name: 'Quattro formaggi', description: 'Fior di latte, gorgonzola, parmesan, smoked provola, black pepper.', price: 12, diet: ['V'], allergens: ['Gluten', 'Milk'], photo: { id: '1732223229355-95a1433404bf', alt: 'Golden four-cheese pizza cut into slices on a wooden board' } }, // DEMO
+        { name: 'Verdure', description: 'Tomato, vegan mozzarella, grilled courgette, peppers, olives.', price: 11, diet: ['VG'], allergens: ['Gluten'], photo: { id: '1617470703128-26a0fc9af10f', alt: 'Vegetable pizza with peppers, tomatoes and greens, a slice being lifted' } }, // DEMO
+        { name: 'Pesto e burrata', description: 'Basil pesto, burrata added after the oven, cherry tomatoes.', price: 14, diet: ['V'], allergens: ['Gluten', 'Milk', 'Nuts'], photo: { id: '1788603092393-bfcdfd2257f7', alt: 'Pesto pizza with courgette ribbons, red peppers and a ball of burrata' } }, // DEMO
       ],
     },
     {
@@ -277,6 +292,13 @@ export const site = {
       ],
     },
   ] as MenuGroup[],
+
+  /** Highlighted boxes on the menu page */
+  menuCallouts: [
+    { title: 'Gluten-free base', text: 'Available for any pizza at events, with a little notice. Prepared in the same kitchen, so not suitable for coeliacs.' }, // DEMO
+    { title: 'Vegan swap', text: 'Any pizza can be made with vegan mozzarella at no extra cost.' }, // DEMO
+    { title: 'Allergies', text: 'Tell us about any allergy before ordering. Full allergen table in the Dietary info tab.' }, // DEMO
+  ],
 
   dietKey: [
     { code: 'V', label: 'Vegetarian' },
