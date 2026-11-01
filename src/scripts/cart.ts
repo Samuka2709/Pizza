@@ -243,21 +243,21 @@ export function initCart(opts: { reduced: boolean }) {
       return;
     }
     const pay = get('pay');
+    const address = [get('street'), get('district')].filter(Boolean).join(', ') + (get('ref') ? ` (${get('ref')})` : '');
     const msg = [
-      'Olá! Quero fazer um pedido:',
+      `🍕 *Novo pedido — ${dialog.dataset.store}*`,
       '',
-      ...lines.map((l) => `${l.qty}x ${l.name} (${brl.format(l.price * l.qty)})`),
+      `*Nome:* ${get('name')}`,
+      `*Telefone:* ${get('phone')}`,
       '',
-      `Total: ${brl.format(total())}${pickup ? '' : ' + taxa de entrega'}`,
+      '*Pedido:*',
+      ...lines.map((l) => `• ${l.qty}x ${l.name} — ${brl.format(l.price * l.qty)}`),
       '',
-      '*Dados do cliente*',
-      `Nome: ${get('name')}`,
-      `Telefone: ${get('phone')}`,
-      ...(pickup
-        ? ['Retirada no balcão']
-        : [`Entrega: ${get('street')}, ${get('district')}`, ...(get('ref') ? [`Complemento/referência: ${get('ref')}`] : [])]),
-      `Pagamento: ${pay}${pay === 'Dinheiro' && get('change') ? ` (troco para ${get('change')})` : ''}`,
-      ...(get('notes') ? [`Observações: ${get('notes')}`] : []),
+      `*Total:* ${brl.format(total())} (${pickup ? 'retirada no balcão' : 'sem taxa de entrega'})`,
+      '',
+      pickup ? '*Retirada:* no balcão' : `*Endereço de entrega:* ${address}`,
+      `*Pagamento:* ${pay}${pay === 'Dinheiro' && get('change') ? ` (troco para ${get('change')})` : ''}`,
+      ...(get('notes') ? [`*Observações:* ${get('notes')}`] : []),
     ].join('\n');
     window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   });
