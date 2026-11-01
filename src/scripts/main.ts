@@ -258,7 +258,7 @@ function setupScrollReveals() {
     gsap.fromTo(
       card,
       { y: 70, rotation: i % 2 ? 7 : -7, opacity: 0 },
-      { y: 0, rotation: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 72%', scrub: 0.5 } }
+      { y: 0, rotation: 0, opacity: 1, ease: 'none', clearProps: 'transform', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 72%', scrub: 0.5 } }
     );
   });
 

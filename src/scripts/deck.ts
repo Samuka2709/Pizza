@@ -11,10 +11,10 @@
  *   spreads all the cards out to both sides at once; scrolling back gathers them
  */
 const FAN = [
-  { x: 0, y: 0, r: -2 },
+  { x: 0, y: 0, r: 0 }, // front card stays upright so its text is sharp
   { x: 26, y: 10, r: 5 },
-  { x: -24, y: 16, r: -8 },
-  { x: 14, y: 24, r: 10 },
+  { x: -24, y: 16, r: -7 },
+  { x: 14, y: 24, r: 9 },
 ];
 
 export function initDeck(opts: { reduced: boolean }) {
@@ -150,7 +150,7 @@ export function initDeck(opts: { reduced: boolean }) {
         const k = ease(Math.min(1, Math.max(0, p * 1.25 - Math.abs(t) * 0.25)));
         const x = f.x + (t * reach - f.x) * k;
         const y = f.y + (t * t * 30 - f.y) * k;
-        const r = f.r + (t * 10 - f.r) * k;
+        const r = f.r + (t * 5 - f.r) * k;
         c.style.transition = 'none';
         c.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
         c.style.opacity = '1';

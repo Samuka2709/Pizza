@@ -2961,7 +2961,6 @@ textarea.input {
   transition:
     transform 520ms cubic-bezier(0.23, 1, 0.32, 1),
     opacity 300ms ease;
-  will-change: transform;
 }
 .deck.is-dragging .deck__card {
   cursor: grabbing;
@@ -3032,7 +3031,6 @@ textarea.input {
   border: 0;
   border-radius: calc(var(--card-w) / 2) calc(var(--card-w) / 2) 22px 22px;
   padding: 12px;
-  rotate: var(--tilt);
   box-shadow: 0 10px 26px rgb(60 30 10 / 0.12);
   transition:
     rotate 450ms cubic-bezier(0.23, 1, 0.32, 1),
@@ -3098,7 +3096,6 @@ textarea.input {
 }
 @media (hover: hover) and (pointer: fine) {
   .pizza-card:hover {
-    rotate: 0deg;
     translate: 0 -6px;
     box-shadow: 0 22px 44px rgb(60 30 10 / 0.2);
   }
@@ -3197,7 +3194,6 @@ textarea.input {
   position: absolute;
   width: var(--size);
   translate: -50% -50%;
-  will-change: transform;
 }
 
 .decor__item--ring {
@@ -3314,4 +3310,25 @@ textarea.input {
   .deck--spread .deck__name {
     font-size: 1.5rem;
   }
+}
+
+/* Crisper text on the cards: front card upright, slightly heavier small type */
+.deck__card,
+.pizza-card {
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: optimizeLegibility;
+}
+.deck__name,
+.pizza-card__name {
+  font-weight: 600;
+  font-style: normal;
+}
+.deck__desc,
+.pizza-card__desc {
+  font-weight: 600;
+  opacity: 1;
+}
+.deck__diet,
+.pizza-card__diet {
+  font-weight: 800;
 }
