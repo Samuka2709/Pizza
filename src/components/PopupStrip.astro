@@ -14,22 +14,22 @@ const { num } = Astro.props;
   <div class="crust crust--top" aria-hidden="true"></div>
   <div class="container popup__grid">
     <div class="popup__text">
-      <SectionLabel num={num} text="Friday pop-up" />
+      <SectionLabel num={num} text="Rodízio de sexta" />
       <h2 class="display h2 reveal-words" id="popup-title" data-split-auto>{p.title}</h2>
       <p class="lead" data-reveal="fade">{p.lead}</p>
       <dl class="popup__facts" data-reveal="fade">
-        <div><dt><Icon name="clock" /> When</dt><dd>Every {DAYS[p.weekday]}, {popupTimes()}</dd></div>
-        <div><dt><Icon name="pin" /> Where</dt><dd>{p.place}</dd></div>
+        <div><dt><Icon name="clock" /> Quando</dt><dd>Toda {DAYS[p.weekday]}, {popupTimes()}</dd></div>
+        <div><dt><Icon name="pin" /> Onde</dt><dd>{p.place}</dd></div>
       </dl>
       <p class="popup__next" data-next-popup-long data-reveal="fade" aria-live="polite"></p>
       <div class="popup__ctas" data-reveal="fade">
-        <a class="btn btn--light" href="/pop-up/">Times &amp; directions <Icon name="arrow" class="btn__arrow" /></a>
-        <a class="btn btn--outline-light" href={p.mapsUrl} target="_blank" rel="noopener">Open in Maps</a>
+        <a class="btn btn--light" href="/rodizio/">Horários e como chegar <Icon name="arrow" class="btn__arrow" /></a>
+        <a class="btn btn--outline-light" href={p.mapsUrl} target="_blank" rel="noopener">Abrir no mapa</a>
       </div>
     </div>
     <div class="popup__media" data-parallax="10">
       <Photo photo={p.photo} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 40vw, 100vw" />
-      <span class="popup__badge" aria-hidden="true"><span>Every</span><strong>Fri</strong></span>
+      <span class="popup__badge" aria-hidden="true"><span>Toda</span><strong>Sexta</strong></span>
     </div>
   </div>
   <div class="crust crust--bottom" aria-hidden="true"></div>

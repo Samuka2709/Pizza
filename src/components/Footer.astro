@@ -1,6 +1,6 @@
 ---
 import { site as s } from '../data/site';
-import { mailto, popupTimes, socialLinks, DAYS } from '../lib/format';
+import { mailto, popupTimes, socialLinks, DAYS, whatsappLink } from '../lib/format';
 import Icon from './Icon.astro';
 const year = new Date().getFullYear();
 ---
@@ -8,8 +8,8 @@ const year = new Date().getFullYear();
   <div class="crust crust--top" aria-hidden="true"></div>
   <div class="container">
     <div class="footer__cta">
-      <p class="display footer__cta-title">Planning something? <em>Let's talk pizza.</em></p>
-      <a class="btn btn--light" href="/contact/#quote" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
+      <p class="display footer__cta-title">Bateu a fome? <em>A gente entrega.</em></p>
+      <a class="btn btn--light" href={whatsappLink()} target="_blank" rel="noopener" data-magnetic><Icon name="whatsapp" class="btn__arrow" /> Pedir pelo WhatsApp</a>
     </div>
 
     <div class="footer__cols">
@@ -17,32 +17,33 @@ const year = new Date().getFullYear();
         <h2 class="label">{s.name}</h2>
         <p class="footer__tagline">{s.tagline}</p>
       </div>
-      <nav class="footer__col" aria-label="Footer">
-        <h2 class="label">Explore</h2>
+      <nav class="footer__col" aria-label="Rodapé">
+        <h2 class="label">Navegue</h2>
         <ul>
           {s.nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
         </ul>
       </nav>
       <div class="footer__col">
-        <h2 class="label">Contact</h2>
+        <h2 class="label">Contato</h2>
         <ul>
           <li><a href={`tel:${s.contact.phoneHref}`}>{s.contact.phone}</a></li>
-          <li><a href={mailto("Enquiry from the website")}>{s.contact.email}</a></li>
+          <li><a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href={mailto("Contato pelo site")}>{s.contact.email}</a></li>
           {socialLinks().map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.label}</a></li>)}
         </ul>
       </div>
       <div class="footer__col">
-        <h2 class="label">Friday pop-up</h2>
-        <p>{DAYS[s.popup.weekday]}s, {popupTimes()}<br />{s.popup.place}</p>
-        <a class="link-line" href="/pop-up/">How to find us</a>
+        <h2 class="label">Rodízio</h2>
+        <p>Toda {DAYS[s.popup.weekday]}, {popupTimes()}<br />{s.popup.place}</p>
+        <a class="link-line" href="/rodizio/">Como chegar</a>
       </div>
     </div>
 
     <p class="footer__name" aria-hidden="true">{s.name}</p>
 
     <div class="footer__bottom">
-      <span>© {year} {s.footer.copyright}. All rights reserved.</span>
-      <a href="/privacy/" class="link-line">Privacy &amp; cookies</a>
+      <span>Site modelo ({year}): marca, cardápio, preços e contatos fictícios. Fotos do Unsplash.</span>
+      <a href="/privacidade/" class="link-line">Privacidade e cookies</a>
     </div>
   </div>
 </footer>

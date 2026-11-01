@@ -30,7 +30,7 @@ const base = widths[Math.min(1, widths.length - 1)];
     />
   </div>
 ) : (
-  <div class:list={['ph ph--empty', cls]} style={`aspect-ratio:${ratio}`} role="img" aria-label={`Photo to come: ${photo.alt}`} data-reveal={reveal || undefined}>
-    <span class="ph__caption" aria-hidden="true"><span class="ph__tag">Photo</span>{photo.alt}</span>
+  <div class:list={['ph ph--empty', cls]} style={`aspect-ratio:${ratio}`} role="img" aria-label={`Foto a definir: ${photo.alt}`} data-reveal={reveal || undefined}>
+    <span class="ph__caption" aria-hidden="true"><span class="ph__tag">Foto</span>{photo.alt}</span>
   </div>
 )}

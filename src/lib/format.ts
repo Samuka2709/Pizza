@@ -1,26 +1,26 @@
 import { site } from '../data/site';
 
-const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0, maximumFractionDigits: 0 });
-const gbpPence = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-/** £10 for whole pounds, £5.50 otherwise */
-export const price = (v: number) => (Number.isInteger(v) ? gbp : gbpPence).format(v);
+/** R$ 54,00 */
+export const price = (v: number) => brl.format(v);
 
-export const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const DAYS = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
 
-/** "17:00" → "5pm", "17:30" → "5.30pm" (British style) */
+/** "19:00" → "19h", "19:30" → "19h30" */
 export function hourLabel(t: string) {
   const [h, m] = t.split(':');
-  const hh = Number(h) % 24;
-  const suffix = hh < 12 ? 'am' : 'pm';
-  const h12 = hh % 12 === 0 ? 12 : hh % 12;
-  return m === '00' ? `${h12}${suffix}` : `${h12}.${m}${suffix}`;
+  return m === '00' ? `${Number(h)}h` : `${Number(h)}h${m}`;
 }
 
-export const popupTimes = () => `${hourLabel(site.popup.open)} to ${hourLabel(site.popup.close)}`;
+export const popupTimes = () => `das ${hourLabel(site.popup.open)} às ${hourLabel(site.popup.close)}`;
 
 export const mailto = (subject?: string) =>
   `mailto:${site.contact.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}`;
+
+export function whatsappLink(message = `Olá! Quero fazer um pedido na ${site.name}.`) {
+  return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+}
 
 export const socialLinks = () =>
   (Object.entries(site.contact.social) as [string, string][])

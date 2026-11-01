@@ -42,10 +42,10 @@ const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
   <circle cx="930" cy="330" r="380" fill="#c98b4a" fill-opacity=".14"/>
   ${pizza(930, 330, 280)}
   <rect x="80" y="104" width="10" height="10" rx="5" fill="#b7321d"/>
-  <text x="104" y="114" font-family="Arial, sans-serif" font-weight="700" font-size="16" letter-spacing="3" fill="#b7321d">PIZZA CATERING · ${s.city.toUpperCase()}</text>
+  <text x="104" y="114" font-family="Arial, sans-serif" font-weight="700" font-size="16" letter-spacing="3" fill="#b7321d">PIZZARIA ARTESANAL · ${s.city.toUpperCase()}</text>
   ${textPath(regular, s.name, 72, 330, 170, '#241b16')}
-  ${textPath(italic, 'Weddings, parties, events.', 80, 420, 44, '#5f5148')}
-  ${textPath(italic, 'Fridays in Stanmore.', 80, 474, 44, '#5f5148')}
+  ${textPath(italic, 'Delivery, salão e festas.', 80, 420, 44, '#5f5148')}
+  ${textPath(italic, 'Rodízio toda sexta.', 80, 474, 44, '#5f5148')}
   <rect x="0" y="606" width="1200" height="24" fill="#b7321d"/>
 </svg>`;
 await sharp(Buffer.from(og)).jpeg({ quality: 84, mozjpeg: true }).toFile(path.join(pub, 'og.jpg'));

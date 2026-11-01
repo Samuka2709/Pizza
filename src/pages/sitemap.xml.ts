@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-const pages = ['/', '/menu/', '/events/', '/our-story/', '/pop-up/', '/contact/', '/privacy/'];
+const pages = ['/', '/cardapio/', '/eventos/', '/nossa-historia/', '/rodizio/', '/contato/', '/privacidade/'];
 
 export const GET: APIRoute = ({ site }) => {
   const origin = (site?.href ?? '').replace(/\/$/, '');

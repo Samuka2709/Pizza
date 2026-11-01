@@ -7,10 +7,10 @@ import Icon from '../../components/Icon.astro';
 import { site as s } from '../../data/site';
 const st = s.story;
 ---
-<Base title="Our Story" path="/our-story/" description={st.lead}>
-  <PageHero label="Our story" title={st.title} lead={st.lead} />
+<Base title="Nossa história" path="/nossa-historia/" description={st.lead}>
+  <PageHero label="Nossa história" title={st.title} lead={st.lead} />
 
-  <section class="section section--tight" aria-label="The story">
+  <section class="section section--tight" aria-label="A história">
     <div class="container story__grid">
       <div class="story__photos">
         <div class="story__photo story__photo--a" data-parallax="-8">
@@ -33,8 +33,8 @@ const st = s.story;
   <section class="section section--paper" aria-labelledby="values-title">
     <div class="container">
       <header class="section-head">
-        <SectionLabel num="01" text="What we care about" />
-        <h2 class="display h2 reveal-words" id="values-title" data-split-auto>Three things we never rush.</h2>
+        <SectionLabel num="01" text="O que importa para nós" />
+        <h2 class="display h2 reveal-words" id="values-title" data-split-auto>Três coisas que levamos a sério.</h2>
       </header>
       <ol class="steps steps--3">
         {st.values.map((v, i) => (
@@ -46,7 +46,7 @@ const st = s.story;
         ))}
       </ol>
       <p class="section-foot" data-reveal="fade">
-        <a class="btn btn--primary" href="/events/">Pizza for your event <Icon name="arrow" class="btn__arrow" /></a>
+        <a class="btn btn--primary" href="/eventos/">Pizza para a sua festa <Icon name="arrow" class="btn__arrow" /></a>
       </p>
     </div>
   </section>

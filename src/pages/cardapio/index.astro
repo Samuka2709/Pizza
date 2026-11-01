@@ -6,9 +6,9 @@ import Icon from '../../components/Icon.astro';
 import Decor from '../../components/Decor.astro';
 import { site as s } from '../../data/site';
 ---
-<Base title="Menu" path="/menu/" description={`The ${s.name} menu: Neapolitan-style pizzas, desserts and full dietary and allergen information.`}>
-  <PageHero label="Menu" title="Pizzas, a few sweet things, nothing complicated." lead="The same menu we cook at events and at our Friday pop-up. Event menus can be tailored to your guests." />
-  <section class="section section--tight menu-section" aria-label="Menu">
+<Base title="Cardápio" path="/cardapio/" description={`Cardápio da ${s.name}: pizzas salgadas e doces, bordas recheadas, bebidas e alergênicos.`}>
+  <PageHero label="Cardápio" title="Pizza salgada, pizza doce e borda recheada." lead="O mesmo cardápio do salão, do delivery e do rodízio. Peça pelo WhatsApp ou chame a gente para a sua festa." />
+  <section class="section section--tight menu-section" aria-label="Cardápio">
     <Decor items={[
       { x: 96, y: 22, size: 90, speed: 0.6 },
       { x: 2, y: 34, size: 40, speed: -0.6 },
@@ -19,8 +19,8 @@ import { site as s } from '../../data/site';
     <div class="container">
       <Menu />
       <div class="menu-cta" data-reveal="fade">
-        <p>Want this at your event?</p>
-        <a class="btn btn--primary" href="/contact/#quote" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
+        <p>Quer essas pizzas na sua festa?</p>
+        <a class="btn btn--primary" href="/contato/#orcamento" data-magnetic>Pedir orçamento <Icon name="arrow" class="btn__arrow" /></a>
       </div>
     </div>
   </section>

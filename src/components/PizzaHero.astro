@@ -1,6 +1,6 @@
 ---
 import { site as s } from '../data/site';
-import { DAYS, popupTimes } from '../lib/format';
+import { DAYS, popupTimes, whatsappLink } from '../lib/format';
 import Icon from './Icon.astro';
 const words = (t: string) => t.split(' ');
 ---
@@ -26,7 +26,7 @@ const words = (t: string) => t.split(' ');
     <button class="hero__pause" type="button" aria-pressed="false" data-hero-pause hidden>
       <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-pause><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
       <svg viewBox="0 0 24 24" aria-hidden="true" data-icon-play hidden><path d="M8 5.5v13l11-6.5z" /></svg>
-      <span class="sr-only" data-pause-label>Pause the video</span>
+      <span class="sr-only" data-pause-label>Pausar o vídeo</span>
     </button>
 
     <div class="container hero__content">
@@ -38,17 +38,17 @@ const words = (t: string) => t.split(' ');
         {words(s.tagline).map((w, i) => <>{i > 0 && ' '}<span class="mask"><span>{w}</span></span></>)}
       </p>
       <div class="hero__ctas">
-        <a class="btn btn--primary" href="/contact/#quote" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
-        <a class="btn btn--outline" href="/pop-up/">{DAYS[s.popup.weekday]}s in Stanmore</a>
+        <a class="btn btn--primary" href={whatsappLink()} target="_blank" rel="noopener" data-magnetic><Icon name="whatsapp" class="btn__arrow" /> Pedir pelo WhatsApp</a>
+        <a class="btn btn--outline" href="/cardapio/">Ver o cardápio</a>
       </div>
       <p class="hero__info">
         <Icon name="clock" class="hero__info-icon" />
-        <span data-next-popup>Pop-up every {DAYS[s.popup.weekday]}, {popupTimes()}</span>
+        <span data-next-popup>Rodízio toda {DAYS[s.popup.weekday]}, {popupTimes()}</span>
       </p>
     </div>
 
     <div class="hero__scroll" aria-hidden="true">
-      Scroll <span class="hero__scroll-line"></span>
+      Role <span class="hero__scroll-line"></span>
     </div>
   </div>
 </section>

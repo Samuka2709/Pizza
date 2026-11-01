@@ -1,6 +1,7 @@
 ---
 import { site as s } from '../data/site';
 import Icon from './Icon.astro';
+import { whatsappLink } from '../lib/format';
 interface Props {
   path: string;
 }
@@ -9,21 +10,21 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
 ---
 <header class="header" data-header>
   <div class="container header__inner">
-    <a href="/" class="brand" aria-label={`${s.name}, home`}>
+    <a href="/" class="brand" aria-label={`${s.name}, início`}>
       <span class="brand__mark" aria-hidden="true"></span>{s.name}
     </a>
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" aria-label="Principal">
       <ul>
         {s.nav.map((item) => <li><a href={item.href} aria-current={current(item.href)}>{item.label}</a></li>)}
       </ul>
     </nav>
     <div class="header__actions">
-      <a class="btn btn--primary btn--sm header__cta" href="/contact/#quote" data-magnetic>
-        Get a quote <Icon name="arrow" class="btn__arrow" />
+      <a class="btn btn--primary btn--sm header__cta" href={whatsappLink()} target="_blank" rel="noopener" data-magnetic>
+        <Icon name="whatsapp" class="btn__arrow" /> Peça agora
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-open>
         <span class="menu-toggle__lines" aria-hidden="true"></span>
-        <span class="sr-only">Open menu</span>
+        <span class="sr-only">Abrir menu</span>
       </button>
     </div>
   </div>
@@ -32,11 +33,11 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
 <div class="mobile-menu" id="menu-mobile" role="dialog" aria-modal="true" aria-label="Menu" data-menu inert>
   <button class="menu-close" type="button" data-menu-close>
     <Icon name="close" />
-    <span class="sr-only">Close menu</span>
+    <span class="sr-only">Fechar menu</span>
   </button>
-  <nav aria-label="Mobile">
+  <nav aria-label="Menu do celular">
     <ul class="mobile-menu__list">
-      {[{ label: 'Home', href: '/' }, ...s.nav].map((item, i) => (
+      {[{ label: 'Início', href: '/' }, ...s.nav].map((item, i) => (
         <li class="mobile-menu__item">
           <a href={item.href} style={`transition-delay:${80 + i * 50}ms`} data-menu-link aria-current={item.href === '/' ? (path === '/' ? 'page' : undefined) : current(item.href)}>
             <span class="label__num">{String(i + 1).padStart(2, '0')}</span>
@@ -47,7 +48,7 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
     </ul>
   </nav>
   <div class="mobile-menu__foot">
-    <a class="btn btn--primary btn--block" href="/contact/#quote">Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
-    <a class="btn btn--outline btn--block" href={`tel:${s.contact.phoneHref}`}><Icon name="phone" class="btn__arrow" /> Call {s.contact.phone}</a>
+    <a class="btn btn--primary btn--block" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" class="btn__arrow" /> Pedir pelo WhatsApp</a>
+    <a class="btn btn--outline btn--block" href={`tel:${s.contact.phoneHref}`}><Icon name="phone" class="btn__arrow" /> Ligar {s.contact.phone}</a>
   </div>
 </div>

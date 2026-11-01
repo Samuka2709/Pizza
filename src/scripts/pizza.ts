@@ -86,7 +86,7 @@ export function initPizza(opts: { reduced: boolean }) {
       pauseBtn.setAttribute('aria-pressed', String(paused));
       iconPause.toggleAttribute('hidden', paused);
       iconPlay.toggleAttribute('hidden', !paused);
-      label.textContent = paused ? 'Play the video' : 'Pause the video';
+      label.textContent = paused ? 'Tocar o vídeo' : 'Pausar o vídeo';
       if (paused) stop();
       else start();
     });

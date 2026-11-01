@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { site as s } from '../../data/site';
+---
+<Base title="Privacidade e cookies" path="/privacidade/" description={`Como a ${s.name} usa seus dados e cookies.`}>
+  <PageHero label="Privacidade e cookies" title="Aviso de privacidade" lead="Modelo de texto para o site de demonstração. O texto final deve ser revisado pela empresa antes de publicar." />
+  <section class="section section--tight">
+    <div class="container prose">
+      <h2>Quem somos</h2>
+      <p>A {s.footer.copyright} ("nós") é responsável por este site. Contato: <a href={`mailto:${s.contact.email}`}>{s.contact.email}</a>.</p>
+      <h2>Quais dados coletamos</h2>
+      <p>Quando você envia o formulário de orçamento, recebemos nome, e-mail, telefone, data, local, tipo de evento, número de convidados e sua mensagem. Usamos esses dados só para responder ao pedido e, se você fechar a festa, para organizá-la.</p>
+      <h2>Por quanto tempo guardamos</h2>
+      <p>Pedidos que não viram festa são apagados depois de 12 meses. Registros de festas fechadas ficam guardados pelo tempo exigido pela lei fiscal.</p>
+      <h2>Cookies</h2>
+      <p>Este site usa só cookies essenciais ou armazenamento local, por exemplo para lembrar que você fechou o aviso de cookies. O mapa é do Google e só carrega quando você pede; nesse momento o Google pode usar os próprios cookies.</p>
+      <h2>Seus direitos (LGPD)</h2>
+      <p>Você pode pedir para ver, corrigir ou apagar seus dados a qualquer momento pelo nosso e-mail. Também pode reclamar à Autoridade Nacional de Proteção de Dados (gov.br/anpd).</p>
+    </div>
+  </section>
+</Base>

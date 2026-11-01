@@ -11,14 +11,14 @@ const { linkTo = 'events' } = Astro.props;
 <ul class="events">
   {s.events.types.map((e, i) => (
     <li class="event" id={linkTo === 'quote' ? e.id : undefined} data-reveal="fade">
-      <a class="event__link" href={linkTo === 'quote' ? `/contact/?event=${e.id}#quote` : `/events/#${e.id}`} data-cursor={linkTo === 'quote' ? 'Quote' : 'More'}>
+      <a class="event__link" href={linkTo === 'quote' ? `/contato/?evento=${e.id}#orcamento` : `/eventos/#${e.id}`} data-cursor={linkTo === 'quote' ? 'Orçar' : 'Ver mais'}>
         <div class="event__media">
           <Photo photo={e.photo} ratio={4 / 5} widths={[360, 540, 720]} sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 80vw" reveal={false} />
         </div>
         <span class="event__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
         <h3 class="event__name">{e.name}</h3>
         <p class="event__text">{e.text}</p>
-        <span class="event__cta">{linkTo === 'quote' ? `Quote for ${e.name.toLowerCase()}` : 'Find out more'} <Icon name="arrow" class="btn__arrow" /></span>
+        <span class="event__cta">{linkTo === 'quote' ? `Orçamento para ${e.name.toLowerCase()}` : 'Saiba mais'} <Icon name="arrow" class="btn__arrow" /></span>
       </a>
     </li>
   ))}

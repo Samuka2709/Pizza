@@ -3,7 +3,7 @@ import { site as s } from '../data/site';
 import Icon from './Icon.astro';
 const items = s.marquee;
 ---
-<div class="marquee" role="region" aria-label="What we cater for">
+<div class="marquee" role="region" aria-label="O que fazemos">
   <p class="sr-only">{items.join(', ')}.</p>
   <div class="marquee__track" aria-hidden="true">
     {[0, 1].map(() => (

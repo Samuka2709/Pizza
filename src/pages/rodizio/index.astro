@@ -8,36 +8,36 @@ import Icon from '../../components/Icon.astro';
 import { site as s } from '../../data/site';
 import { DAYS, popupTimes, socialLinks } from '../../lib/format';
 const p = s.popup;
-const icons = { 'By Tube': 'train', 'By bus': 'pin', 'By car': 'pin' } as const;
+const icons = { 'De metrô': 'train', 'De ônibus': 'pin', 'De carro': 'pin' } as const;
 ---
-<Base title="Community & Friday Pop-up in Stanmore" path="/pop-up/" description={`${s.name} pop-up every ${DAYS[p.weekday]} in Stanmore, ${popupTimes()}. Times, location and how to get there.`}>
-  <PageHero label="Community & pop-up" title={p.title} lead={p.lead}>
+<Base title="Rodízio de sexta" path="/rodizio/" description={`Rodízio de pizza toda ${DAYS[p.weekday]}, ${popupTimes()}. Horário, endereço e como chegar.`}>
+  <PageHero label="Rodízio" title={p.title} lead={p.lead}>
     <p class="popup-now" data-next-popup-long aria-live="polite"></p>
   </PageHero>
 
   <section class="section section--tight" aria-labelledby="when-title">
     <div class="container visit__grid">
       <div>
-        <h2 class="sr-only" id="when-title">When and where</h2>
+        <h2 class="sr-only" id="when-title">Quando e onde</h2>
         <div class="visit__block" data-reveal="fade">
-          <h3 class="label">When</h3>
-          <p class="visit__big">Every {DAYS[p.weekday]}<br />{popupTimes()}</p>
+          <h3 class="label">Quando</h3>
+          <p class="visit__big">Toda {DAYS[p.weekday]}<br />{popupTimes()}</p>
         </div>
         <div class="visit__block" data-reveal="fade">
-          <h3 class="label">Where</h3>
+          <h3 class="label">Onde</h3>
           <address class="visit__address">{p.addressLines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</address>
         </div>
         <div class="visit__block" data-reveal="fade">
-          <h3 class="label">Good to know</h3>
+          <h3 class="label">Bom saber</h3>
           <ul class="ticks">{p.notes.map((n) => <li><Icon name="check" />{n}</li>)}</ul>
         </div>
         <div class="visit__ctas" data-reveal="fade">
-          <a class="btn btn--primary" href={p.mapsUrl} target="_blank" rel="noopener">Get directions <Icon name="arrow" class="btn__arrow" /></a>
-          {socialLinks()[0] && <a class="btn btn--outline" href={socialLinks()[0].url} target="_blank" rel="noopener"><Icon name="instagram" class="btn__arrow" /> Weekly specials</a>}
+          <a class="btn btn--primary" href={p.mapsUrl} target="_blank" rel="noopener">Como chegar <Icon name="arrow" class="btn__arrow" /></a>
+          {socialLinks()[0] && <a class="btn btn--outline" href={socialLinks()[0].url} target="_blank" rel="noopener"><Icon name="instagram" class="btn__arrow" /> Sabores da semana</a>}
         </div>
       </div>
       <div data-reveal="fade">
-        <MapEmbed src={p.mapsEmbed} title={`Map of the Friday pop-up: ${p.place}`} link={p.mapsUrl} />
+        <MapEmbed src={p.mapsEmbed} title={`Mapa do rodízio: ${p.place}`} link={p.mapsUrl} />
       </div>
     </div>
   </section>
@@ -45,8 +45,8 @@ const icons = { 'By Tube': 'train', 'By bus': 'pin', 'By car': 'pin' } as const;
   <section class="section section--paper" aria-labelledby="getting-title">
     <div class="container">
       <header class="section-head">
-        <SectionLabel num="01" text="Getting there" />
-        <h2 class="display h2 reveal-words" id="getting-title" data-split-auto>Easy to reach from all over north-west London.</h2>
+        <SectionLabel num="01" text="Como chegar" />
+        <h2 class="display h2 reveal-words" id="getting-title" data-split-auto>Fácil de chegar, de qualquer jeito.</h2>
       </header>
       <ul class="steps steps--3">
         {p.gettingThere.map((g) => (
@@ -66,10 +66,10 @@ const icons = { 'By Tube': 'train', 'By bus': 'pin', 'By car': 'pin' } as const;
         <Photo photo={p.photo} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 40vw, 100vw" />
       </div>
       <div>
-        <SectionLabel num="02" text="Community" />
-        <h2 class="display h2 reveal-words" id="community-title" data-split-auto>A Friday ritual for the neighbourhood.</h2>
-        <p class="lead" data-reveal="fade">Neighbours, families, people on their way home. The pop-up is where most of our event clients first taste our pizza, and where we try out new ideas.</p>
-        <a class="btn btn--outline" href="/events/" data-reveal="fade">Book us for your event <Icon name="arrow" class="btn__arrow" /></a>
+        <SectionLabel num="02" text="Vizinhança" />
+        <h2 class="display h2 reveal-words" id="community-title" data-split-auto>O programa de sexta do bairro.</h2>
+        <p class="lead" data-reveal="fade">Famílias, amigos e quem sai do trabalho com fome. É no rodízio que a gente testa sabores novos antes de colocar no cardápio.</p>
+        <a class="btn btn--outline" href="/eventos/" data-reveal="fade">Pizza para a sua festa <Icon name="arrow" class="btn__arrow" /></a>
       </div>
     </div>
   </section>

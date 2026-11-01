@@ -1,24 +1,24 @@
 /**
- * Single content file for the whole site.
- * Copy, contact details, menu, events, FAQ and photos all come from here,
- * so the client (or whoever maintains the site) only edits this file.
+ * Arquivo único de conteúdo do site.
+ * Textos, contatos, cardápio, eventos, perguntas frequentes e fotos vêm todos daqui:
+ * para adaptar o site a um cliente, edite só este arquivo.
  *
- * Values marked // DEMO are sample content for the design mock-up.
- * Replace them with Jiani's real details before anything goes live.
+ * Este é um SITE MODELO: marca, endereço, telefone, preços e textos marcados com
+ * // EXEMPLO são fictícios e precisam ser trocados pelos dados reais do cliente.
  *
- * Photos: free Unsplash photos used as illustration for the mock-up (not Jiani's own).
- * Swap the ID for another Unsplash photo (the part after "photo-"), or leave `id`
- * empty to show a labelled placeholder. For the client's own photos, adapt `src/lib/img.ts`.
+ * Fotos: fotos gratuitas do Unsplash usadas como ilustração (não são do cliente).
+ * Troque o ID por outra foto do Unsplash (a parte depois de "photo-"), ou deixe `id`
+ * vazio para mostrar um espaço reservado com legenda. Para fotos próprias, adapte `src/lib/img.ts`.
  */
 
 export interface Photo {
-  /** Unsplash photo ID. Empty = labelled placeholder */
+  /** ID da foto no Unsplash. Vazio = espaço reservado */
   id: string;
-  /** Descriptive alt text (also used as the placeholder caption) */
+  /** Texto alternativo descritivo (também vira a legenda do espaço reservado) */
   alt: string;
 }
 
-/** UK dietary markers shown on the menu */
+/** Marcadores de dieta mostrados no cardápio */
 export type Diet = 'V' | 'VG' | 'GF' | 'N';
 
 export interface MenuItem {
@@ -26,10 +26,9 @@ export interface MenuItem {
   description: string;
   price: number;
   diet?: Diet[];
-  /** Allergens from the UK list of 14 */
+  /** Alergênicos (lista da Anvisa) */
   allergens?: string[];
   signature?: boolean;
-  /** Photo shown on the home page favourites */
   photo?: Photo;
 }
 
@@ -37,290 +36,289 @@ export interface MenuGroup {
   id: string;
   label: string;
   note?: string;
-  /** Short story above the list (pizzas) */
+  /** Texto curto acima da lista (pizzas) */
   intro?: { title: string; text: string; facts: string[] };
-  /** Add-ons with price (0 = free swap) */
+  /** Adicionais com preço (0 = troca sem custo) */
   extras?: { name: string; price: number }[];
   items: MenuItem[];
 }
 
 export const site = {
-  name: "Jiani's",
-  tagline: 'Neapolitan-inspired pizza, fired wherever you gather.', // DEMO
-  city: 'London',
-  /** Production domain. Empty = Vercel production URL (mock-up) */
-  siteUrl: '', // DEMO (e.g. 'https://www.jianis.co.uk')
-  timezone: 'Europe/London',
-  priceRange: '££',
+  name: 'Pizzaria', // EXEMPLO (nome do cliente)
+  tagline: 'Massa de longa fermentação, forno quente e borda recheada.', // EXEMPLO
+  city: 'São Paulo', // EXEMPLO
+  /** Domínio do cliente. Vazio = endereço da Vercel */
+  siteUrl: '',
+  timezone: 'America/Sao_Paulo',
+  priceRange: '$$',
 
-  /** Small ribbon that tells visitors this is a design preview. Set to false for launch. */
+  /** Faixa no topo avisando que é um site modelo. Coloque false no site real. */
   mockupNotice: true,
 
   seo: {
-    title: "Jiani's — Neapolitan pizza catering for events in London", // DEMO
+    title: 'Pizzaria · pizzas artesanais, delivery e festas', // EXEMPLO
     description:
-      "Wood-fired Neapolitan-style pizza for weddings, private parties, corporate events, schools and festivals across London. Find us at our Friday pop-up in Stanmore.", // DEMO
+      'Pizzas artesanais no salão, no delivery e em festas: calabresa, portuguesa, frango com catupiry, pepperoni e pizzas doces. Peça pelo WhatsApp.', // EXEMPLO
   },
 
   contact: {
-    phone: '+44 20 0000 0000', // DEMO
-    phoneHref: '+442000000000', // DEMO
-    email: 'hello@example.com', // DEMO
-    /** Social links. Empty string hides the link. */
+    phone: '(11) 0000-0000', // EXEMPLO
+    phoneHref: '+551100000000', // EXEMPLO
+    whatsapp: '5511900000000', // EXEMPLO (só números, com DDI e DDD)
+    email: 'contato@exemplo.com.br', // EXEMPLO
+    /** Redes sociais. Texto vazio esconde o link. */
     social: {
-      instagram: 'https://www.instagram.com/', // DEMO (full profile URL)
-      facebook: 'https://www.facebook.com/', // DEMO
-      tiktok: '', // DEMO
+      instagram: 'https://www.instagram.com/', // EXEMPLO (endereço completo do perfil)
+      facebook: 'https://www.facebook.com/', // EXEMPLO
+      tiktok: '',
     },
-    serviceArea: 'London and the Home Counties', // DEMO
+    serviceArea: 'Zona Oeste de São Paulo e arredores', // EXEMPLO
   },
 
   /**
-   * Quote form. With `endpoint` empty the form runs in demo mode: it validates,
-   * blocks spam and shows the confirmation, but sends nothing.
-   * A Formspree-style endpoint (POST, JSON reply) makes it send for real.
-   * On the WordPress build this becomes WPForms/Fluent Forms + an SMTP plugin.
+   * Formulário de orçamento. Com `endpoint` vazio ele funciona em modo demonstração:
+   * valida, bloqueia spam e mostra a confirmação, mas não envia nada.
+   * Um endpoint no estilo Formspree (POST, resposta JSON) faz o envio de verdade.
    */
   quoteForm: {
     endpoint: '',
-    successTitle: 'Thank you, we have your enquiry.',
-    successText:
-      "We'll reply within one working day with availability and a tailored quote. A copy of your details is on its way to your inbox.", // DEMO
+    successTitle: 'Obrigado, recebemos seu pedido de orçamento.',
+    successText: 'Respondemos em até um dia útil com a disponibilidade e um orçamento sob medida.', // EXEMPLO
   },
 
   nav: [
-    { label: 'Menu', href: '/menu/' },
-    { label: 'Events & Catering', href: '/events/' },
-    { label: 'Our Story', href: '/our-story/' },
-    { label: 'Friday Pop-up', href: '/pop-up/' },
-    { label: 'Contact', href: '/contact/' },
+    { label: 'Cardápio', href: '/cardapio/' },
+    { label: 'Festas e eventos', href: '/eventos/' },
+    { label: 'Nossa história', href: '/nossa-historia/' },
+    { label: 'Rodízio', href: '/rodizio/' },
+    { label: 'Contato', href: '/contato/' },
   ],
 
   /* ------------------------------------------------------------------------
-     Home
+     Início
      ------------------------------------------------------------------------ */
   hero: {
-    eyebrow: 'Neapolitan-inspired pizza · London', // DEMO
+    eyebrow: 'Pizzaria artesanal · delivery e salão', // EXEMPLO
   },
 
-  marquee: ['Weddings', 'Private parties', 'Corporate events', 'Schools', 'Festivals', 'Fridays in Stanmore'],
+  marquee: ['Delivery', 'Rodízio de sexta', 'Aniversários', 'Festas em casa', 'Eventos de empresa', 'Borda recheada'],
 
   /**
-   * Brand film slot on the home page. The frame is already in the layout:
-   * add the video file (MP4, 16:9) and a poster photo and it plays here.
+   * Espaço para o vídeo da marca na página inicial. O quadro já está no layout:
+   * coloque o arquivo de vídeo (MP4, 16:9) e uma foto de capa e ele aparece aqui.
    */
   film: {
-    src: '', // e.g. '/video/jianis-brand-film.mp4'
-    poster: { id: '1622880833523-7cf1c0bd4296', alt: 'Pizza blistering in a wood-fired oven, flames curling over the dome' } as Photo,
-    title: 'Pizza that turns up and turns it on.', // DEMO
-    text: 'A short film about the oven, the dough and the people around it. Coming soon.', // DEMO
+    src: '',
+    poster: { id: '1622880833523-7cf1c0bd4296', alt: 'Pizza assando no forno a lenha, com as chamas por cima' } as Photo,
+    title: 'Do forno direto para a sua mesa.', // EXEMPLO
+    text: 'Um vídeo curto sobre o forno, a massa e quem faz cada pizza. Em breve.', // EXEMPLO
   },
 
   intro: {
-    label: 'What we do',
-    title: 'We bring the oven, the dough and the theatre to your event.', // DEMO
-    text: 'Pizza made in front of your guests, the way it is made in Naples: soft, blistered and ready in minutes. From a garden party for thirty to a festival field, the founder is at the oven.', // DEMO
+    label: 'O que fazemos',
+    title: 'Pizza bem recheada, borda crocante e entrega rápida.', // EXEMPLO
+    text: 'Massa que descansa por 48 horas, molho de tomate da casa e muito queijo. Peça no delivery, venha ao salão ou leve a pizzaria para a sua festa.', // EXEMPLO
   },
 
   /* ------------------------------------------------------------------------
-     Events & Catering
+     Festas e eventos
      ------------------------------------------------------------------------ */
   events: {
-    title: 'Pizza for the days people remember.', // DEMO
-    lead: 'Tell us the date, the place and roughly how many guests. We will come back with a menu and a fixed quote.', // DEMO
+    title: 'Pizza para a sua festa, do jeito que você quer.', // EXEMPLO
+    lead: 'Conte a data, o local e quantas pessoas. Respondemos com o cardápio e um orçamento fechado.', // EXEMPLO
     types: [
       {
-        id: 'weddings',
-        name: 'Weddings',
-        text: 'Evening food that gets everyone back on their feet. Served from the oven or passed around as the party goes on.', // DEMO
-        photo: { id: '1696263078099-ad603b242f90', alt: 'Bride and groom sharing a slice of pizza' },
+        id: 'aniversarios',
+        name: 'Aniversários',
+        text: 'Rodízio de pizza em casa ou no salão de festas. Montamos o forno e servimos à vontade.', // EXEMPLO
+        photo: { id: '1637270057940-921ced86faee', alt: 'Amigos em volta de uma mesa ao ar livre cheia de pizzas' },
       },
       {
-        id: 'private-parties',
-        name: 'Private parties',
-        text: 'Birthdays, anniversaries and garden gatherings. We set up, cook to order and leave the garden as we found it.', // DEMO
-        photo: { id: '1637270057940-921ced86faee', alt: 'Friends around an outdoor table of freshly made pizzas' },
+        id: 'casamentos',
+        name: 'Casamentos',
+        text: 'Pizza na madrugada, quando a pista ainda está cheia. Um sucesso garantido com os convidados.', // EXEMPLO
+        photo: { id: '1696263078099-ad603b242f90', alt: 'Noivos dividindo uma fatia de pizza' },
       },
       {
-        id: 'corporate',
-        name: 'Corporate events',
-        text: 'Team days, launches and office parties, with clear invoicing and timings that fit your agenda.', // DEMO
-        photo: { id: '1639744210676-58da2cbee3d8', alt: 'A slice being lifted from a pizza next to a laptop' },
+        id: 'empresas',
+        name: 'Empresas',
+        text: 'Confraternizações, happy hour e lançamentos, com nota fiscal e horário combinado.', // EXEMPLO
+        photo: { id: '1639744210676-58da2cbee3d8', alt: 'Fatia de pizza sendo servida ao lado de um notebook' },
       },
       {
-        id: 'schools',
-        name: 'Schools',
-        text: 'Summer fairs, leavers’ days and staff events. Simple menus that children love and parents trust.', // DEMO
-        photo: { id: '1598610089882-eddd72f7a039', alt: 'Two girls sharing a pizza on a picnic blanket' },
+        id: 'escolas',
+        name: 'Escolas',
+        text: 'Festas juninas, formaturas e eventos da escola, com cardápio que a criançada adora.', // EXEMPLO
+        photo: { id: '1598610089882-eddd72f7a039', alt: 'Duas meninas dividindo uma pizza num piquenique' },
       },
       {
-        id: 'festivals',
-        name: 'Festivals',
-        text: 'High-volume service with a compact footprint. We can trade or be booked as a paid-for food option.', // DEMO
-        photo: { id: '1761281145477-1f40bab1b574', alt: 'Pizza chef with a peel beside a wood-fired oven outdoors' },
+        id: 'condominios',
+        name: 'Condomínios',
+        text: 'Noite da pizza no salão do prédio: levamos tudo e você só chama os vizinhos.', // EXEMPLO
+        photo: { id: '1516697073-419b2bd079db', alt: 'Duas pizzas em caixas de papelão sobre a mesa' },
       },
     ] as { id: string; name: string; text: string; photo: Photo }[],
     steps: [
-      { title: 'Tell us about it', text: 'Send the quote form with your date, location and number of guests.' }, // DEMO
-      { title: 'Your menu and quote', text: 'We suggest a menu for your crowd and send a fixed price, with no hidden extras.' }, // DEMO
-      { title: 'We fire up', text: 'We arrive early, set up the oven and cook to order for the agreed service time.' }, // DEMO
-      { title: 'We leave it clean', text: 'We pack down and take everything with us. You just enjoy the evening.' }, // DEMO
+      { title: 'Conte sobre a festa', text: 'Envie o formulário com a data, o local e o número de convidados.' }, // EXEMPLO
+      { title: 'Cardápio e orçamento', text: 'Sugerimos os sabores e mandamos um preço fechado, sem surpresas.' }, // EXEMPLO
+      { title: 'A gente chega e assa', text: 'Chegamos antes, montamos o forno e servimos as pizzas quentinhas.' }, // EXEMPLO
+      { title: 'Deixamos tudo limpo', text: 'Desmontamos e levamos tudo. Você só aproveita a festa.' }, // EXEMPLO
     ],
     faq: [
       {
-        q: 'How many guests can you cater for?', // DEMO
-        a: 'From around 30 to several hundred guests. For larger events we bring a second oven and extra hands.', // DEMO
+        q: 'Para quantas pessoas vocês atendem?', // EXEMPLO
+        a: 'A partir de 20 pessoas. Para festas grandes, levamos mais um forno e mais pizzaiolos.', // EXEMPLO
       },
       {
-        q: 'How much space and power do you need?', // DEMO
-        a: 'A flat area of roughly 3 by 3 metres, outdoors or in a well-ventilated space. The oven runs without mains power.', // DEMO
+        q: 'Do que vocês precisam no local?', // EXEMPLO
+        a: 'Um espaço de cerca de 3 por 3 metros, coberto ou ventilado, e uma tomada comum.', // EXEMPLO
       },
       {
-        q: 'Can you cater for vegetarian, vegan and gluten-free guests?', // DEMO
-        a: 'Yes. Every menu includes vegetarian and vegan pizzas, and gluten-free bases can be arranged in advance. Tell us about allergies when you book.', // DEMO
+        q: 'Tem opção vegetariana, vegana e sem glúten?', // EXEMPLO
+        a: 'Sim. Sempre levamos sabores vegetarianos e veganos, e a massa sem glúten pode ser combinada com antecedência.', // EXEMPLO
       },
       {
-        q: 'How far do you travel?', // DEMO
-        a: 'Across London and the Home Counties. Travel further afield is quoted case by case.', // DEMO
+        q: 'Vocês atendem fora da cidade?', // EXEMPLO
+        a: 'Sim, com taxa de deslocamento calculada no orçamento.', // EXEMPLO
       },
       {
-        q: 'How far ahead should we book?', // DEMO
-        a: 'Summer Saturdays go first, so for weddings we suggest booking several months ahead. For smaller events, a few weeks is often enough.', // DEMO
+        q: 'Com quanta antecedência devo reservar?', // EXEMPLO
+        a: 'Sábados disputados, como em dezembro e junho, saem rápido. Reserve com algumas semanas de antecedência.', // EXEMPLO
       },
       {
-        q: 'How do deposits and payment work?', // DEMO
-        a: 'A deposit secures your date and the balance is due shortly before the event. Full terms come with your quote.', // DEMO
+        q: 'Como funciona o pagamento?', // EXEMPLO
+        a: 'Um sinal garante a data e o restante é pago no dia. Aceitamos Pix e cartão.', // EXEMPLO
       },
     ],
   },
 
   /* ------------------------------------------------------------------------
-     Friday pop-up
+     Rodízio de sexta (página "Rodízio")
      ------------------------------------------------------------------------ */
   popup: {
-    title: 'Every Friday in Stanmore.',
-    lead: 'Our weekly pop-up is where you can try the menu without booking an event. Come early, the dough runs out.', // DEMO
-    /** 5 = Friday. Times in Europe/London */
+    title: 'Toda sexta tem rodízio.',
+    lead: 'Pizza à vontade no salão, salgadas e doces, saindo do forno sem parar. Chegue cedo, o salão enche.', // EXEMPLO
+    /** 5 = sexta-feira. Horário de Brasília */
     weekday: 5,
-    open: '17:00', // DEMO
-    close: '21:00', // DEMO
-    place: 'Stanmore Place, London', // from the brief (exact pitch to confirm)
-    addressLines: ['Stanmore Place', 'Stanmore, London HA7'], // from the brief (confirm the exact pitch)
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Stanmore+Place%2C+Stanmore%2C+London', // confirm
-    mapsEmbed: 'https://www.google.com/maps?q=Stanmore+Place,+Stanmore,+London&output=embed', // confirm
+    open: '19:00', // EXEMPLO
+    close: '23:00', // EXEMPLO
+    place: 'Rua de Exemplo, 123', // EXEMPLO
+    addressLines: ['Rua de Exemplo, 123', 'Bairro Exemplo, São Paulo, SP'], // EXEMPLO
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=S%C3%A3o+Paulo%2C+SP', // EXEMPLO
+    mapsEmbed: 'https://www.google.com/maps?q=S%C3%A3o+Paulo,+SP&output=embed', // EXEMPLO
     gettingThere: [
-      { title: 'By Tube', text: 'Stanmore station, at the end of the Jubilee line, is a short walk away.' }, // DEMO (confirm walking time)
-      { title: 'By bus', text: 'Several local routes stop nearby. Check TfL Journey Planner for the best one from you.' }, // DEMO
-      { title: 'By car', text: 'Street and pay-and-display parking nearby. Please check local restrictions.' }, // DEMO
+      { title: 'De metrô', text: 'A estação mais próxima fica a poucos minutos a pé.' }, // EXEMPLO
+      { title: 'De ônibus', text: 'Várias linhas param na avenida ao lado.' }, // EXEMPLO
+      { title: 'De carro', text: 'Estacionamento conveniado na mesma rua.' }, // EXEMPLO
     ],
-    notes: ['Card and contactless accepted', 'Vegetarian and vegan options every week', 'Follow us for weekly specials'], // DEMO
-    photo: { id: '1564936281403-f92f66f89ee0', alt: 'Pizza oven glowing in the evening, fire burning inside' } as Photo,
+    notes: ['Pix, cartão e vale-refeição', 'Sabores vegetarianos e pizzas doces', 'Crianças até 6 anos não pagam'], // EXEMPLO
+    photo: { id: '1564936281403-f92f66f89ee0', alt: 'Forno de pizza aceso à noite, com o fogo dentro' } as Photo,
   },
 
   /* ------------------------------------------------------------------------
-     Our story
+     Nossa história
      ------------------------------------------------------------------------ */
   story: {
-    title: 'A Naples habit, brought home to London.', // DEMO
-    lead: "Jiani's is run by its founder, who is at the oven for almost every event and every Friday.", // DEMO
+    title: 'Uma pizzaria de bairro, feita com capricho.', // EXEMPLO
+    lead: 'Começamos com um forno, uma receita de família e vontade de fazer a pizza que a gente gosta de comer.', // EXEMPLO
     paragraphs: [
-      "The idea came from Naples, where pizza is eaten quickly, folded, standing up, with friends. It is everyday food made with care, and that is what we wanted to share.", // DEMO
-      'We keep the menu short and the dough slow. Simple toppings, good flour and a very hot oven do most of the work; the rest is practice, many thousands of pizzas of it.', // DEMO
-      'Today we cook at weddings, parties, schools and festivals, and every Friday at our pop-up in Stanmore. Same oven, same dough, same founder.', // DEMO
+      'A ideia nasceu nas noites de domingo em família, quando a pizza era o centro da mesa e todo mundo tinha o seu sabor preferido.', // EXEMPLO
+      'Fazemos a massa todos os dias e deixamos descansar por 48 horas, para ela ficar leve e crocante. O molho é da casa e o recheio vai até a borda.', // EXEMPLO
+      'Hoje atendemos no salão, no delivery, em festas e no rodízio de sexta. A receita é a mesma desde o primeiro dia.', // EXEMPLO
     ],
-    quote: 'Good pizza is simple. Making it simple takes years.', // DEMO
-    quoteBy: 'The founder', // DEMO (founder name)
+    quote: 'Pizza boa é a que chega quentinha e faz todo mundo pedir mais uma fatia.', // EXEMPLO
+    quoteBy: 'O fundador', // EXEMPLO
     values: [
-      { title: 'Slow dough', text: 'Rested for a long time so it bakes light and is easy to digest.' }, // DEMO
-      { title: 'Few ingredients', text: 'A short list of toppings, chosen because they taste right together.' }, // DEMO
-      { title: 'Cooked in front of you', text: 'The oven is part of the event. Guests watch every pizza go in and come out.' }, // DEMO
+      { title: 'Massa descansada', text: '48 horas de fermentação para uma massa leve e fácil de digerir.' }, // EXEMPLO
+      { title: 'Recheio generoso', text: 'Ingredientes de verdade, do jeito que o brasileiro gosta: até a borda.' }, // EXEMPLO
+      { title: 'Entrega rápida', text: 'Saiu do forno, saiu para a entrega, em caixa que mantém a pizza quente.' }, // EXEMPLO
     ],
     photos: [
-      { id: '1537734796389-e1fc293cf856', alt: 'Floured hands holding a smooth ball of pizza dough' },
-      { id: '1693307090398-2a6d5cc39c77', alt: 'Pizza on a peel inside the oven, lit by the flames' },
+      { id: '1537734796389-e1fc293cf856', alt: 'Mãos com farinha segurando uma bola de massa de pizza' },
+      { id: '1693307090398-2a6d5cc39c77', alt: 'Pizza na pá dentro do forno, iluminada pelas chamas' },
     ] as Photo[],
   },
 
   /* ------------------------------------------------------------------------
-     Menu (prices in GBP)
+     Cardápio (preços em reais)
      ------------------------------------------------------------------------ */
   menuNote:
-    'Our menu changes with the seasons and the event. Allergen information is a guide only; please tell us about any allergy before ordering.', // DEMO
+    'Informações de alergênicos são uma orientação. Avise sobre qualquer alergia antes de pedir.', // EXEMPLO
   menu: [
     {
       id: 'pizzas',
-      label: 'Pizzas',
-      note: 'Around 11 inches, made to order. Gluten-free bases available on request at events.', // DEMO
+      label: 'Pizzas salgadas',
+      note: 'Pizza grande, 8 fatias. Todas podem vir com borda recheada.', // EXEMPLO
       intro: {
-        title: 'Slow dough, a very hot oven, ninety seconds.', // DEMO
-        text: 'Our dough rests for at least 48 hours, so it bakes light, airy and easy to digest. Each pizza is stretched by hand and fired at around 450°C until the crust puffs up and picks up its leopard spots.', // DEMO
-        facts: ['48h dough', '450°C oven', '90 seconds'], // DEMO
+        title: 'Massa de 48 horas, forno bem quente e recheio até a borda.', // EXEMPLO
+        text: 'Nossa massa descansa por dois dias para ficar leve e crocante. Cada pizza é aberta na hora e assada em forno de pedra.', // EXEMPLO
+        facts: ['Massa de 48h', 'Forno de pedra', '8 fatias'], // EXEMPLO
       },
       extras: [
-        { name: 'Hot honey', price: 1.5 }, // DEMO
-        { name: 'Burrata', price: 3 }, // DEMO
-        { name: 'Nduja', price: 2 }, // DEMO
-        { name: 'Vegan mozzarella', price: 0 }, // DEMO
+        { name: 'Borda de catupiry', price: 12 }, // EXEMPLO
+        { name: 'Borda de cheddar', price: 12 }, // EXEMPLO
+        { name: 'Borda de chocolate', price: 14 }, // EXEMPLO
+        { name: 'Meio a meio', price: 0 }, // EXEMPLO
       ],
       items: [
-        { name: 'Marinara', description: 'Tomato, garlic, oregano, extra virgin olive oil.', price: 8, diet: ['VG'], allergens: ['Gluten'], photo: { id: '1696919539670-1ac9fb7d5964', alt: 'Tomato sauce and basil leaves on a stretched pizza base, close-up' } }, // DEMO
-        { name: 'Margherita', description: 'Tomato, fior di latte, basil, olive oil.', price: 10, diet: ['V'], allergens: ['Gluten', 'Milk'], signature: true, photo: { id: '1574071318508-1cdbab80d002', alt: 'Margherita with basil and a blistered, leopard-spotted crust' } }, // DEMO
-        { name: 'Diavola', description: 'Tomato, fior di latte, spicy salami, chilli oil.', price: 12, allergens: ['Gluten', 'Milk'], photo: { id: '1716237388526-9dfc45d0d5ad', alt: 'Spicy salami pizza with basil and grated cheese' } }, // DEMO
-        { name: 'Funghi e salsiccia', description: 'Fior di latte, roasted mushrooms, fennel sausage, parmesan.', price: 13, allergens: ['Gluten', 'Milk'], photo: { id: '1620374645310-f9d97e733268', alt: 'White pizza with roasted mushrooms on a wooden board' } }, // DEMO
-        { name: 'Nduja e miele', description: 'Tomato, fior di latte, spicy nduja, a drizzle of hot honey.', price: 13, allergens: ['Gluten', 'Milk'], signature: true, photo: { id: '1788272983172-dab082ca5936', alt: 'Wood-fired pizza with spicy salami and melted mozzarella' } }, // DEMO
-        { name: 'Quattro formaggi', description: 'Fior di latte, gorgonzola, parmesan, smoked provola, black pepper.', price: 12, diet: ['V'], allergens: ['Gluten', 'Milk'], photo: { id: '1732223229355-95a1433404bf', alt: 'Golden four-cheese pizza cut into slices on a wooden board' } }, // DEMO
-        { name: 'Verdure', description: 'Tomato, vegan mozzarella, grilled courgette, peppers, olives.', price: 11, diet: ['VG'], allergens: ['Gluten'], photo: { id: '1617470703128-26a0fc9af10f', alt: 'Vegetable pizza with peppers, tomatoes and greens, a slice being lifted' } }, // DEMO
-        { name: 'Pesto e burrata', description: 'Basil pesto, burrata added after the oven, cherry tomatoes.', price: 14, diet: ['V'], allergens: ['Gluten', 'Milk', 'Nuts'], photo: { id: '1788603092393-bfcdfd2257f7', alt: 'Pesto pizza with courgette ribbons, red peppers and a ball of burrata' } }, // DEMO
-      ],
-    },
-    {
-      id: 'desserts',
-      label: 'Desserts',
-      items: [
-        { name: 'Nutella calzoncini', description: 'Little folded doughs filled with Nutella, dusted with sugar.', price: 6, diet: ['V'], allergens: ['Gluten', 'Milk', 'Nuts', 'Soya'] }, // DEMO
-        { name: 'Tiramisù', description: 'Coffee-soaked savoiardi, mascarpone cream, cocoa.', price: 6, diet: ['V'], allergens: ['Gluten', 'Milk', 'Eggs'] }, // DEMO
-        { name: 'Lemon sorbet', description: 'Amalfi-style lemon sorbet.', price: 5, diet: ['VG', 'GF'] }, // DEMO
+        { name: 'Calabresa', description: 'Molho de tomate, mussarela, calabresa fatiada e cebola.', price: 54, allergens: ['Glúten', 'Leite'], signature: true, photo: { id: '1655673654158-9f7285b7d1ea', alt: 'Pizza de calabresa com cebola e tomate' } }, // EXEMPLO
+        { name: 'Marguerita', description: 'Mussarela, rodelas de tomate, manjericão e orégano.', price: 52, diet: ['V'], allergens: ['Glúten', 'Leite'], photo: { id: '1576458088443-04a19bb13da6', alt: 'Pizza com rodelas de tomate, azeitona e orégano' } }, // EXEMPLO
+        { name: 'Portuguesa', description: 'Presunto, ovo, cebola, azeitona, ervilha e mussarela.', price: 62, allergens: ['Glúten', 'Leite', 'Ovos'], signature: true, photo: { id: '1571066811602-716837d681de', alt: 'Pizza portuguesa com ovo, azeitona e presunto' } }, // EXEMPLO
+        { name: 'Frango com catupiry', description: 'Frango desfiado temperado, catupiry e milho.', price: 60, allergens: ['Glúten', 'Leite'], signature: true, photo: { id: '1618213837799-25d5552820d3', alt: 'Pizza de frango com requeijão cremoso e azeitona' } }, // EXEMPLO
+        { name: 'Pepperoni', description: 'Molho de tomate, mussarela e muito pepperoni.', price: 64, allergens: ['Glúten', 'Leite'], photo: { id: '1534308983496-4fabb1a015ee', alt: 'Pizza de pepperoni com mussarela derretida' } }, // EXEMPLO
+        { name: 'Quatro queijos', description: 'Mussarela, provolone, parmesão e catupiry.', price: 60, diet: ['V'], allergens: ['Glúten', 'Leite'], photo: { id: '1604917869287-3ae73c77e227', alt: 'Pizza de quatro queijos dourada' } }, // EXEMPLO
+        { name: 'Toscana', description: 'Linguiça toscana moída, cebola e mussarela.', price: 58, allergens: ['Glúten', 'Leite'], photo: { id: '1750680230007-055ecc622c94', alt: 'Pizza de linguiça numa pá de madeira sobre toalha xadrez' } }, // EXEMPLO
+        { name: 'Picanha com cheddar', description: 'Tiras de picanha, cheddar cremoso e cebola caramelizada.', price: 72, allergens: ['Glúten', 'Leite'], photo: { id: '1694630716997-83f42bf92267', alt: 'Pizza com tiras de carne e pedaços de linguiça' } }, // EXEMPLO
       ],
     },
     {
-      id: 'sides',
-      label: 'Sides & drinks',
+      id: 'doces',
+      label: 'Pizzas doces',
       items: [
-        { name: 'Dough balls', description: 'Garlic and herb butter.', price: 5, diet: ['V'], allergens: ['Gluten', 'Milk'] }, // DEMO
-        { name: 'Rocket and parmesan salad', description: 'Lemon and olive oil dressing.', price: 5, diet: ['V', 'GF'], allergens: ['Milk'] }, // DEMO
-        { name: 'Italian soft drinks', description: 'Lemon, blood orange.', price: 3, diet: ['VG', 'GF'] }, // DEMO
+        { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'], allergens: ['Glúten', 'Leite', 'Soja'] }, // EXEMPLO
+        { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'], allergens: ['Glúten', 'Leite'] }, // EXEMPLO
+        { name: 'Banana com canela', description: 'Banana, açúcar, canela e leite condensado.', price: 44, diet: ['V'], allergens: ['Glúten', 'Leite'] }, // EXEMPLO
+      ],
+    },
+    {
+      id: 'bebidas',
+      label: 'Bebidas e porções',
+      items: [
+        { name: 'Refrigerante 2 litros', description: 'Coca-Cola, Guaraná ou Fanta.', price: 14, diet: ['VG', 'GF'] }, // EXEMPLO
+        { name: 'Suco natural 1 litro', description: 'Laranja, limão ou maracujá.', price: 16, diet: ['VG', 'GF'] }, // EXEMPLO
+        { name: 'Batata frita', description: 'Porção com cheddar e bacon.', price: 32, allergens: ['Leite'] }, // EXEMPLO
       ],
     },
   ] as MenuGroup[],
 
-  /** Highlighted boxes on the menu page */
+  /** Quadros de destaque na página do cardápio */
   menuCallouts: [
-    { title: 'Gluten-free base', text: 'Available for any pizza at events, with a little notice. Prepared in the same kitchen, so not suitable for coeliacs.' }, // DEMO
-    { title: 'Vegan swap', text: 'Any pizza can be made with vegan mozzarella at no extra cost.' }, // DEMO
-    { title: 'Allergies', text: 'Tell us about any allergy before ordering. Full allergen table in the Dietary info tab.' }, // DEMO
+    { title: 'Massa sem glúten', text: 'Disponível para qualquer sabor, sob encomenda. Feita na mesma cozinha, não indicada para celíacos.' }, // EXEMPLO
+    { title: 'Meio a meio', text: 'Escolha dois sabores na mesma pizza, sem custo a mais. Vale o preço do sabor mais caro.' }, // EXEMPLO
+    { title: 'Alergias', text: 'Avise sobre qualquer alergia antes de pedir. A tabela completa está na aba Alergênicos.' }, // EXEMPLO
   ],
 
   dietKey: [
-    { code: 'V', label: 'Vegetarian' },
-    { code: 'VG', label: 'Vegan' },
-    { code: 'GF', label: 'Gluten-free' },
-    { code: 'N', label: 'Contains nuts' },
+    { code: 'V', label: 'Vegetariana' },
+    { code: 'VG', label: 'Vegana' },
+    { code: 'GF', label: 'Sem glúten' },
+    { code: 'N', label: 'Contém castanhas' },
   ] as { code: Diet; label: string }[],
 
   /* ------------------------------------------------------------------------
-     Gallery and shared photos
+     Galeria e fotos
      ------------------------------------------------------------------------ */
   gallery: [
-    { id: '1604068549290-dea0e4a305ca', alt: 'Margherita with basil and torn mozzarella on a wooden peel', span: 'tall' },
-    { id: '1710575326152-4a397c13716d', alt: 'Hands pressing out pizza dough on a floured counter', span: '' },
-    { id: '1689150911817-3e27168ab6a3', alt: 'Pizzas baking on the floor of a stone oven, fire on both sides', span: 'wide' },
-    { id: '1598023696416-0193a0bcd302', alt: 'Pizza with basil leaves and tomato on a wooden board', span: '' },
-    { id: '1636581563748-dcb80f710950', alt: 'Flames rising inside the dark mouth of a brick oven', span: '' },
-    { id: '1600628421055-4d30de868b8f', alt: 'A hand lifting a slice from a pizza topped with rocket', span: '' },
+    { id: '1604382354936-07c5d9983bd3', alt: 'Pizza de linguiça com azeitona e pimentão, vista de cima', span: 'tall' },
+    { id: '1622883618971-97068745dc6c', alt: 'Pessoa segurando uma pizza na caixa de entrega', span: '' },
+    { id: '1516697073-419b2bd079db', alt: 'Duas pizzas em caixas de papelão, prontas para comer', span: 'wide' },
+    { id: '1576458087875-4d52fc51e013', alt: 'Pizza com azeitona e tomate, fatiada', span: '' },
+    { id: '1710575326152-4a397c13716d', alt: 'Mãos abrindo a massa da pizza na bancada', span: '' },
+    { id: '1708649783218-b2b9a8781724', alt: 'Pizza doce coberta de chocolate', span: '' },
   ] as (Photo & { span: '' | 'tall' | 'wide' })[],
 
   footer: {
-    copyright: "Jiani's", // DEMO (legal name)
+    copyright: 'Pizzaria', // EXEMPLO
   },
 };
 

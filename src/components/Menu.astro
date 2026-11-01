@@ -12,17 +12,17 @@ const dietTags = (d: MenuItem) => {
   if (t.has('VG')) t.add('V');
   return [...t].join(' ');
 };
-const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
+const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
 ---
 <div class="tabs" data-tabs>
   <div class="tabs__scroller">
-    <div class="tabs__list" role="tablist" aria-label="Menu sections">
+    <div class="tabs__list" role="tablist" aria-label="Seções do cardápio">
       {s.menu.map((c, i) => (
         <button class="tab" type="button" role="tab" id={`tab-${c.id}`} aria-controls={`panel-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
           {c.label}
         </button>
       ))}
-      <button class="tab" type="button" role="tab" id="tab-dietary" aria-controls="panel-dietary" aria-selected="false" tabindex="-1">Dietary info</button>
+      <button class="tab" type="button" role="tab" id="tab-dietary" aria-controls="panel-dietary" aria-selected="false" tabindex="-1">Alergênicos</button>
       <span class="tabs__indicator" aria-hidden="true"></span>
     </div>
   </div>
@@ -49,10 +49,10 @@ const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
         <>
           <div class="menu-tools">
             <p class="menu-panel__note">{c.note}</p>
-            <div class="chips" role="group" aria-label="Filter pizzas" data-filter>
-              <button class="chip" type="button" aria-pressed="true" data-filter-value="">All</button>
-              <button class="chip" type="button" aria-pressed="false" data-filter-value="V">Vegetarian</button>
-              <button class="chip" type="button" aria-pressed="false" data-filter-value="VG">Vegan</button>
+            <div class="chips" role="group" aria-label="Filtrar pizzas" data-filter>
+              <button class="chip" type="button" aria-pressed="true" data-filter-value="">Todas</button>
+              <button class="chip" type="button" aria-pressed="false" data-filter-value="V">Vegetarianas</button>
+              <button class="chip" type="button" aria-pressed="false" data-filter-value="VG">Veganas</button>
             </div>
           </div>
           <p class="sr-only" aria-live="polite" data-filter-status></p>
@@ -61,7 +61,7 @@ const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
               <li class="pizza-card" data-diet={dietTags(d)} style={`--i:${k};--bg:${swatch(k).bg};--fg:${swatch(k).fg};--line:${swatch(k).line};--tilt:${[-1.2, 0.8, -0.6, 1.1][k % 4]}deg`}>
                 <div class="pizza-card__media">
                   {d.photo && <Photo photo={d.photo} ratio={1} widths={[360, 540, 720]} sizes="(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 100vw" reveal={false} />}
-                  {d.signature && <span class="pizza-card__badge">House favourite</span>}
+                  {d.signature && <span class="pizza-card__badge">Mais pedida</span>}
                 </div>
                 <div class="pizza-card__body">
                   <div class="pizza-card__top">
@@ -79,7 +79,7 @@ const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
 
           {c.extras && (
             <div class="extras">
-              <p class="label">Make it yours</p>
+              <p class="label">Monte do seu jeito</p>
               <ul>
                 {c.extras.map((e) => <li><span>{e.name}</span><span class="extras__price">{extraPrice(e.price)}</span></li>)}
               </ul>
@@ -106,7 +106,7 @@ const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
               <li class:list={['menu-row', { 'menu-row--signature': d.signature }]}>
                 <div class="menu-row__top">
                   <h3 class="menu-row__name">{d.name}</h3>
-                  {d.signature && <span class="tag">House favourite</span>}
+                  {d.signature && <span class="tag">Mais pedida</span>}
                   <span class="menu-row__leader" aria-hidden="true"></span>
                   <p class="price">{price(d.price)}</p>
                 </div>
@@ -125,21 +125,21 @@ const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
   ))}
 
   <div class="menu-panel" role="tabpanel" id="panel-dietary" aria-labelledby="tab-dietary" tabindex="0" hidden>
-    <h2 class="sr-only">Dietary information</h2>
+    <h2 class="sr-only">Informações de alergênicos</h2>
     <p class="menu-panel__note">{s.menuNote}</p>
     <ul class="diet-key">
       {s.dietKey.map((k) => <li><abbr class="diet">{k.code}</abbr> {k.label}</li>)}
     </ul>
     <div class="table-wrap">
       <table class="allergens">
-        <caption class="sr-only">Allergens in each item</caption>
-        <thead><tr><th scope="col">Item</th><th scope="col">Dietary</th><th scope="col">Contains</th></tr></thead>
+        <caption class="sr-only">Alergênicos de cada item</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Dieta</th><th scope="col">Contém</th></tr></thead>
         <tbody>
           {s.menu.flatMap((c) => c.items).map((d) => (
             <tr>
               <th scope="row">{d.name}</th>
               <td>{d.diet?.map(dietLabel).join(', ') || '—'}</td>
-              <td>{d.allergens?.join(', ') || 'None of the 14 major allergens'}</td>
+              <td>{d.allergens?.join(', ') || 'Nenhum dos principais alergênicos'}</td>
             </tr>
           ))}
         </tbody>

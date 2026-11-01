@@ -1,7 +1,7 @@
 ---
 export type IconName =
   | 'arrow' | 'close' | 'prev' | 'next' | 'info' | 'instagram' | 'facebook' | 'tiktok'
-  | 'phone' | 'mail' | 'pin' | 'clock' | 'plus' | 'check' | 'play' | 'slice' | 'train';
+  | 'phone' | 'whatsapp' | 'mail' | 'pin' | 'clock' | 'plus' | 'check' | 'play' | 'slice' | 'train';
 interface Props {
   name: IconName;
   class?: string;
@@ -17,6 +17,7 @@ const { name, class: cls } = Astro.props;
   {name === 'close' && <path d="M5 5l14 14M19 5L5 19" />}
   {name === 'info' && <><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></>}
   {name === 'phone' && <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />}
+  {name === 'whatsapp' && <path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.4-4.3A8.5 8.5 0 1 1 20.5 11.7zM9 8.2c.2-.4.5-.4.8-.4h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.4.7 1 1.4 1.7 1.9.6.4 1 .6 1.3.7.2.1.4 0 .5-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.4.4 0 .3 0 1.2-.6 1.7-.5.5-1.4.8-2.3.6a8.7 8.7 0 0 1-5.6-4.8c-.6-1.2-.7-2.4-.3-3.3z" />}
   {name === 'mail' && <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3.5 6.5l8.5 6.5 8.5-6.5" /></>}
   {name === 'pin' && <><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></>}
   {name === 'clock' && <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>}

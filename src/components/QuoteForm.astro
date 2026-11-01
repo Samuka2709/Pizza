@@ -5,74 +5,74 @@ const types = s.events.types;
 ---
 <form class="form" id="quote-form" novalidate data-quote-form>
   <div class="field">
-    <label for="q-name">Your name <span class="req" aria-hidden="true">*</span></label>
+    <label for="q-name">Seu nome <span class="req" aria-hidden="true">*</span></label>
     <input class="input" id="q-name" name="name" type="text" autocomplete="name" required aria-describedby="q-name-err" />
     <p class="field__error" id="q-name-err"></p>
   </div>
 
   <div class="field field--half">
-    <label for="q-email">Email <span class="req" aria-hidden="true">*</span></label>
+    <label for="q-email">E-mail <span class="req" aria-hidden="true">*</span></label>
     <input class="input" id="q-email" name="email" type="email" autocomplete="email" required aria-describedby="q-email-err" />
     <p class="field__error" id="q-email-err"></p>
   </div>
 
   <div class="field field--half">
-    <label for="q-phone">Phone <span class="req" aria-hidden="true">*</span></label>
-    <input class="input" id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07700 900000" required aria-describedby="q-phone-err" />
+    <label for="q-phone">Telefone ou WhatsApp <span class="req" aria-hidden="true">*</span></label>
+    <input class="input" id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" required aria-describedby="q-phone-err" />
     <p class="field__error" id="q-phone-err"></p>
   </div>
 
   <div class="field field--half">
-    <label for="q-date">Event date <span class="req" aria-hidden="true">*</span></label>
+    <label for="q-date">Data da festa <span class="req" aria-hidden="true">*</span></label>
     <input class="input" id="q-date" name="event_date" type="date" required aria-describedby="q-date-err" />
     <p class="field__error" id="q-date-err"></p>
   </div>
 
   <div class="field field--half">
-    <label for="q-guests">Number of guests <span class="req" aria-hidden="true">*</span></label>
-    <input class="input" id="q-guests" name="guests" type="number" inputmode="numeric" min="10" max="5000" step="1" placeholder="e.g. 80" required aria-describedby="q-guests-err" />
+    <label for="q-guests">Número de convidados <span class="req" aria-hidden="true">*</span></label>
+    <input class="input" id="q-guests" name="guests" type="number" inputmode="numeric" min="10" max="5000" step="1" placeholder="ex.: 40" required aria-describedby="q-guests-err" />
     <p class="field__error" id="q-guests-err"></p>
   </div>
 
   <div class="field field--half">
-    <label for="q-type">Type of event <span class="req" aria-hidden="true">*</span></label>
+    <label for="q-type">Tipo de evento <span class="req" aria-hidden="true">*</span></label>
     <select class="input" id="q-type" name="event_type" required aria-describedby="q-type-err">
-      <option value="">Choose one</option>
+      <option value="">Escolha uma opção</option>
       {types.map((t) => <option value={t.id}>{t.name}</option>)}
-      <option value="other">Something else</option>
+      <option value="outro">Outro</option>
     </select>
     <p class="field__error" id="q-type-err"></p>
   </div>
 
   <div class="field field--half">
-    <label for="q-location">Event location <span class="req" aria-hidden="true">*</span></label>
-    <input class="input" id="q-location" name="location" type="text" autocomplete="postal-code" placeholder="Venue or postcode" required aria-describedby="q-location-err" />
+    <label for="q-location">Local da festa <span class="req" aria-hidden="true">*</span></label>
+    <input class="input" id="q-location" name="location" type="text" autocomplete="postal-code" placeholder="Bairro, cidade ou CEP" required aria-describedby="q-location-err" />
     <p class="field__error" id="q-location-err"></p>
   </div>
 
   <div class="field">
-    <label for="q-message">Tell us about your event</label>
-    <textarea class="input" id="q-message" name="message" rows="4" placeholder="Timings, dietary needs, anything we should know"></textarea>
+    <label for="q-message">Conte mais sobre a festa</label>
+    <textarea class="input" id="q-message" name="message" rows="4" placeholder="Horário, sabores preferidos, restrições alimentares"></textarea>
   </div>
 
   <!-- Spam protection: a hidden field people never fill in, plus a minimum time on the page -->
   <div class="hp" aria-hidden="true">
-    <label for="q-website">Leave this field empty</label>
+    <label for="q-website">Deixe este campo vazio</label>
     <input id="q-website" name="website" type="text" tabindex="-1" autocomplete="off" />
   </div>
 
   <div class="field field--check">
     <input id="q-consent" name="consent" type="checkbox" required aria-describedby="q-consent-err" />
-    <label for="q-consent">I agree that {s.name} may use these details to reply to my enquiry, as described in the <a class="link-line" href="/privacy/">privacy notice</a>. <span class="req" aria-hidden="true">*</span></label>
+    <label for="q-consent">Concordo que a {s.name} use estes dados para responder ao meu pedido, conforme o <a class="link-line" href="/privacidade/">aviso de privacidade</a>. <span class="req" aria-hidden="true">*</span></label>
     <p class="field__error" id="q-consent-err"></p>
   </div>
 
   <div class="form__submit">
     <p class="sr-only" role="status" aria-live="polite" data-form-status></p>
     <button class="btn btn--primary btn--block" type="submit" data-magnetic>
-      <span data-submit-label>Send my enquiry</span> <Icon name="arrow" class="btn__arrow" />
+      <span data-submit-label>Enviar pedido de orçamento</span> <Icon name="arrow" class="btn__arrow" />
     </button>
-    <p class="form__fineprint">We reply within one working day. No payment is taken online.</p>
+    <p class="form__fineprint">Respondemos em até um dia útil. Nenhum pagamento é feito pelo site.</p>
   </div>
 </form>
 
@@ -80,5 +80,5 @@ const types = s.events.types;
   <span class="form-success__icon" aria-hidden="true"><Icon name="check" /></span>
   <h3 class="display h3">{s.quoteForm.successTitle}</h3>
   <p>{s.quoteForm.successText}</p>
-  {!s.quoteForm.endpoint && <p class="form-success__demo">Design preview: in this mock-up nothing is sent. On the live site the enquiry goes to {s.contact.email} by authenticated email (SMTP).</p>}
+  {!s.quoteForm.endpoint && <p class="form-success__demo">Site modelo: aqui nada é enviado. No site real, o pedido chega no e-mail ou no WhatsApp da pizzaria.</p>}
 </div>

@@ -1,79 +1,50 @@
-# Jiani's — home page mock-up and site prototype
+# Pizzaria: site modelo
 
-Design prototype for **Jiani's**, a Neapolitan-inspired pizza caterer in London
-(weddings, private parties, corporate events, schools, festivals, and a Friday pop-up in Stanmore).
-Built with Astro + GSAP + Lenis. Every page is static HTML with real text.
+Site modelo de pizzaria para apresentar a clientes. A marca, o cardápio, os preços, o endereço e os contatos são fictícios, e uma faixa no topo avisa que é um site de demonstração.
 
-> This is the design mock-up for the proposal. The client asked for WordPress on Hostinger,
-> so the approved design is rebuilt in WordPress for launch (see "WordPress build" below).
+Feito com Astro, GSAP e Lenis. Todas as páginas são HTML estático com texto de verdade, rápidas e boas para o Google.
 
-## Pages
+## Páginas
 
-| Page | Path |
+| Página | Endereço |
 | --- | --- |
-| Home | `/` |
-| Menu (pizzas, desserts, dietary/allergen info) | `/menu/` |
-| Events & Catering (event types, how it works, photos, FAQ, quote buttons) | `/events/` |
-| Our Story | `/our-story/` |
-| Community & Friday Pop-up (time, place, getting there, map) | `/pop-up/` |
-| Contact / Book an Event (quote form) | `/contact/` |
-| Privacy & cookies | `/privacy/` |
+| Início | `/` |
+| Cardápio (pizzas salgadas e doces, bebidas, filtro vegetariano/vegano, bordas, alergênicos) | `/cardapio/` |
+| Festas e eventos (tipos de evento, como funciona, fotos, dúvidas, orçamento) | `/eventos/` |
+| Nossa história | `/nossa-historia/` |
+| Rodízio de sexta (horário, endereço, como chegar, mapa) | `/rodizio/` |
+| Contato e orçamento (formulário, WhatsApp, telefone, e-mail) | `/contato/` |
+| Privacidade e cookies (LGPD) | `/privacidade/` |
 
-Plus `sitemap.xml`, `robots.txt` and a 404 page.
+Também tem `sitemap.xml`, `robots.txt` e página 404.
 
-## Editing content
+## Adaptar para um cliente
 
-Everything lives in **`src/data/site.ts`**: copy, contact details, menu, prices, events, FAQ, pop-up times, photos.
-Values marked `// DEMO` are sample content and must be replaced with Jiani's real details.
+Tudo fica em **`src/data/site.ts`**: nome, frase, contatos, WhatsApp, cardápio, preços, eventos, dúvidas, horário do rodízio e fotos.
+Os valores marcados com `// EXEMPLO` são fictícios e precisam ser trocados.
 
-- **Photos**: each photo has an `id` and an `alt`. Empty `id` shows a labelled placeholder saying which photo goes there.
-  An Unsplash ID works for testing; for the client's own photos adapt `src/lib/img.ts`.
-- **Brand video**: set `film.src` (MP4, 16:9) and `film.poster`. The 16:9 frame is already in the home layout.
-- **Quote form**: `quoteForm.endpoint` empty = demo mode (validates, blocks spam, shows the confirmation, sends nothing).
-  A Formspree-style endpoint makes it send for real.
-- **`mockupNotice: true`** shows the "design preview" ribbon and keeps the site out of search engines. Set to `false` for launch.
+- **Nome da marca:** `name` (aparece no topo, no título gigante e no rodapé).
+- **Pedidos:** os botões "Peça agora" abrem o WhatsApp com uma mensagem pronta (`contact.whatsapp`).
+- **Fotos:** cada foto tem `id` (Unsplash) e `alt`. Para fotos do cliente, adapte `src/lib/img.ts`.
+- **Vídeo do topo:** arquivos em `public/video` (MP4 1280 px e 854 px, WebM e as imagens de capa). Mantenha cerca de 1,7 MB no computador e 0,7 MB no celular.
+- **Formulário de orçamento:** com `quoteForm.endpoint` vazio funciona em modo demonstração (valida, bloqueia spam e mostra a confirmação, sem enviar). Com um endpoint estilo Formspree, envia de verdade.
+- **`mockupNotice: true`** mostra a faixa "Site modelo" e tira o site do Google. No site real, mude para `false`.
 
-After changing the name or tagline, regenerate the share image and favicon: `npm run og`.
+Depois de trocar o nome ou a frase, gere de novo a imagem de compartilhamento e o favicon: `npm run og`.
 
-## Animations
+## Animações
 
-- **Main animation (home hero)**: an AI-generated brand video of the sliced pizza turning on its
-  board, steam rising (`public/video`, made with an image-to-video tool from a still photo).
-  Two copies of the clip cross-fade at the loop point so there is no visible jump; scrolling pushes
-  in slightly (`src/scripts/pizza.ts`). Phones get a smaller 854px file. To replace it, export the new
-  clip with ffmpeg to `hero-1280.mp4`, `hero-1280.webm`, `hero-854.mp4` and a poster frame.
-- Titles rise word by word, sections fade in, a few photos have light parallax.
-- Pizza details: slice icons, crust-shaped section edges, a CSS mini Margherita on each favourite, a
-  turning "Every Fri" badge, buttons that fill from the bottom like sauce, event photos that round into
-  a "pizza" on hover, a big pizza on inner page heroes that rolls away on scroll.
-- **Reduced motion**: with "reduce motion" on, the video does not play; its first frame stays as a still photo. If the script fails, all content shows after 4 seconds.
+- **Topo:** vídeo da pizza girando com vapor, em loop sem emenda visível; botão de pausar; aproxima um pouco ao rolar.
+- **Cardápio na home:** baralho de cartões que se abre em leque com a rolagem (computador) ou se passa arrastando (celular).
+- Títulos que sobem palavra por palavra, fotos que se revelam, cartões do cardápio que entram com a rolagem e pizza girando no topo das páginas internas.
+- Quem desativa animações no aparelho vê tudo parado, e os botões continuam funcionando.
 
-## WordPress build (for launch)
-
-Recommended setup on the client's Hostinger account:
-
-- **Theme and builder:** Astra (free) + Elementor, so text, photos and the menu are edited visually
-- **Forms:** WPForms Lite (honeypot + Cloudflare Turnstile, on-screen confirmation, auto-reply)
-- **Email delivery:** WP Mail SMTP connected to the business mailbox
-- **SEO:** Rank Math (local SEO, LocalBusiness schema, sitemap)
-- **Old Wix links:** Redirection plugin (301 redirects)
-- **Speed:** LiteSpeed Cache (Hostinger), WebP images, lazy loading; keep the hero video at or below ~1.7 MB desktop / 0.7 MB mobile
-- **Privacy:** Complianz (cookie notice) + privacy page; Google Maps loads on request
-- **Security and backups:** Hostinger SSL and daily backups, Wordfence, limited login attempts
-
-The scroll animations (menu deck, hero video loop) can be carried over as a small custom script loaded on
-the home page only.
-
-What this prototype does **not** do (launch tasks): real form sending, Wix content migration and redirects,
-keeping the domain and business email, staging and SSL, backups and security, admin access, the how-to-update
-guide and post-launch support. All content marked `// DEMO` and the Unsplash photos are placeholders.
-
-## Commands
+## Comandos
 
 ```
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # outputs dist/
-npm run preview  # serves dist/
-npm run og       # share image + favicon
+npm run build    # gera dist/
+npm run preview  # serve dist/
+npm run og       # imagem de compartilhamento e favicon
 ```

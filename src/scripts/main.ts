@@ -132,7 +132,7 @@ if (watchEl) {
 }
 
 /* --------------------------------------------------------------------------
-   Next Friday pop-up (always in London time)
+   Próximo rodízio (sempre no horário da pizzaria)
    -------------------------------------------------------------------------- */
 function londonNow() {
   const parts = new Intl.DateTimeFormat('en-GB', {
@@ -154,22 +154,20 @@ const toMin = (t: string) => {
 };
 const hourLabel = (t: string) => {
   const [h, m] = t.split(':');
-  const hh = Number(h) % 24;
-  const h12 = hh % 12 === 0 ? 12 : hh % 12;
-  return `${h12}${m === '00' ? '' : `.${m}`}${hh < 12 ? 'am' : 'pm'}`;
+  return m === '00' ? `${Number(h)}h` : `${Number(h)}h${m}`;
 };
 
 function popupStatus() {
   const { weekday, open, close } = data.popup;
   const now = londonNow();
-  const times = `${hourLabel(open)} to ${hourLabel(close)}`;
+  const times = `das ${hourLabel(open)} às ${hourLabel(close)}`;
   if (now.day === weekday) {
-    if (now.minutes < toMin(open)) return { live: false, short: `Pop-up tonight, ${times}`, long: `We're at the pop-up tonight from ${hourLabel(open)}.` };
-    if (now.minutes < toMin(close)) return { live: true, short: `Pop-up open now, until ${hourLabel(close)}`, long: `Open right now, until ${hourLabel(close)}. Come hungry.` };
+    if (now.minutes < toMin(open)) return { live: false, short: `Hoje tem rodízio, ${times}`, long: `Hoje tem rodízio a partir das ${hourLabel(open)}.` };
+    if (now.minutes < toMin(close)) return { live: true, short: `Rodízio acontecendo agora, até as ${hourLabel(close)}`, long: `O rodízio está rolando agora, até as ${hourLabel(close)}. Venha com fome.` };
   }
   const days = (weekday - now.day + 7) % 7 || 7;
-  const when = days === 1 ? 'tomorrow' : `in ${days} days`;
-  return { live: false, short: `Next pop-up ${days === 1 ? 'tomorrow' : 'on Friday'}, ${times}`, long: `Next pop-up ${when}: Friday, ${times}.` };
+  const when = days === 1 ? 'amanhã' : `em ${days} dias`;
+  return { live: false, short: `Próximo rodízio ${days === 1 ? 'amanhã' : 'na sexta'}, ${times}`, long: `Próximo rodízio ${when}: sexta, ${times}.` };
 }
 const status = popupStatus();
 $$('[data-next-popup]').forEach((el) => {
@@ -353,7 +351,7 @@ $$('[data-filter]').forEach((group) => {
         }
         if (show) n++;
       });
-      if (status) status.textContent = `${n} ${n === 1 ? 'pizza' : 'pizzas'} shown`;
+      if (status) status.textContent = `${n} ${n === 1 ? 'pizza encontrada' : 'pizzas encontradas'}`;
       lenis?.resize();
       ScrollTrigger.refresh();
     })
@@ -444,7 +442,7 @@ if (form) {
   f.date.min = todayIso;
 
   // Preselect the event type when coming from an event card (?event=weddings)
-  const preset = new URLSearchParams(location.search).get('event');
+  const preset = new URLSearchParams(location.search).get('evento');
   if (preset && [...f.type.options].some((o) => o.value === preset)) f.type.value = preset;
 
   const setError = (el: HTMLElement, msg: string) => {
@@ -455,17 +453,17 @@ if (form) {
 
   function validate() {
     const errors: [HTMLElement, string][] = [];
-    if (f.name.value.trim().length < 2) errors.push([f.name, 'Please enter your name.']);
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.value.trim())) errors.push([f.email, 'Please enter a valid email, e.g. name@example.com.']);
+    if (f.name.value.trim().length < 2) errors.push([f.name, 'Digite seu nome.']);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.value.trim())) errors.push([f.email, 'Digite um e-mail válido, por exemplo nome@exemplo.com.']);
     const digits = f.phone.value.replace(/\D/g, '');
-    if (digits.length < 10 || digits.length > 13) errors.push([f.phone, 'Please enter a phone number we can call, e.g. 07700 900000.']);
-    if (!f.date.value) errors.push([f.date, 'Please choose the date of your event.']);
-    else if (f.date.value < todayIso) errors.push([f.date, 'The date has to be today or later.']);
+    if (digits.length < 10 || digits.length > 13) errors.push([f.phone, 'Digite um telefone com DDD, por exemplo (11) 90000-0000.']);
+    if (!f.date.value) errors.push([f.date, 'Escolha a data da festa.']);
+    else if (f.date.value < todayIso) errors.push([f.date, 'A data precisa ser hoje ou depois.']);
     const guests = Number(f.guests.value);
-    if (!f.guests.value || !Number.isFinite(guests) || guests < 1) errors.push([f.guests, 'Please tell us roughly how many guests.']);
-    if (!f.type.value) errors.push([f.type, 'Please choose the type of event.']);
-    if (f.location.value.trim().length < 2) errors.push([f.location, 'Please add the venue or postcode.']);
-    if (!f.consent.checked) errors.push([f.consent, 'Please tick the box so we can reply to you.']);
+    if (!f.guests.value || !Number.isFinite(guests) || guests < 1) errors.push([f.guests, 'Informe mais ou menos quantos convidados.']);
+    if (!f.type.value) errors.push([f.type, 'Escolha o tipo de evento.']);
+    if (f.location.value.trim().length < 2) errors.push([f.location, 'Informe o local ou o CEP.']);
+    if (!f.consent.checked) errors.push([f.consent, 'Marque a caixa para podermos responder.']);
     [f.name, f.email, f.phone, f.date, f.guests, f.type, f.location, f.consent].forEach((el) => setError(el, ''));
     errors.forEach(([el, msg]) => setError(el, msg));
     return errors;
@@ -488,7 +486,7 @@ if (form) {
     e.preventDefault();
     const errors = validate();
     if (errors.length) {
-      statusEl.textContent = `Please check the ${errors.length === 1 ? 'highlighted field' : `${errors.length} highlighted fields`}.`;
+      statusEl.textContent = `Confira ${errors.length === 1 ? 'o campo destacado' : `os ${errors.length} campos destacados`}.`;
       errors[0][0].focus();
       return;
     }
@@ -502,15 +500,15 @@ if (form) {
       showSuccess();
       return;
     }
-    submitLabel.textContent = 'Sending…';
+    submitLabel.textContent = 'Enviando…';
     form.setAttribute('aria-busy', 'true');
     try {
       const res = await fetch(data.endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
       if (!res.ok) throw new Error(String(res.status));
       showSuccess();
     } catch {
-      statusEl.textContent = 'Sorry, your enquiry could not be sent. Please try again, or call or email us.';
-      submitLabel.textContent = 'Try again';
+      statusEl.textContent = 'Não foi possível enviar. Tente de novo ou chame no WhatsApp.';
+      submitLabel.textContent = 'Tentar de novo';
     } finally {
       form.removeAttribute('aria-busy');
     }

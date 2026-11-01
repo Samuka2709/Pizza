@@ -1,14 +1,15 @@
 ---
 import { site as s } from '../data/site';
 import Icon from './Icon.astro';
+import { whatsappLink } from '../lib/format';
 ---
-<div class="mobile-bar" data-mobile-bar role="region" aria-label="Quick actions">
-  <a class="btn btn--outline" href={`tel:${s.contact.phoneHref}`}><Icon name="phone" class="btn__arrow" /> Call</a>
-  <a class="btn btn--primary" href="/contact/#quote">Get a quote <Icon name="arrow" class="btn__arrow" /></a>
+<div class="mobile-bar" data-mobile-bar role="region" aria-label="Ações rápidas">
+  <a class="btn btn--outline" href={`tel:${s.contact.phoneHref}`}><Icon name="phone" class="btn__arrow" /> Ligar</a>
+  <a class="btn btn--primary" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" class="btn__arrow" /> Pedir agora</a>
 </div>
 
-<div class="cookie" role="region" aria-label="Cookie notice" data-cookie hidden>
-  <p>Essential cookies only. Maps load when you ask. <a class="link-line" href="/privacy/">Privacy</a></p>
+<div class="cookie" role="region" aria-label="Aviso de cookies" data-cookie hidden>
+  <p>Só usamos cookies essenciais. O mapa carrega quando você pede. <a class="link-line" href="/privacidade/">Privacidade</a></p>
   <button class="btn btn--sm btn--primary" type="button" data-cookie-ok>OK</button>
 </div>
 

@@ -24,7 +24,7 @@ import { site as s } from '../data/site';
       <h2 class="display h2 reveal-words intro__title" id="intro-title" data-split-auto>{s.intro.title}</h2>
       <div class="intro__body">
         <p class="lead" data-reveal="fade">{s.intro.text}</p>
-        <a class="link-line" href="/our-story/" data-reveal="fade">Our story <Icon name="arrow" class="btn__arrow" /></a>
+        <a class="link-line" href="/nossa-historia/" data-reveal="fade">Nossa história <Icon name="arrow" class="btn__arrow" /></a>
       </div>
     </div>
   </section>
@@ -35,12 +35,12 @@ import { site as s } from '../data/site';
     <div class="container">
       <header class="section-head section-head--split">
         <div>
-          <SectionLabel num="03" text="Events & catering" />
+          <SectionLabel num="03" text="Festas e eventos" />
           <h2 class="display h2 reveal-words" id="events-title" data-split-auto>{s.events.title}</h2>
         </div>
         <div>
           <p class="lead" data-reveal="fade">{s.events.lead}</p>
-          <a class="btn btn--primary section-head__cta" href="/contact/#quote" data-reveal="fade" data-magnetic>Get an event quote <Icon name="arrow" class="btn__arrow" /></a>
+          <a class="btn btn--primary section-head__cta" href="/contato/#orcamento" data-reveal="fade" data-magnetic>Pedir orçamento <Icon name="arrow" class="btn__arrow" /></a>
         </div>
       </header>
       <EventTypes />
@@ -62,12 +62,12 @@ import { site as s } from '../data/site';
     ]} />
     <div class="container deck-section__grid">
       <div class="deck-section__text">
-        <SectionLabel num="05" text="The menu" />
-        <h2 class="display h2 reveal-words" id="menu-title" data-split-auto>Short menu, slow dough.</h2>
-        <p class="lead" data-reveal="fade">A handful of pizzas we know by heart, with vegetarian and vegan options every time.</p>
+        <SectionLabel num="05" text="Cardápio" />
+        <h2 class="display h2 reveal-words" id="menu-title" data-split-auto>Os sabores que todo mundo pede.</h2>
+        <p class="lead" data-reveal="fade">Calabresa, portuguesa, frango com catupiry e mais: pizza grande, recheio até a borda e opção de borda recheada.</p>
         <div class="deck-section__ctas" data-reveal="fade">
-          <a class="btn btn--primary" href="/menu/" data-magnetic>See the full menu <Icon name="arrow" class="btn__arrow" /></a>
-          <a class="link-line" href="/contact/#quote">Pizza for your event</a>
+          <a class="btn btn--primary" href="/cardapio/" data-magnetic>Ver o cardápio completo <Icon name="arrow" class="btn__arrow" /></a>
+          <a class="link-line" href="/eventos/">Pizza para a sua festa</a>
         </div>
       </div>
       <PizzaDeck />
@@ -82,14 +82,14 @@ import { site as s } from '../data/site';
         <Photo photo={s.story.photos[0]} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 40vw, 100vw" />
       </div>
       <div>
-        <SectionLabel num="06" text="Our story" />
+        <SectionLabel num="06" text="Nossa história" />
         <h2 class="display h2 reveal-words" id="story-title" data-split-auto>{s.story.title}</h2>
         <p class="lead" data-reveal="fade">{s.story.lead}</p>
         <blockquote class="pull-quote" data-reveal="fade">
           <p>“{s.story.quote}”</p>
           <cite>{s.story.quoteBy}</cite>
         </blockquote>
-        <a class="link-line" href="/our-story/" data-reveal="fade">Read our story <Icon name="arrow" class="btn__arrow" /></a>
+        <a class="link-line" href="/nossa-historia/" data-reveal="fade">Ler nossa história <Icon name="arrow" class="btn__arrow" /></a>
       </div>
     </div>
   </section>
@@ -98,11 +98,11 @@ import { site as s } from '../data/site';
     <div class="container">
       <header class="section-head section-head--split">
         <div>
-          <SectionLabel num="07" text="From the oven" />
-          <h2 class="display h2 reveal-words" id="gallery-title" data-split-auto>Blistered, soft, gone in minutes.</h2>
+          <SectionLabel num="07" text="Saindo do forno" />
+          <h2 class="display h2 reveal-words" id="gallery-title" data-split-auto>Quentinha, crocante e cheia de queijo.</h2>
         </div>
         {s.contact.social.instagram && (
-          <a class="link-line" href={s.contact.social.instagram} target="_blank" rel="noopener" data-reveal="fade"><Icon name="instagram" class="btn__arrow" /> Follow us on Instagram</a>
+          <a class="link-line" href={s.contact.social.instagram} target="_blank" rel="noopener" data-reveal="fade"><Icon name="instagram" class="btn__arrow" /> Siga no Instagram</a>
         )}
       </header>
       <Gallery />
