@@ -233,16 +233,15 @@ function setupScrollReveals() {
   const spin = $('[data-spin]');
   if (spin) gsap.to(spin, { rotate: 120, xPercent: 20, ease: 'none', scrollTrigger: { trigger: spin.parentElement, start: 'top top', end: 'bottom top', scrub: true } });
 
-  // Decorative ingredients drift and turn at their own speed while scrolling
+  // Decorative circles drift at their own speed while scrolling
   $$('[data-decor]').forEach((layer) => {
     const section = layer.parentElement!.closest('section') ?? layer.parentElement!;
     $$('.decor__item', layer).forEach((item) => {
       const speed = Number(item.dataset.speed) || 0;
-      const spin = Number(item.dataset.spin) || 0;
       gsap.fromTo(
         item,
-        { y: -speed * 160, rotation: -spin / 2 },
-        { y: speed * 160, rotation: spin / 2, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }
+        { y: -speed * 160 },
+        { y: speed * 160, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }
       );
     });
   });

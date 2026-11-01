@@ -1,20 +1,16 @@
 ---
 /**
- * Decorative ingredients and outline circles that drift at different speeds while scrolling.
+ * Decorative outline circles that drift at different speeds while scrolling.
  * Purely decorative: hidden from assistive tech, no pointer events.
  */
 interface Item {
-  src?: 'basil' | 'mozzarella' | 'pepperoni-0' | 'pepperoni-1';
   /** position in % of the section */
   x: number;
   y: number;
-  /** width in px (desktop) */
+  /** diameter in px (desktop) */
   size: number;
-  rot?: number;
   /** scroll speed: negative moves up, positive down */
   speed: number;
-  /** degrees turned across the section */
-  spin?: number;
   mobile?: boolean;
 }
 interface Props {
@@ -25,12 +21,9 @@ const { items } = Astro.props;
 <div class="decor" aria-hidden="true" data-decor>
   {items.map((it) => (
     <span
-      class:list={['decor__item', { 'decor__item--ring': !it.src, 'decor__item--desktop': !it.mobile }]}
-      style={`left:${it.x}%;top:${it.y}%;--size:${it.size}px;--rot:${it.rot ?? 0}deg`}
+      class:list={['decor__item decor__item--ring', { 'decor__item--desktop': !it.mobile }]}
+      style={`left:${it.x}%;top:${it.y}%;--size:${it.size}px`}
       data-speed={it.speed}
-      data-spin={it.spin ?? 0}
-    >
-      {it.src && <img src={`/img/decor/${it.src}.webp`} alt="" loading="lazy" decoding="async" />}
-    </span>
+    ></span>
   ))}
 </div>

@@ -3197,15 +3197,9 @@ textarea.input {
   position: absolute;
   width: var(--size);
   translate: -50% -50%;
-  rotate: var(--rot);
   will-change: transform;
 }
-.decor__item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 10px 14px rgb(60 30 10 / 0.18));
-}
+
 .decor__item--ring {
   aspect-ratio: 1;
   border-radius: 50%;
