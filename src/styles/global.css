@@ -3372,13 +3372,35 @@ textarea.input {
 }
 .wheel__swap {
   margin-top: 18px;
-  transition:
-    opacity 280ms ease,
-    transform 280ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-.wheel__swap.is-leaving {
+/* Flavour swap: parts leave upwards together, then come in from below one after the other */
+.wheel__swap > * {
+  transition:
+    opacity 420ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 520ms cubic-bezier(0.23, 1, 0.32, 1),
+    filter 420ms ease;
+}
+.wheel__swap > :nth-child(2) {
+  transition-delay: 60ms;
+}
+.wheel__swap > :nth-child(3) {
+  transition-delay: 120ms;
+}
+.wheel__swap.is-leaving > * {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(-10px);
+  filter: blur(4px);
+  transition-duration: 170ms;
+  transition-delay: 0ms;
+}
+.wheel__swap.is-entering > * {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(4px);
+  transition: none;
+}
+.wheel__ing li {
+  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 .wheel__title {
   display: flex;
@@ -3527,7 +3549,7 @@ textarea.input {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .wheel__swap {
-    transition: none;
+  .wheel__swap > * {
+    transition: none !important;
   }
 }

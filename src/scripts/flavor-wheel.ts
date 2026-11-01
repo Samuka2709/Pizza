@@ -11,6 +11,8 @@ interface Flavor {
   priceLabel: string;
   order: string;
   base: 'tomato' | 'cream';
+  tex: string;
+  price: number;
   desc: string[];
   ing: [string, string][];
   garnish: [string, number][];
@@ -82,7 +84,7 @@ const R = 620;
 const CX = S / 2;
 const CY = S / 2;
 
-function drawPizza(flavors: Flavor[]) {
+function drawPizza(flavors: Flavor[], tex: (HTMLImageElement | null)[] = []) {
   const img = document.createElement('canvas');
   img.width = img.height = S;
   const g = img.getContext('2d')!;
@@ -109,6 +111,25 @@ function drawPizza(flavors: Flavor[]) {
     const a0 = i * STEP - STEP / 2, a1 = a0 + STEP;
     g.save();
     g.beginPath(); g.moveTo(CX, CY); g.arc(CX, CY, Ri, a0, a1); g.closePath(); g.clip();
+    const photo = tex[i];
+    if (photo) {
+      // Real topping photo, laid along the slice
+      g.save();
+      g.translate(CX, CY);
+      g.rotate(a0 + STEP / 2);
+      g.drawImage(photo, -Ri * 0.04, -Ri * 0.44, Ri * 1.06, Ri * 0.88);
+      g.restore();
+      // a little shade towards the tip and the crust, so it reads as one pizza
+      const sh = g.createRadialGradient(CX, CY, Ri * 0.05, CX, CY, Ri);
+      sh.addColorStop(0, 'rgba(60,30,10,.18)');
+      sh.addColorStop(0.25, 'rgba(60,30,10,0)');
+      sh.addColorStop(0.86, 'rgba(60,30,10,0)');
+      sh.addColorStop(1, 'rgba(60,30,10,.35)');
+      g.fillStyle = sh;
+      g.fillRect(0, 0, S, S);
+      g.restore();
+      return;
+    }
     const base = g.createRadialGradient(CX, CY, 0, CX, CY, Ri);
     if (f.base === 'tomato') { base.addColorStop(0, '#d6402a'); base.addColorStop(1, '#b92a17'); }
     else { base.addColorStop(0, '#f6ecd2'); base.addColorStop(1, '#ead7a9'); }
@@ -160,12 +181,28 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
   const dots = [...section.querySelectorAll<HTMLButtonElement>('[data-wheel-dots] button')];
   const N = flavors.length;
   const STEP = (Math.PI * 2) / N;
-  const pizza = drawPizza(flavors);
+  let pizza = drawPizza(flavors);
+  // swap in the real photos once they have loaded
+  Promise.all(
+    flavors.map(
+      (f) =>
+        new Promise<HTMLImageElement | null>((res) => {
+          const im = new Image();
+          im.decoding = 'async';
+          im.onload = () => res(im);
+          im.onerror = () => res(null);
+          im.src = `/img/fatias/${f.tex}.webp`;
+        })
+    )
+  ).then((imgs) => {
+    pizza = drawPizza(flavors, imgs);
+    render();
+  });
   const sans = getComputedStyle(document.body).fontFamily;
 
   let W = 0, H = 0, dpr = 1;
   let geo: { cx: number; cy: number; r: number; base: number; mobile: boolean } | null = null;
-  let target = 0, rot = 0, rotTarget = 0, raf = 0, timer = 0;
+  let target = 0, rot = 0, rotTarget = 0, vel = 0, pop = 1, raf = 0, timer = 0, shown = 0;
 
   function fill(i: number) {
     const f = flavors[i];
@@ -189,16 +226,39 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
     });
   }
 
+  function countPrice(from: number, to: number) {
+    if (opts.reduced || from === to) return;
+    const fmt = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - t0) / 450);
+      const e = 1 - Math.pow(1 - k, 3);
+      elPrice.textContent = fmt.format(from + (to - from) * e);
+      if (k < 1 && target === shown) requestAnimationFrame(tick);
+      else if (k >= 1) elPrice.textContent = flavors[shown].priceLabel;
+    };
+    requestAnimationFrame(tick);
+  }
   function swap(i: number) {
-    if (opts.reduced) return fill(i);
+    if (opts.reduced) {
+      shown = i;
+      return fill(i);
+    }
+    const from = flavors[shown].price;
+    info.classList.remove('is-entering');
     info.classList.add('is-leaving');
     clearTimeout(timer);
     timer = window.setTimeout(() => {
+      shown = i;
       fill(i);
+      if (from !== flavors[i].price) elPrice.textContent = flavors.find((f) => f.price === from)!.priceLabel;
       info.classList.remove('is-leaving');
-    }, 220);
+      info.classList.add('is-entering');
+      void info.offsetWidth; // start the enter transition from below
+      info.classList.remove('is-entering');
+      countPrice(from, flavors[i].price);
+    }, 180);
   }
-
   function measure() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = canvas.clientWidth;
@@ -241,6 +301,36 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
     ctx!.translate(cx, cy); ctx!.rotate(base + rot);
     ctx!.drawImage(pizza, -CX * k, -CY * k, S * k, S * k);
     ctx!.restore();
+    // the current flavour's slice lifts out a little, with its own shadow
+    if (pop > 0.01) {
+      const ang = base + rot + target * STEP;
+      const wedge = () => {
+        ctx!.beginPath();
+        ctx!.moveTo(0, 0);
+        ctx!.arc(0, 0, r * 1.002, ang - STEP / 2, ang + STEP / 2);
+        ctx!.closePath();
+      };
+      ctx!.save();
+      ctx!.translate(cx, cy);
+      wedge();
+      ctx!.fillStyle = `rgba(60,30,10,${0.35 * pop})`;
+      ctx!.fill();
+      const lift = r * 0.06 * pop;
+      ctx!.translate(Math.cos(ang) * lift, Math.sin(ang) * lift);
+      ctx!.scale(1 + 0.025 * pop, 1 + 0.025 * pop);
+      ctx!.shadowColor = `rgba(40,20,5,${0.35 * pop})`;
+      ctx!.shadowBlur = 30 * pop;
+      ctx!.shadowOffsetY = 14 * pop;
+      wedge();
+      ctx!.fillStyle = '#d99a45';
+      ctx!.fill();
+      ctx!.shadowColor = 'transparent';
+      wedge();
+      ctx!.clip();
+      ctx!.rotate(base + rot);
+      ctx!.drawImage(pizza, -CX * k, -CY * k, S * k, S * k);
+      ctx!.restore();
+    }
     // names around the pizza
     const rr = r * (geo.mobile ? 1.2 : 1.17);
     const fs = geo.mobile ? 12 : Math.max(13, Math.min(22, r * 0.048));
@@ -277,9 +367,14 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
     if (raf) return;
     const step = () => {
       const d = rotTarget - rot;
-      rot += d * 0.12;
-      if (Math.abs(d) < 0.0005) {
+      vel = (vel + d * 0.075) * 0.78; // spring: eases in, a hint of overshoot, settles
+      rot += vel;
+      const settled = Math.abs(d) < 0.02 && Math.abs(vel) < 0.002;
+      pop += ((settled ? 1 : 0) - pop) * (settled ? 0.14 : 0.3);
+      if (Math.abs(d) < 0.0005 && Math.abs(vel) < 0.0005 && Math.abs(1 - pop) < 0.005) {
         rot = rotTarget;
+        vel = 0;
+        pop = 1;
         render();
         raf = 0;
         return;
@@ -299,6 +394,7 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
     rotTarget = -target * STEP;
     if (opts.reduced) {
       rot = rotTarget;
+      pop = 1;
       render();
     } else loop();
   }
