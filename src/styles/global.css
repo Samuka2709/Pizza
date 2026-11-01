@@ -39,6 +39,9 @@
   --on-dark-soft: #dcc6b8;
   --line: rgb(242 232 214 / 0.14);
   --line-dark: rgb(242 232 214 / 0.18);
+  --sauce: #c0391f; /* pizza drawings only (logo, slice icon): real tomato red */
+  --leaf: #4f8a3c;
+  --cheese: #fff4dc;
   --light: #fbf5ea; /* light text over photos and wine */
   --on-accent: #17120f; /* text on gold */
   --gold-grad: linear-gradient(135deg, #e3c27e 0%, #c9a45c 45%, #a8853f 100%);
@@ -236,7 +239,7 @@ main:focus {
 .label__slice {
   width: 14px;
   height: 14px;
-  background: var(--crust);
+  background: #c47f37;
   clip-path: polygon(50% 100%, 0 8%, 12% 3%, 30% 0, 50% 0, 70% 0, 88% 3%, 100% 8%);
   position: relative;
 }
@@ -244,7 +247,7 @@ main:focus {
   content: '';
   position: absolute;
   inset: 22% 18% 30%;
-  background: radial-gradient(circle at 35% 40%, var(--tomato) 0 18%, transparent 19%), radial-gradient(circle at 65% 30%, var(--tomato) 0 16%, transparent 17%), #e9b65f;
+  background: radial-gradient(circle at 35% 40%, var(--sauce) 0 18%, transparent 19%), radial-gradient(circle at 65% 30%, var(--sauce) 0 16%, transparent 17%), #f3cf7a;
   clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
 .display {
@@ -572,10 +575,11 @@ main:focus {
   height: 22px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 35% 38%, #fffaf0 0 14%, transparent 15%),
-    radial-gradient(circle at 64% 60%, #fffaf0 0 13%, transparent 14%),
-    radial-gradient(circle at 62% 32%, var(--basil) 0 9%, transparent 10%),
-    radial-gradient(circle, var(--tomato) 0 62%, var(--crust) 63%);
+    radial-gradient(circle at 35% 38%, var(--cheese) 0 14%, transparent 15%),
+    radial-gradient(circle at 64% 62%, var(--cheese) 0 13%, transparent 14%),
+    radial-gradient(circle at 34% 68%, var(--cheese) 0 9%, transparent 10%),
+    radial-gradient(circle at 64% 32%, var(--leaf) 0 10%, transparent 11%),
+    radial-gradient(circle, var(--sauce) 0 62%, #e3b06d 63% 74%, #b8792f 75%);
   transition: rotate 700ms var(--ease);
 }
 @media (hover: hover) and (pointer: fine) {
@@ -1459,11 +1463,11 @@ main:focus {
     radial-gradient(circle at 30% 34%, #fffaf0 0 10%, transparent 11%),
     radial-gradient(circle at 66% 30%, #fffaf0 0 9%, transparent 10%),
     radial-gradient(circle at 55% 66%, #fffaf0 0 11%, transparent 12%),
-    radial-gradient(circle at 46% 46%, var(--basil) 0 6%, transparent 7%),
-    radial-gradient(circle at 72% 52%, var(--basil) 0 5%, transparent 6%),
+    radial-gradient(circle at 46% 46%, var(--leaf) 0 6%, transparent 7%),
+    radial-gradient(circle at 72% 52%, var(--leaf) 0 5%, transparent 6%),
     radial-gradient(circle at 22% 62%, rgb(48 26 14 / 0.6) 0 2%, transparent 3%),
     radial-gradient(circle at 86% 40%, rgb(48 26 14 / 0.6) 0 2.5%, transparent 3.5%),
-    radial-gradient(circle, var(--tomato) 0 66%, #e3b06d 67% 84%, var(--crust) 85%);
+    radial-gradient(circle, var(--sauce) 0 66%, #e3b06d 67% 84%, #b8792f 85%);
   box-shadow: 0 8px 18px rgb(0 0 0 / 0.18);
 }
 .fav__name {
