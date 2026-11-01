@@ -50,11 +50,23 @@ After changing the name or tagline, regenerate the share image and favicon: `npm
 
 ## WordPress build (for launch)
 
-Recommended setup on the client's Hostinger account: WordPress + a lightweight block theme or Elementor,
-WPForms or Fluent Forms (honeypot + Cloudflare Turnstile, confirmation message), WP Mail SMTP for reliable
-email, Redirection (old Wix URLs), Yoast or Rank Math (local SEO, sitemap), a cookie notice plugin, Hostinger
-backups and SSL, image optimisation (WebP). The canvas animation and scripts from this prototype can be
-added to WordPress as a small custom block or a code snippet.
+Recommended setup on the client's Hostinger account:
+
+- **Theme and builder:** Astra (free) + Elementor, so text, photos and the menu are edited visually
+- **Forms:** WPForms Lite (honeypot + Cloudflare Turnstile, on-screen confirmation, auto-reply)
+- **Email delivery:** WP Mail SMTP connected to the business mailbox
+- **SEO:** Rank Math (local SEO, LocalBusiness schema, sitemap)
+- **Old Wix links:** Redirection plugin (301 redirects)
+- **Speed:** LiteSpeed Cache (Hostinger), WebP images, lazy loading; keep the hero video at or below ~1.7 MB desktop / 0.7 MB mobile
+- **Privacy:** Complianz (cookie notice) + privacy page; Google Maps loads on request
+- **Security and backups:** Hostinger SSL and daily backups, Wordfence, limited login attempts
+
+The scroll animations (menu deck, hero video loop) can be carried over as a small custom script loaded on
+the home page only.
+
+What this prototype does **not** do (launch tasks): real form sending, Wix content migration and redirects,
+keeping the domain and business email, staging and SSL, backups and security, admin access, the how-to-update
+guide and post-launch support. All content marked `// DEMO` and the Unsplash photos are placeholders.
 
 ## Commands
 
