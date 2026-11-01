@@ -11,7 +11,6 @@ interface Flavor {
   priceLabel: string;
   order: string;
   base: 'tomato' | 'cream';
-  tex: string;
   price: number;
   desc: string[];
   ing: [string, string][];
@@ -165,6 +164,25 @@ function drawPizza(flavors: Flavor[], tex: (HTMLImageElement | null)[] = []) {
   return img;
 }
 
+/** Wooden board + the photo pizza (one generated slice per flavour, same order) */
+function composeReal(photo: HTMLImageElement) {
+  const img = document.createElement('canvas');
+  img.width = img.height = S;
+  const g = img.getContext('2d')!;
+  const gr = g.createRadialGradient(CX, CY, R * 0.9, CX, CY, R * 1.07);
+  gr.addColorStop(0, '#b77a45'); gr.addColorStop(0.7, '#a46634'); gr.addColorStop(1, '#7f4a22');
+  g.fillStyle = gr; g.beginPath(); g.arc(CX, CY, R * 1.07, 0, 7); g.fill();
+  g.strokeStyle = 'rgba(90,50,20,.25)'; g.lineWidth = 2;
+  for (let k = 0; k < 6; k++) { g.beginPath(); g.arc(CX, CY, R * (1.0 + k * 0.012), 0, 7); g.stroke(); }
+  // in the photo the pizza radius is 552 of 1200 px
+  const size = (R * 1200) / 552;
+  g.save();
+  g.shadowColor = 'rgba(60,30,10,.35)'; g.shadowBlur = 18; g.shadowOffsetY = 6;
+  g.drawImage(photo, CX - size / 2, CY - size / 2, size, size);
+  g.restore();
+  return img;
+}
+
 export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number) => void }) {
   const section = document.querySelector<HTMLElement>('[data-wheel]');
   if (!section) return;
@@ -182,27 +200,22 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
   const N = flavors.length;
   const STEP = (Math.PI * 2) / N;
   let pizza = drawPizza(flavors);
-  // swap in the real photos once they have loaded
-  Promise.all(
-    flavors.map(
-      (f) =>
-        new Promise<HTMLImageElement | null>((res) => {
-          const im = new Image();
-          im.decoding = 'async';
-          im.onload = () => res(im);
-          im.onerror = () => res(null);
-          im.src = `/img/fatias/${f.tex}.webp`;
-        })
-    )
-  ).then((imgs) => {
-    pizza = drawPizza(flavors, imgs);
+  // swap in the real photo pizza once it has loaded (drawn toppings meanwhile)
+  const photo = new Image();
+  photo.decoding = 'async';
+  photo.onload = () => {
+    pizza = composeReal(photo);
     render();
-  });
+  };
+  photo.src = window.innerWidth < 900 ? '/img/fatias/pizza-sabores-sm.webp' : '/img/fatias/pizza-sabores.webp';
   const sans = getComputedStyle(document.body).fontFamily;
-
   let W = 0, H = 0, dpr = 1;
   let geo: { cx: number; cy: number; r: number; base: number; mobile: boolean } | null = null;
-  let target = 0, rot = 0, rotTarget = 0, vel = 0, pop = 1, raf = 0, timer = 0, shown = 0;
+  let target = 0, rot = 0, rotTarget = 0, pop = 1, raf = 0, timer = 0, shown = 0;
+  // tween state for the turn
+  let from = 0, t0 = 0;
+  const TURN_MS = 950;
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
   function fill(i: number) {
     const f = flavors[i];
@@ -363,24 +376,21 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
     return h > 0 ? Math.min(1, Math.max(0, -rect.top / h)) : 0;
   }
 
+  /** Smooth turn: ease-in-out over ~1 s; the slice sinks back while turning and rises when it lands */
   function loop() {
     if (raf) return;
-    const step = () => {
-      const d = rotTarget - rot;
-      vel = (vel + d * 0.075) * 0.78; // spring: eases in, a hint of overshoot, settles
-      rot += vel;
-      const settled = Math.abs(d) < 0.02 && Math.abs(vel) < 0.002;
-      pop += ((settled ? 1 : 0) - pop) * (settled ? 0.14 : 0.3);
-      if (Math.abs(d) < 0.0005 && Math.abs(vel) < 0.0005 && Math.abs(1 - pop) < 0.005) {
-        rot = rotTarget;
-        vel = 0;
+    const step = (now: number) => {
+      const k = Math.min(1, (now - t0) / TURN_MS);
+      rot = from + (rotTarget - from) * ease(k);
+      // slice sinks back fast as the turn starts, lifts again over the last third
+      pop = k < 0.15 ? Math.min(pop, 1 - k / 0.15) : ease(Math.max(0, (k - 0.66) / 0.34));
+      render();
+      if (k < 1) raf = requestAnimationFrame(step);
+      else {
         pop = 1;
         render();
         raf = 0;
-        return;
       }
-      render();
-      raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
   }
@@ -391,7 +401,12 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
       target = i;
       swap(i);
     }
-    rotTarget = -target * STEP;
+    const nextTarget = -target * STEP;
+    if (nextTarget !== rotTarget) {
+      from = rot; // retarget from wherever the pizza is now
+      t0 = performance.now();
+      rotTarget = nextTarget;
+    }
     if (opts.reduced) {
       rot = rotTarget;
       pop = 1;
