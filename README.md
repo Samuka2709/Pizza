@@ -9,7 +9,7 @@ Feito com Astro, GSAP e Lenis. Todas as páginas são HTML estático com texto d
 | Página | Endereço |
 | --- | --- |
 | Início | `/` |
-| Cardápio (pizzas salgadas e doces, bebidas, filtro vegetariano/vegano, bordas, alergênicos) | `/cardapio/` |
+| Cardápio (pizzas salgadas e doces, bebidas, filtro vegetariano/vegano, bordas) | `/cardapio/` |
 | Festas e eventos (tipos de evento, como funciona, fotos, dúvidas, orçamento) | `/eventos/` |
 | Nossa história | `/nossa-historia/` |
 | Rodízio de sexta (horário, endereço, como chegar, mapa) | `/rodizio/` |

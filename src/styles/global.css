@@ -1925,51 +1925,6 @@ main:focus {
   font-weight: 800;
   letter-spacing: 0.04em;
 }
-.diet-key {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  margin-bottom: 28px;
-  font-weight: 600;
-}
-.diet-key li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper);
-}
-.allergens {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9375rem;
-  min-width: 560px;
-}
-.allergens th,
-.allergens td {
-  text-align: left;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-}
-.allergens thead th {
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.allergens tbody th {
-  font-family: var(--serif);
-  font-weight: 560;
-  font-size: 1.0625rem;
-}
-.allergens tr:last-child > * {
-  border-bottom: 0;
-}
 .menu-cta {
   display: flex;
   flex-wrap: wrap;

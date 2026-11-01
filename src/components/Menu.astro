@@ -22,7 +22,6 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
           {c.label}
         </button>
       ))}
-      <button class="tab" type="button" role="tab" id="tab-dietary" aria-controls="panel-dietary" aria-selected="false" tabindex="-1">Alergênicos</button>
       <span class="tabs__indicator" aria-hidden="true"></span>
     </div>
   </div>
@@ -123,27 +122,4 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
       )}
     </div>
   ))}
-
-  <div class="menu-panel" role="tabpanel" id="panel-dietary" aria-labelledby="tab-dietary" tabindex="0" hidden>
-    <h2 class="sr-only">Informações de alergênicos</h2>
-    <p class="menu-panel__note">{s.menuNote}</p>
-    <ul class="diet-key">
-      {s.dietKey.map((k) => <li><abbr class="diet">{k.code}</abbr> {k.label}</li>)}
-    </ul>
-    <div class="table-wrap">
-      <table class="allergens">
-        <caption class="sr-only">Alergênicos de cada item</caption>
-        <thead><tr><th scope="col">Item</th><th scope="col">Dieta</th><th scope="col">Contém</th></tr></thead>
-        <tbody>
-          {s.menu.flatMap((c) => c.items).map((d) => (
-            <tr>
-              <th scope="row">{d.name}</th>
-              <td>{d.diet?.map(dietLabel).join(', ') || '—'}</td>
-              <td>{d.allergens?.join(', ') || 'Nenhum dos principais alergênicos'}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>

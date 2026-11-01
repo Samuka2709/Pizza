@@ -26,8 +26,6 @@ export interface MenuItem {
   description: string;
   price: number;
   diet?: Diet[];
-  /** Alergênicos (lista da Anvisa) */
-  allergens?: string[];
   signature?: boolean;
   photo?: Photo;
 }
@@ -256,8 +254,6 @@ export const site = {
   /* ------------------------------------------------------------------------
      Cardápio (preços em reais)
      ------------------------------------------------------------------------ */
-  menuNote:
-    'Informações de alergênicos são uma orientação. Avise sobre qualquer alergia antes de pedir.', // EXEMPLO
   menu: [
     {
       id: 'pizzas',
@@ -275,23 +271,23 @@ export const site = {
         { name: 'Meio a meio', price: 0 }, // EXEMPLO
       ],
       items: [
-        { name: 'Calabresa', description: 'Molho de tomate, mussarela, calabresa fatiada e cebola.', price: 54, allergens: ['Glúten', 'Leite'], signature: true, photo: { id: '1655673654158-9f7285b7d1ea', alt: 'Pizza de calabresa com cebola e tomate' } }, // EXEMPLO
-        { name: 'Marguerita', description: 'Mussarela, rodelas de tomate, manjericão e orégano.', price: 52, diet: ['V'], allergens: ['Glúten', 'Leite'], photo: { id: '1576458088443-04a19bb13da6', alt: 'Pizza com rodelas de tomate, azeitona e orégano' } }, // EXEMPLO
-        { name: 'Portuguesa', description: 'Presunto, ovo, cebola, azeitona, ervilha e mussarela.', price: 62, allergens: ['Glúten', 'Leite', 'Ovos'], signature: true, photo: { id: '1571066811602-716837d681de', alt: 'Pizza portuguesa com ovo, azeitona e presunto' } }, // EXEMPLO
-        { name: 'Frango com catupiry', description: 'Frango desfiado temperado, catupiry e milho.', price: 60, allergens: ['Glúten', 'Leite'], signature: true, photo: { id: '1618213837799-25d5552820d3', alt: 'Pizza de frango com requeijão cremoso e azeitona' } }, // EXEMPLO
-        { name: 'Pepperoni', description: 'Molho de tomate, mussarela e muito pepperoni.', price: 64, allergens: ['Glúten', 'Leite'], photo: { id: '1534308983496-4fabb1a015ee', alt: 'Pizza de pepperoni com mussarela derretida' } }, // EXEMPLO
-        { name: 'Quatro queijos', description: 'Mussarela, provolone, parmesão e catupiry.', price: 60, diet: ['V'], allergens: ['Glúten', 'Leite'], photo: { id: '1604917869287-3ae73c77e227', alt: 'Pizza de quatro queijos dourada' } }, // EXEMPLO
-        { name: 'Toscana', description: 'Linguiça toscana moída, cebola e mussarela.', price: 58, allergens: ['Glúten', 'Leite'], photo: { id: '1750680230007-055ecc622c94', alt: 'Pizza de linguiça numa pá de madeira sobre toalha xadrez' } }, // EXEMPLO
-        { name: 'Picanha com cheddar', description: 'Tiras de picanha, cheddar cremoso e cebola caramelizada.', price: 72, allergens: ['Glúten', 'Leite'], photo: { id: '1694630716997-83f42bf92267', alt: 'Pizza com tiras de carne e pedaços de linguiça' } }, // EXEMPLO
+        { name: 'Calabresa', description: 'Molho de tomate, mussarela, calabresa fatiada e cebola.', price: 54, signature: true, photo: { id: '1655673654158-9f7285b7d1ea', alt: 'Pizza de calabresa com cebola e tomate' } }, // EXEMPLO
+        { name: 'Marguerita', description: 'Mussarela, rodelas de tomate, manjericão e orégano.', price: 52, diet: ['V'], photo: { id: '1576458088443-04a19bb13da6', alt: 'Pizza com rodelas de tomate, azeitona e orégano' } }, // EXEMPLO
+        { name: 'Portuguesa', description: 'Presunto, ovo, cebola, azeitona, ervilha e mussarela.', price: 62, signature: true, photo: { id: '1571066811602-716837d681de', alt: 'Pizza portuguesa com ovo, azeitona e presunto' } }, // EXEMPLO
+        { name: 'Frango com catupiry', description: 'Frango desfiado temperado, catupiry e milho.', price: 60, signature: true, photo: { id: '1618213837799-25d5552820d3', alt: 'Pizza de frango com requeijão cremoso e azeitona' } }, // EXEMPLO
+        { name: 'Pepperoni', description: 'Molho de tomate, mussarela e muito pepperoni.', price: 64, photo: { id: '1534308983496-4fabb1a015ee', alt: 'Pizza de pepperoni com mussarela derretida' } }, // EXEMPLO
+        { name: 'Quatro queijos', description: 'Mussarela, provolone, parmesão e catupiry.', price: 60, diet: ['V'], photo: { id: '1604917869287-3ae73c77e227', alt: 'Pizza de quatro queijos dourada' } }, // EXEMPLO
+        { name: 'Toscana', description: 'Linguiça toscana moída, cebola e mussarela.', price: 58, photo: { id: '1750680230007-055ecc622c94', alt: 'Pizza de linguiça numa pá de madeira sobre toalha xadrez' } }, // EXEMPLO
+        { name: 'Picanha com cheddar', description: 'Tiras de picanha, cheddar cremoso e cebola caramelizada.', price: 72, photo: { id: '1694630716997-83f42bf92267', alt: 'Pizza com tiras de carne e pedaços de linguiça' } }, // EXEMPLO
       ],
     },
     {
       id: 'doces',
       label: 'Pizzas doces',
       items: [
-        { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'], allergens: ['Glúten', 'Leite', 'Soja'] }, // EXEMPLO
-        { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'], allergens: ['Glúten', 'Leite'] }, // EXEMPLO
-        { name: 'Banana com canela', description: 'Banana, açúcar, canela e leite condensado.', price: 44, diet: ['V'], allergens: ['Glúten', 'Leite'] }, // EXEMPLO
+        { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'] }, // EXEMPLO
+        { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'] }, // EXEMPLO
+        { name: 'Banana com canela', description: 'Banana, açúcar, canela e leite condensado.', price: 44, diet: ['V'] }, // EXEMPLO
       ],
     },
     {
@@ -300,7 +296,7 @@ export const site = {
       items: [
         { name: 'Refrigerante 2 litros', description: 'Coca-Cola, Guaraná ou Fanta.', price: 14, diet: ['VG', 'GF'] }, // EXEMPLO
         { name: 'Suco natural 1 litro', description: 'Laranja, limão ou maracujá.', price: 16, diet: ['VG', 'GF'] }, // EXEMPLO
-        { name: 'Batata frita', description: 'Porção com cheddar e bacon.', price: 32, allergens: ['Leite'] }, // EXEMPLO
+        { name: 'Batata frita', description: 'Porção com cheddar e bacon.', price: 32 }, // EXEMPLO
       ],
     },
   ] as MenuGroup[],
@@ -309,7 +305,7 @@ export const site = {
   menuCallouts: [
     { title: 'Massa sem glúten', text: 'Disponível para qualquer sabor, sob encomenda. Feita na mesma cozinha, não indicada para celíacos.' }, // EXEMPLO
     { title: 'Meio a meio', text: 'Escolha dois sabores na mesma pizza, sem custo a mais. Vale o preço do sabor mais caro.' }, // EXEMPLO
-    { title: 'Alergias', text: 'Avise sobre qualquer alergia antes de pedir. A tabela completa está na aba Alergênicos.' }, // EXEMPLO
+    { title: 'Retirada no balcão', text: 'Peça pelo WhatsApp e retire no horário combinado, sem fila e sem taxa de entrega.' }, // EXEMPLO
   ],
 
   dietKey: [
