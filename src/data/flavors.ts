@@ -38,12 +38,4 @@ export const flavors: Flavor[] = [
     desc: ['O doce e o salgado juntos: abacaxi em cubos, presunto e mussarela sobre um molho de tomate generoso.',
       'Divide opiniões, mas quem gosta defende com paixão, e quem tem dúvida costuma pedir mais um pedaço.'],
     ing: [['Molho de tomate', '#d9361e'], ['Presunto', '#e8939a'], ['Abacaxi', '#f4d35e'], ['Mussarela', '#f6f1e4']] },
-  { name: 'Vegetariana', img: 'vegetariana', short: 'VEGETARIANA', price: 49.9,
-    desc: ['Um jardim colorido sobre o molho de tomate: pimentões, champignon, azeitonas pretas e mussarela.',
-      'Leve sem ser sem graça, mostra que uma pizza sem carne pode ser tão saborosa e caprichada quanto qualquer outra.'],
-    ing: [['Molho de tomate', '#d9361e'], ['Pimentões', '#d8432b'], ['Champignon', '#b89a7a'], ['Azeitona', '#2b2b2b'], ['Mussarela', '#f6f1e4']] },
-  { name: 'Salmão', img: 'salmao', short: 'SALMÃO', price: 69.9,
-    desc: ['Base de cream cheese, lâminas de salmão defumado, cebolinha e raspas de limão para dar frescor.',
-      'Delicada e diferente, agrada quem procura uma pizza mais leve, tanto no almoço quanto no jantar.'],
-    ing: [['Cream cheese', '#efe3c4'], ['Salmão defumado', '#f08a6c'], ['Cebolinha', '#6aa84f'], ['Limão', '#f1d74b'], ['Mussarela', '#f6f1e4']] },
 ];

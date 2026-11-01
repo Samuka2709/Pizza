@@ -3344,8 +3344,8 @@ textarea.input {
   --anchor: -157.5deg; /* where the current name sits (left of the top) */
   position: relative;
   background: var(--paper);
-  height: calc(100vh + 8 * 50vh);
-  height: calc(100svh + 8 * 50svh);
+  height: calc(100vh + var(--n) * 50vh);
+  height: calc(100svh + var(--n) * 50svh);
 }
 .wheel__stage {
   position: sticky;
@@ -3569,8 +3569,8 @@ textarea.input {
 
 @media (max-width: 899px) {
   .wheel {
-    height: calc(100vh + 8 * 40vh);
-    height: calc(100svh + 8 * 40svh);
+    height: calc(100vh + var(--n) * 40vh);
+    height: calc(100svh + var(--n) * 40svh);
   }
   .wheel__head {
     padding-top: calc(var(--header-h) + 10px);
