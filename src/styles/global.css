@@ -3141,8 +3141,8 @@ textarea.input {
 }
 @media (min-width: 900px) {
   .motion .deck-section {
-    height: calc(100vh + 8 * 32vh);
-    height: calc(100svh + 8 * 32svh);
+    height: 230vh;
+    height: 230svh;
     padding-block: 0;
   }
   .motion .deck-section__pin {
@@ -3217,5 +3217,51 @@ textarea.input {
   }
   .decor__item--desktop {
     display: none;
+  }
+}
+
+/* Desktop spread: heading on top, the whole deck fans out across the width */
+@media (min-width: 900px) {
+  .motion .deck-section__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 28px;
+  }
+  .motion .deck-section__text .lead {
+    margin-inline: auto;
+  }
+  .motion .deck-section__ctas {
+    justify-content: center;
+  }
+  .motion .deck-section .h2 {
+    margin-top: 10px;
+  }
+  .deck--spread {
+    width: 100%;
+  }
+  .deck--spread .deck__stack {
+    --w: min(215px, 17vw, 30vh);
+  }
+  .deck--spread .deck__controls {
+    display: none;
+  }
+  .deck--spread .deck__card {
+    cursor: default;
+    translate: 0 0;
+    transition: translate 300ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 300ms ease;
+  }
+  .deck--spread .deck__name {
+    font-size: 1.375rem;
+  }
+  .deck--spread .deck__desc {
+    font-size: 0.8125rem;
+  }
+}
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+  .deck--spread .deck__card:hover {
+    translate: 0 -26px;
+    z-index: 50 !important;
+    box-shadow: 0 30px 50px rgb(60 30 10 / 0.25);
   }
 }

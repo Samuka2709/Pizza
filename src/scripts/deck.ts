@@ -8,7 +8,7 @@
  * - touch-action: pan-y keeps vertical page scrolling on phones
  * - Reduced motion: cards swap with a fade, nothing flies
  * - Scroll (desktop, [data-deck-scroll] section): the section is pinned and scrolling
- *   turns the cards over one by one; scrolling back brings them back
+ *   spreads all the cards out to both sides at once; scrolling back gathers them
  */
 const FAN = [
   { x: 0, y: 0, r: -2 },
@@ -42,7 +42,7 @@ export function initDeck(opts: { reduced: boolean }) {
     }
 
     function next(dir = 1) {
-      if (busy) return;
+      if (busy || deck.classList.contains('deck--spread')) return;
       const front = cards[order[0]];
       if (opts.reduced) {
         order.push(order.shift()!);
@@ -61,7 +61,7 @@ export function initDeck(opts: { reduced: boolean }) {
     }
 
     function prev() {
-      if (busy) return;
+      if (busy || deck.classList.contains('deck--spread')) return;
       order.unshift(order.pop()!);
       const back = cards[order[0]];
       if (!opts.reduced) {
@@ -91,7 +91,7 @@ export function initDeck(opts: { reduced: boolean }) {
     let startT = 0;
     let dx = 0;
     stack.addEventListener('pointerdown', (e) => {
-      if (pointerId !== null || busy || e.button !== 0) return; // ignore extra touches
+      if (pointerId !== null || busy || e.button !== 0 || deck.classList.contains('deck--spread')) return; // ignore extra touches
       const front = cards[order[0]];
       if (!front.contains(e.target as Node)) return;
       pointerId = e.pointerId;
@@ -130,38 +130,65 @@ export function initDeck(opts: { reduced: boolean }) {
       layout();
     }
 
-    // Scroll driver: pinned section, one card per slice of scroll
+    // Scroll driver (desktop): pinned section; scrolling spreads the whole stack out to
+    // both sides at once, like a hand of cards. Scrolling back gathers them again.
     const section = deck.closest<HTMLElement>('[data-deck-scroll]');
     const bar = section?.querySelector<HTMLElement>('[data-deck-progress]');
     const wide = window.matchMedia('(min-width: 900px)');
+    let spreadOn = false;
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    function layoutSpread(p: number) {
+      const n = cards.length;
+      // outer cards stay fully on screen
+      const cardW = cards[0].offsetWidth;
+      const reach = Math.min(window.innerWidth / 2 - cardW / 2 - 36, 660);
+      cards.forEach((c, i) => {
+        const t = (i - (n - 1) / 2) / ((n - 1) / 2); // -1 … 1
+        const f = FAN[Math.min(i, FAN.length - 1)];
+        // each card leaves the stack a little after the previous one, but all within the same scroll
+        const k = ease(Math.min(1, Math.max(0, p * 1.25 - Math.abs(t) * 0.25)));
+        const x = f.x + (t * reach - f.x) * k;
+        const y = f.y + (t * t * 30 - f.y) * k;
+        const r = f.r + (t * 10 - f.r) * k;
+        c.style.transition = 'none';
+        c.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+        c.style.opacity = '1';
+        c.style.zIndex = String(k > 0.5 ? i + 1 : n - i);
+        c.removeAttribute('inert');
+        c.setAttribute('aria-hidden', 'false');
+      });
+      if (bar) bar.style.transform = `scaleX(${p})`;
+    }
+
     if (section && !opts.reduced) {
       let ticking = false;
-      let lastStep = -1;
       const onScroll = () => {
         ticking = false;
-        if (!wide.matches) return;
+        const on = wide.matches;
+        if (on !== spreadOn) {
+          spreadOn = on;
+          deck.classList.toggle('deck--spread', on);
+          if (!on) {
+            order = cards.map((_, i) => i);
+            layout(false);
+          }
+        }
+        if (!on) return;
         const r = section.getBoundingClientRect();
         const range = r.height - window.innerHeight;
-        if (range <= 0) return;
-        const p = Math.min(1, Math.max(0, -r.top / range));
-        if (bar) bar.style.transform = `scaleX(${p})`;
-        const step = Math.min(cards.length - 1, Math.floor(p * cards.length));
-        if (step !== lastStep) {
-          lastStep = step;
-          goTo(step);
+        layoutSpread(range > 0 ? Math.min(1, Math.max(0, -r.top / range)) : 1);
+      };
+      const queue = () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(onScroll);
         }
       };
-      window.addEventListener(
-        'scroll',
-        () => {
-          if (!ticking) {
-            ticking = true;
-            requestAnimationFrame(onScroll);
-          }
-        },
-        { passive: true }
-      );
-      onScroll();
+      window.addEventListener('scroll', queue, { passive: true });
+      window.addEventListener('resize', queue);
+      // wait for layout(false) below, then take over
+      requestAnimationFrame(onScroll);
     }
 
     layout(false);
