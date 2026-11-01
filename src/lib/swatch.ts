@@ -1,8 +1,8 @@
-/** Card colours that rotate through the pizzas: muted, restaurant-menu palette (background / text / gold line) */
+/** Card colours that rotate through the pizzas: black, wine and ivory, with a fine gold line (background / text / gold line) */
 export const SWATCHES = [
-  { bg: '#24231f', fg: '#f5ebdd', line: '#c9a46a', name: 'charcoal' },
-  { bg: '#faf4ea', fg: '#24231f', line: '#a8844a', name: 'cream' },
-  { bg: '#173d2d', fg: '#f5ebdd', line: '#c9a46a', name: 'olive' },
-  { bg: '#7e2b20', fg: '#f6eadb', line: '#d3ad72', name: 'wine' },
+  { bg: '#16110f', fg: '#f2e8d6', line: '#c9a45c', name: 'black' },
+  { bg: '#4a1420', fg: '#f6ecdc', line: '#d4b46e', name: 'wine' },
+  { bg: '#211a16', fg: '#f2e8d6', line: '#b8924f', name: 'smoke' },
+  { bg: '#f2e8d6', fg: '#1a1411', line: '#a8853f', name: 'ivory' },
 ] as const;
 export const swatch = (i: number) => SWATCHES[i % SWATCHES.length];

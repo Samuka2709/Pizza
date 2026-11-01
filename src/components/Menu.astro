@@ -74,7 +74,7 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
                     <p class="pill">{price(d.price)}</p>
                   </div>
                   <div class="qty" data-cart-item={slug(d.name)} data-name={d.name} data-price={d.price}>
-                    <button class="qty__add" type="button" data-cart-add aria-label={`Adicionar ${d.name} ao pedido`}><Icon name="plus" class="btn__arrow" /> Adicionar<span class="qty__more"> ao pedido</span></button>
+                    <button class="qty__add" type="button" data-cart-add aria-label={`Adicionar ${d.name} ao pedido`}><Icon name="plus" class="btn__arrow" /> <span>Adicionar<span class="qty__more"> ao pedido</span></span></button>
                   </div>
                 </div>
               </li>

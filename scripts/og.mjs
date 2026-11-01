@@ -18,7 +18,27 @@ const font = (w, style = 'normal') => {
 const regular = font(400);
 const italic = font(300, 'italic');
 
-const textPath = (f, text, x, y, size, fill) => `<path d="${f.getPath(text, x, y, size).toPathData(2)}" fill="${fill}"/>`;
+// Glyph by glyph: opentype.js's string layout returns NaN coordinates for some pairs in
+// this font (the name came out broken), so advance by each glyph's own width instead.
+const textPath = (f, text, x, y, size, fill) => {
+  const scale = size / f.unitsPerEm;
+  let d = '';
+  let cx = x;
+  for (const ch of text) {
+    const g = f.charToGlyph(ch);
+    // transform the raw outline ourselves (getPath on a reused glyph can return NaN)
+    const X = (v) => (cx + v * scale).toFixed(2);
+    const Y = (v) => (y - v * scale).toFixed(2);
+    for (const c of g.path.commands) {
+      if (c.type === 'M' || c.type === 'L') d += `${c.type}${X(c.x)} ${Y(c.y)}`;
+      else if (c.type === 'Q') d += `Q${X(c.x1)} ${Y(c.y1)} ${X(c.x)} ${Y(c.y)}`;
+      else if (c.type === 'C') d += `C${X(c.x1)} ${Y(c.y1)} ${X(c.x2)} ${Y(c.y2)} ${X(c.x)} ${Y(c.y)}`;
+      else if (c.type === 'Z') d += 'Z';
+    }
+    cx += g.advanceWidth * scale;
+  }
+  return `<path d="${d}" fill="${fill}"/>`;
+};
 
 /** Margherita drawn in SVG: dough, tomato, mozzarella, basil, leopard spots */
 function pizza(cx, cy, R) {
@@ -38,15 +58,15 @@ function pizza(cx, cy, R) {
 }
 
 const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-  <rect width="1200" height="630" fill="#f5ebdd"/>
-  <circle cx="930" cy="330" r="380" fill="#c98b4a" fill-opacity=".14"/>
+  <rect width="1200" height="630" fill="#0f0c0b"/>
+  <circle cx="930" cy="330" r="380" fill="#6b1d2b" fill-opacity=".35"/>
   ${pizza(930, 330, 280)}
-  <rect x="80" y="104" width="10" height="10" rx="5" fill="#b7321d"/>
-  <text x="104" y="114" font-family="Arial, sans-serif" font-weight="700" font-size="16" letter-spacing="3" fill="#b7321d">PIZZARIA ARTESANAL · ${s.city.toUpperCase()}</text>
-  ${textPath(regular, s.name, 72, 330, 170, '#241b16')}
-  ${textPath(italic, 'Delivery, salão e festas.', 80, 420, 44, '#5f5148')}
-  ${textPath(italic, 'Rodízio toda sexta.', 80, 474, 44, '#5f5148')}
-  <rect x="0" y="606" width="1200" height="24" fill="#b7321d"/>
+  <rect x="80" y="104" width="10" height="10" rx="5" fill="#c9a45c"/>
+  <text x="104" y="114" font-family="Arial, sans-serif" font-weight="700" font-size="16" letter-spacing="3" fill="#c9a45c">PIZZARIA ARTESANAL · ${s.city.toUpperCase()}</text>
+  ${textPath(regular, s.name, 80, 320, 136, '#f2e8d6')}
+  ${textPath(italic, 'Delivery, salão e festas.', 80, 420, 44, '#d4b46e')}
+  ${textPath(italic, 'Rodízio toda sexta.', 80, 474, 44, '#d4b46e')}
+  <rect x="0" y="606" width="1200" height="24" fill="#c9a45c"/>
 </svg>`;
 await sharp(Buffer.from(og)).jpeg({ quality: 84, mozjpeg: true }).toFile(path.join(pub, 'og.jpg'));
 
@@ -58,7 +78,7 @@ const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 </svg>`;
 fs.writeFileSync(path.join(pub, 'favicon.svg'), favicon);
 await sharp(Buffer.from(favicon)).resize(32, 32).png().toFile(path.join(pub, 'favicon-32.png'));
-const touch = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#f5ebdd"/>${favicon.replace(/<\/?svg[^>]*>/g, '')}</svg>`;
+const touch = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#0f0c0b"/>${favicon.replace(/<\/?svg[^>]*>/g, '')}</svg>`;
 await sharp(Buffer.from(touch)).resize(180, 180).png().toFile(path.join(pub, 'apple-touch-icon.png'));
 
 console.log('OK: og.jpg, favicon.svg, favicon-32.png, apple-touch-icon.png');
