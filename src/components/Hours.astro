@@ -1,0 +1,31 @@
+---
+/**
+ * Opening hours. The full week (segunda → domingo) or a short summary.
+ * On the client, today's row is highlighted and the status line says if it is open now
+ * (see initHours in main.ts). Without JavaScript it is a plain, correct timetable.
+ */
+import { site as s } from '../data/site';
+import { DAYS, WEEK_ORDER, hoursLabel, hoursSummary } from '../lib/format';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact } = Astro.props;
+---
+<div class:list={['hours', { 'hours--compact': compact }]} data-hours>
+  <p class="hours__status" data-hours-status hidden><span class="live-dot" aria-hidden="true"></span><span data-hours-text></span></p>
+  {compact ? (
+    <ul class="hours__list">
+      {hoursSummary().map((g) => <li><span>{g.days}</span> <span>{g.label}</span></li>)}
+    </ul>
+  ) : (
+    <dl class="hours__list">
+      {WEEK_ORDER.map((d) => (
+        <div class="hours__row" data-day={d}>
+          <dt>{DAYS[d][0].toUpperCase() + DAYS[d].slice(1)}</dt>
+          <dd>{hoursLabel(s.hours[d])}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+</div>

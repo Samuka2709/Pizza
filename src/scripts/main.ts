@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface SiteData {
   timezone: string;
   popup: { weekday: number; open: string; close: string };
+  hours: ([string, string] | null)[];
   endpoint: string;
 }
 
@@ -135,7 +136,7 @@ if (watchEl) {
 /* --------------------------------------------------------------------------
    Próximo rodízio (sempre no horário da pizzaria)
    -------------------------------------------------------------------------- */
-function londonNow() {
+function localNow() {
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: data.timezone,
     weekday: 'short',
@@ -160,7 +161,7 @@ const hourLabel = (t: string) => {
 
 function popupStatus() {
   const { weekday, open, close } = data.popup;
-  const now = londonNow();
+  const now = localNow();
   const times = `das ${hourLabel(open)} às ${hourLabel(close)}`;
   if (now.day === weekday) {
     if (now.minutes < toMin(open)) return { live: false, short: `Hoje tem rodízio, ${times}`, long: `Hoje tem rodízio a partir das ${hourLabel(open)}.` };
@@ -178,6 +179,40 @@ $$('[data-next-popup]').forEach((el) => {
 $$('[data-next-popup-long]').forEach((el) => {
   el.innerHTML = `<span class="live-dot${status.live ? ' is-live' : ''}" aria-hidden="true"></span>${status.long}`;
 });
+
+/* --------------------------------------------------------------------------
+   Horário de funcionamento: destaca o dia de hoje e diz se está aberto agora
+   -------------------------------------------------------------------------- */
+const WEEKDAY = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+function openStatus() {
+  const now = localNow();
+  const today = data.hours[now.day];
+  if (today && now.minutes >= toMin(today[0]) && now.minutes < toMin(today[1])) {
+    return { open: true, text: `Aberto agora, até as ${hourLabel(today[1])}` };
+  }
+  if (today && now.minutes < toMin(today[0])) return { open: false, text: `Fechado agora. Abre hoje às ${hourLabel(today[0])}` };
+  for (let k = 1; k <= 7; k++) {
+    const d = (now.day + k) % 7;
+    const h = data.hours[d];
+    if (h) return { open: false, text: `Fechado agora. Abre ${k === 1 ? 'amanhã' : WEEKDAY[d]} às ${hourLabel(h[0])}` };
+  }
+  return { open: false, text: 'Fechado' };
+}
+if (data.hours.some(Boolean)) {
+  const st = openStatus();
+  const today = localNow().day;
+  $$('[data-hours]').forEach((el) => {
+    const line = $('[data-hours-status]', el)!;
+    $('[data-hours-text]', line)!.textContent = st.text;
+    $('.live-dot', line)!.classList.toggle('is-live', st.open);
+    line.hidden = false;
+    const row = $(`[data-day="${today}"]`, el);
+    if (row) {
+      row.classList.add('is-today');
+      row.setAttribute('aria-current', 'date');
+    }
+  });
+}
 
 /* --------------------------------------------------------------------------
    Main animation (home)

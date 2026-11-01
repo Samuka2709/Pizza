@@ -76,6 +76,20 @@ export const site = {
   },
 
   /**
+   * Horário de funcionamento (salão e delivery), de domingo (0) a sábado (6).
+   * null = fechado. Horário de Brasília.
+   */
+  hours: [
+    ['18:00', '23:00'], // domingo · EXEMPLO
+    null, // segunda · EXEMPLO
+    ['18:00', '23:00'], // terça · EXEMPLO
+    ['18:00', '23:00'], // quarta · EXEMPLO
+    ['18:00', '23:00'], // quinta · EXEMPLO
+    ['18:00', '23:30'], // sexta · EXEMPLO
+    ['18:00', '23:30'], // sábado · EXEMPLO
+  ] as ([string, string] | null)[],
+
+  /**
    * Formulário de orçamento. Com `endpoint` vazio ele funciona em modo demonstração:
    * valida, bloqueia spam e mostra a confirmação, mas não envia nada.
    * Um endpoint no estilo Formspree (POST, resposta JSON) faz o envio de verdade.

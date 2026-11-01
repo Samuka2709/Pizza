@@ -24,6 +24,7 @@ Tudo fica em **`src/data/site.ts`**: nome, frase, contatos, WhatsApp, cardápio,
 Os valores marcados com `// EXEMPLO` são fictícios e precisam ser trocados.
 
 - **Nome da marca:** `name` (aparece no topo, no título gigante e no rodapé).
+- **Horário:** `hours`, de domingo a sábado (`null` = fechado). O site destaca o dia de hoje e mostra "Aberto agora" ou quando abre, no rodapé e na página de contato.
 - **Pedidos:** os botões "Peça agora" abrem o WhatsApp com uma mensagem pronta (`contact.whatsapp`).
 - **Fotos:** cada foto tem `id` (Unsplash) e `alt`. Para fotos do cliente, adapte `src/lib/img.ts`.
 - **Vídeo do topo:** arquivos em `public/video` (MP4 1280 px e 854 px, WebM e as imagens de capa). Mantenha cerca de 1,7 MB no computador e 0,7 MB no celular.

@@ -2,6 +2,7 @@
 import { site as s } from '../data/site';
 import { mailto, popupTimes, socialLinks, DAYS, whatsappLink } from '../lib/format';
 import Icon from './Icon.astro';
+import Hours from './Hours.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="footer">
@@ -33,8 +34,9 @@ const year = new Date().getFullYear();
         </ul>
       </div>
       <div class="footer__col">
-        <h2 class="label">Rodízio</h2>
-        <p>Toda {DAYS[s.popup.weekday]}, {popupTimes()}<br />{s.popup.place}</p>
+        <h2 class="label">Horário</h2>
+        <Hours compact />
+        <p class="footer__popup">Rodízio toda {DAYS[s.popup.weekday]}, {popupTimes()}.<br />{s.popup.place}</p>
         <a class="link-line" href="/rodizio/">Como chegar</a>
       </div>
     </div>

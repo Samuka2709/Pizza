@@ -60,7 +60,7 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
             {c.items.map((d, k) => (
               <li class="pizza-card" data-diet={dietTags(d)} style={`--i:${k};--bg:${swatch(k).bg};--fg:${swatch(k).fg};--line:${swatch(k).line};--tilt:${[-1.2, 0.8, -0.6, 1.1][k % 4]}deg`}>
                 <div class="pizza-card__media">
-                  {d.photo && <Photo photo={d.photo} ratio={1} widths={[360, 540, 720]} sizes="(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 100vw" reveal={false} />}
+                  {d.photo && <Photo photo={d.photo} ratio={1} widths={[240, 360, 540, 720]} sizes="(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 120px" reveal={false} />}
                   {d.signature && <span class="pizza-card__badge">Mais pedida</span>}
                 </div>
                 <div class="pizza-card__body">

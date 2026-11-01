@@ -42,9 +42,9 @@ const schema = {
   hasMenu: `${origin}/cardapio/`,
   sameAs: Object.values(s.contact.social).filter(Boolean),
   address: { '@type': 'PostalAddress', streetAddress: s.popup.addressLines[0], addressLocality: s.city, addressCountry: 'BR' },
-  openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: s.popup.open, closes: s.popup.close },
-  ],
+  openingHoursSpecification: s.hours.flatMap((h, d) =>
+    h ? [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d], opens: h[0], closes: h[1] }] : []
+  ),
 };
 ---
 <!doctype html>
@@ -108,7 +108,7 @@ const schema = {
     </main>
     <Footer />
     <Fixed />
-    <script type="application/json" id="site-data" set:html={JSON.stringify({ timezone: s.timezone, popup: { weekday: s.popup.weekday, open: s.popup.open, close: s.popup.close }, endpoint: s.quoteForm.endpoint })} />
+    <script type="application/json" id="site-data" set:html={JSON.stringify({ timezone: s.timezone, popup: { weekday: s.popup.weekday, open: s.popup.open, close: s.popup.close }, hours: s.hours, endpoint: s.quoteForm.endpoint })} />
     <script>
       import '../scripts/main';
     </script>

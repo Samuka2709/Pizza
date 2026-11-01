@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
 import Icon from '../../components/Icon.astro';
+import Hours from '../../components/Hours.astro';
 import { site as s } from '../../data/site';
 import { mailto, socialLinks, DAYS, popupTimes, whatsappLink } from '../../lib/format';
 ---
@@ -22,6 +23,10 @@ import { mailto, socialLinks, DAYS, popupTimes, whatsappLink } from '../../lib/f
           <a class="contact__big" href={whatsappLink()} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
           <a class="contact__big" href={`tel:${s.contact.phoneHref}`}><Icon name="phone" /> {s.contact.phone}</a>
           <a class="contact__big" href={mailto('Orçamento de festa')}><Icon name="mail" /> {s.contact.email}</a>
+        </div>
+        <div class="contact__card" data-reveal="fade">
+          <h2 class="label">Horário de funcionamento</h2>
+          <Hours />
         </div>
         <div class="contact__card" data-reveal="fade">
           <h2 class="label">Siga a gente</h2>

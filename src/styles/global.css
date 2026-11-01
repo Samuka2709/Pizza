@@ -2376,7 +2376,7 @@ textarea.input {
 }
 .footer__col a {
   display: inline-block;
-  padding-block: 6px;
+  padding-block: 10px; /* 44px tall: easy to tap */
   color: var(--on-dark-soft);
   transition: color var(--dur-hover) var(--ease);
   overflow-wrap: anywhere;
@@ -2423,9 +2423,10 @@ textarea.input {
 .footer__bottom .link-line {
   color: var(--on-dark-soft);
   min-height: 0;
+  padding-block: 10px;
 }
 .footer__bottom .link-line::after {
-  bottom: -2px;
+  bottom: 8px;
 }
 /* the crust edge on the footer takes the footer's colour */
 .footer > .crust {
@@ -3509,7 +3510,10 @@ textarea.input {
   transition:
     color 300ms ease,
     opacity 300ms ease,
-    font-size 300ms ease;
+    scale 160ms ease-out;
+}
+.wheel__names button:active {
+  scale: 0.96;
 }
 .wheel__names button.is-active {
   color: var(--tomato);
@@ -3605,3 +3609,65 @@ textarea.input {
   }
 }
 
+
+/* ==========================================================================
+   Horário de funcionamento
+   ========================================================================== */
+.hours__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.hours__status[hidden] {
+  display: none;
+}
+.hours__list {
+  display: grid;
+  gap: 2px;
+}
+.hours__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 7px 10px;
+  margin-inline: -10px;
+  border-radius: 8px;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.hours__row.is-today {
+  background: var(--flour);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--basil);
+}
+.hours__row.is-today dt::after {
+  content: ' · hoje';
+  color: var(--basil);
+  font-weight: 600;
+}
+.hours--compact .hours__status {
+  color: var(--on-dark);
+  margin-bottom: 8px;
+}
+.hours--compact .hours__list li {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  color: var(--on-dark-soft);
+  padding-block: 2px;
+}
+.hours--compact .hours__list li span:first-child {
+  color: var(--on-dark);
+}
+.footer__popup {
+  margin-top: 14px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-dot.is-live {
+    animation: none;
+  }
+}
