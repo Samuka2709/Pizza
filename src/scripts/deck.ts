@@ -7,6 +7,8 @@
  * - Pointer capture keeps the drag going outside the card; extra touches are ignored
  * - touch-action: pan-y keeps vertical page scrolling on phones
  * - Reduced motion: cards swap with a fade, nothing flies
+ * - Scroll (desktop, [data-deck-scroll] section): the section is pinned and scrolling
+ *   turns the cards over one by one; scrolling back brings them back
  */
 const FAN = [
   { x: 0, y: 0, r: -2 },
@@ -116,6 +118,51 @@ export function initDeck(opts: { reduced: boolean }) {
     };
     stack.addEventListener('pointerup', end);
     stack.addEventListener('pointercancel', end);
+
+    /** Bring card `target` to the front, one step at a time if it is the next/previous one */
+    function goTo(target: number) {
+      const cur = order[0];
+      if (target === cur) return;
+      const n = cards.length;
+      if (target === (cur + 1) % n && !busy) return next(1);
+      if (target === (cur - 1 + n) % n && !busy) return prev();
+      order = cards.map((_, i) => (target + i) % n);
+      layout();
+    }
+
+    // Scroll driver: pinned section, one card per slice of scroll
+    const section = deck.closest<HTMLElement>('[data-deck-scroll]');
+    const bar = section?.querySelector<HTMLElement>('[data-deck-progress]');
+    const wide = window.matchMedia('(min-width: 900px)');
+    if (section && !opts.reduced) {
+      let ticking = false;
+      let lastStep = -1;
+      const onScroll = () => {
+        ticking = false;
+        if (!wide.matches) return;
+        const r = section.getBoundingClientRect();
+        const range = r.height - window.innerHeight;
+        if (range <= 0) return;
+        const p = Math.min(1, Math.max(0, -r.top / range));
+        if (bar) bar.style.transform = `scaleX(${p})`;
+        const step = Math.min(cards.length - 1, Math.floor(p * cards.length));
+        if (step !== lastStep) {
+          lastStep = step;
+          goTo(step);
+        }
+      };
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(onScroll);
+          }
+        },
+        { passive: true }
+      );
+      onScroll();
+    }
 
     layout(false);
   });

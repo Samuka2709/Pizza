@@ -233,6 +233,36 @@ function setupScrollReveals() {
   const spin = $('[data-spin]');
   if (spin) gsap.to(spin, { rotate: 120, xPercent: 20, ease: 'none', scrollTrigger: { trigger: spin.parentElement, start: 'top top', end: 'bottom top', scrub: true } });
 
+  // Decorative ingredients drift and turn at their own speed while scrolling
+  $$('[data-decor]').forEach((layer) => {
+    const section = layer.parentElement!.closest('section') ?? layer.parentElement!;
+    $$('.decor__item', layer).forEach((item) => {
+      const speed = Number(item.dataset.speed) || 0;
+      const spin = Number(item.dataset.spin) || 0;
+      gsap.fromTo(
+        item,
+        { y: -speed * 160, rotation: -spin / 2 },
+        { y: speed * 160, rotation: spin / 2, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }
+      );
+    });
+  });
+
+  // Phones (deck not pinned): the whole stack tilts and rises as it scrolls past
+  gsap.matchMedia().add('(max-width: 899px)', () => {
+    $$('.deck__stack').forEach((stack) => {
+      gsap.fromTo(stack, { rotation: -7, y: 50 }, { rotation: 5, y: -30, ease: 'none', scrollTrigger: { trigger: stack, start: 'top bottom', end: 'bottom top', scrub: 0.5 } });
+    });
+  });
+
+  // Menu page: pizza cards rise and settle into their tilt as they scroll in
+  $$('.pizza-card').forEach((card, i) => {
+    gsap.fromTo(
+      card,
+      { y: 70, rotation: i % 2 ? 7 : -7, opacity: 0 },
+      { y: 0, rotation: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 72%', scrub: 0.5 } }
+    );
+  });
+
   const footerName = $('.footer__name');
   if (footerName) gsap.fromTo(footerName, { yPercent: 30 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
 

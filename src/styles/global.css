@@ -2910,7 +2910,7 @@ textarea.input {
    Home: pizza deck (cards fanned, shuffle through)
    ========================================================================== */
 .deck-section {
-  overflow: hidden;
+  overflow-x: clip;
 }
 .deck-section__grid {
   display: grid;
@@ -3036,9 +3036,8 @@ textarea.input {
   box-shadow: 0 10px 26px rgb(60 30 10 / 0.12);
   transition:
     rotate 450ms cubic-bezier(0.23, 1, 0.32, 1),
-    transform 450ms cubic-bezier(0.23, 1, 0.32, 1),
-    box-shadow 450ms ease,
-    opacity 250ms ease;
+    translate 450ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 450ms ease;
 }
 .pizza-card__media {
   overflow: hidden;
@@ -3100,7 +3099,7 @@ textarea.input {
 @media (hover: hover) and (pointer: fine) {
   .pizza-card:hover {
     rotate: 0deg;
-    transform: translateY(-6px);
+    translate: 0 -6px;
     box-shadow: 0 22px 44px rgb(60 30 10 / 0.2);
   }
 }
@@ -3134,4 +3133,89 @@ textarea.input {
   font-family: var(--sans);
   font-size: 0.875rem;
   font-weight: 700;
+}
+
+/* Deck section pinned while scrolling (desktop, motion allowed) */
+.deck-section__progress {
+  display: none;
+}
+@media (min-width: 900px) {
+  .motion .deck-section {
+    height: calc(100vh + 8 * 32vh);
+    height: calc(100svh + 8 * 32svh);
+    padding-block: 0;
+  }
+  .motion .deck-section__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    display: grid;
+    align-content: center;
+  }
+  .motion .deck-section__progress {
+    display: block;
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 40px;
+    height: 2px;
+    max-width: calc(var(--max) - var(--gutter) * 2);
+    margin-inline: auto;
+    background: var(--line);
+    overflow: hidden;
+  }
+  .deck-section__progress span {
+    display: block;
+    height: 100%;
+    background: var(--tomato);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}
+
+/* ==========================================================================
+   Decorative ingredients (drift with scroll)
+   ========================================================================== */
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.deck-section__grid,
+.menu-section > .container {
+  position: relative;
+  z-index: 1;
+}
+.menu-section {
+  position: relative;
+  overflow-x: clip;
+}
+.decor__item {
+  position: absolute;
+  width: var(--size);
+  translate: -50% -50%;
+  rotate: var(--rot);
+  will-change: transform;
+}
+.decor__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 14px rgb(60 30 10 / 0.18));
+}
+.decor__item--ring {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid rgb(183 50 29 / 0.32);
+}
+@media (max-width: 899px) {
+  .decor__item {
+    width: calc(var(--size) * 0.6);
+  }
+  .decor__item--desktop {
+    display: none;
+  }
 }

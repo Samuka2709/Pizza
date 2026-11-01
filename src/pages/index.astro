@@ -8,6 +8,7 @@ import PopupStrip from '../components/PopupStrip.astro';
 import Gallery from '../components/Gallery.astro';
 import Photo from '../components/Photo.astro';
 import PizzaDeck from '../components/PizzaDeck.astro';
+import Decor from '../components/Decor.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import Icon from '../components/Icon.astro';
 import { site as s } from '../data/site';
@@ -48,7 +49,20 @@ import { site as s } from '../data/site';
 
   <PopupStrip num="04" />
 
-  <section class="section deck-section" aria-labelledby="menu-title">
+  <!-- Scroll-driven on desktop: the section stays pinned while the cards turn over one by one -->
+  <section class="section deck-section" aria-labelledby="menu-title" data-deck-scroll>
+    <div class="deck-section__pin">
+    <Decor items={[
+      { src: 'basil', x: 44, y: 8, size: 150, rot: -20, speed: -0.6, spin: 40, mobile: true },
+      { src: 'pepperoni-0', x: 86, y: 6, size: 86, speed: 0.5, spin: 120, mobile: true },
+      { src: 'mozzarella', x: 92, y: 66, size: 96, rot: 10, speed: -0.4, spin: -30 },
+      { src: 'pepperoni-1', x: 50, y: 78, size: 64, speed: 0.8, spin: -140, mobile: true },
+      { src: 'basil', x: 4, y: 84, size: 110, rot: 140, speed: -0.3, spin: 30 },
+      { x: 58, y: 18, size: 120, speed: 0.4 },
+      { x: 38, y: 64, size: 46, speed: -0.7 },
+      { x: 78, y: 86, size: 70, speed: 0.3 },
+      { x: 12, y: 10, size: 28, speed: 0.9 },
+    ]} />
     <div class="container deck-section__grid">
       <div class="deck-section__text">
         <SectionLabel num="05" text="The menu" />
@@ -60,6 +74,8 @@ import { site as s } from '../data/site';
         </div>
       </div>
       <PizzaDeck />
+    </div>
+    <div class="deck-section__progress" aria-hidden="true"><span data-deck-progress></span></div>
     </div>
   </section>
 
