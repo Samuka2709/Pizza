@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import PizzaHero from '../components/PizzaHero.astro';
 import Marquee from '../components/Marquee.astro';
 import BrandFilm from '../components/BrandFilm.astro';
-import Ways from '../components/Ways.astro';
 import PopupStrip from '../components/PopupStrip.astro';
 import Gallery from '../components/Gallery.astro';
 import Photo from '../components/Photo.astro';
@@ -12,7 +11,6 @@ import Decor from '../components/Decor.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import Icon from '../components/Icon.astro';
 import { site as s } from '../data/site';
-import { whatsappLink } from '../lib/format';
 
 ---
 <Base>
@@ -32,23 +30,8 @@ import { whatsappLink } from '../lib/format';
 
   <BrandFilm />
 
-  <section class="section section--paper" aria-labelledby="ways-title">
-    <div class="container">
-      <header class="section-head section-head--split">
-        <div>
-          <SectionLabel num="03" text={s.ways.label} />
-          <h2 class="display h2 reveal-words" id="ways-title" data-split-auto>{s.ways.title}</h2>
-        </div>
-        <div>
-          <p class="lead" data-reveal="fade">{s.ways.lead}</p>
-          <a class="btn btn--primary section-head__cta" href={whatsappLink()} target="_blank" rel="noopener" data-reveal="fade" data-magnetic><Icon name="whatsapp" class="btn__arrow" /> Pedir pelo WhatsApp</a>
-        </div>
-      </header>
-      <Ways />
-    </div>
-  </section>
 
-  <PopupStrip num="04" />
+  <PopupStrip num="03" />
 
   <!-- Scroll-driven on desktop: the section stays pinned while the cards turn over one by one -->
   <section class="section deck-section" aria-labelledby="menu-title" data-deck-scroll>
@@ -63,7 +46,7 @@ import { whatsappLink } from '../lib/format';
     ]} />
     <div class="container deck-section__grid">
       <div class="deck-section__text">
-        <SectionLabel num="05" text="Cardápio" />
+        <SectionLabel num="04" text="Cardápio" />
         <h2 class="display h2 reveal-words" id="menu-title" data-split-auto>Os sabores que todo mundo pede.</h2>
         <p class="lead" data-reveal="fade">Calabresa, portuguesa, frango com catupiry e mais: pizza grande, recheio até a borda e opção de borda recheada.</p>
         <div class="deck-section__ctas" data-reveal="fade">
@@ -83,7 +66,7 @@ import { whatsappLink } from '../lib/format';
         <Photo photo={s.story.photos[0]} ratio={4 / 5} widths={[400, 640, 900, 1200]} sizes="(min-width: 900px) 40vw, 100vw" />
       </div>
       <div>
-        <SectionLabel num="06" text="Nossa história" />
+        <SectionLabel num="05" text="Nossa história" />
         <h2 class="display h2 reveal-words" id="story-title" data-split-auto>{s.story.title}</h2>
         <p class="lead" data-reveal="fade">{s.story.lead}</p>
         <blockquote class="pull-quote" data-reveal="fade">
@@ -99,7 +82,7 @@ import { whatsappLink } from '../lib/format';
     <div class="container">
       <header class="section-head section-head--split">
         <div>
-          <SectionLabel num="07" text="Saindo do forno" />
+          <SectionLabel num="06" text="Saindo do forno" />
           <h2 class="display h2 reveal-words" id="gallery-title" data-split-auto>Quentinha, crocante e cheia de queijo.</h2>
         </div>
         {s.contact.social.instagram && (

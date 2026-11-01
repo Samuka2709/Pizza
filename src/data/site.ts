@@ -120,20 +120,6 @@ export const site = {
     text: 'Massa que descansa por 48 horas, molho de tomate da casa e muito queijo. Peça no delivery, venha ao salão ou leve a pizzaria para a sua festa.', // EXEMPLO
   },
 
-  /** Seção da home: jeitos de pedir. `action`: whatsapp abre o WhatsApp; os outros são links */
-  ways: {
-    label: 'Como pedir',
-    title: 'Do jeito que você preferir.', // EXEMPLO
-    lead: 'Peça pelo WhatsApp, retire no balcão ou venha comer com a gente. A pizza é a mesma, saindo quentinha do forno.', // EXEMPLO
-    items: [
-      { name: 'Delivery', text: 'Entrega em até 45 minutos na região, em caixa que mantém a pizza quente.', cta: 'Pedir pelo WhatsApp', action: 'whatsapp', photo: { id: '1622883618971-97068745dc6c', alt: 'Pessoa abrindo a caixa de uma pizza que acabou de chegar' } }, // EXEMPLO
-      { name: 'Retirada', text: 'Peça antes e retire no balcão sem fila. Ganhe 10% de desconto.', cta: 'Pedir para retirar', action: 'whatsapp', photo: { id: '1605960224189-e0010ea15ca0', alt: 'Pizza sobre caixas de papelão prontas para levar' } }, // EXEMPLO
-      { name: 'Salão', text: 'Mesa para a família e os amigos, com chope gelado e pizza saindo do forno.', cta: 'Ver horários', action: '/rodizio/', photo: { id: '1753351057883-cdb5458333eb', alt: 'Casal dividindo uma pizza numa mesa de pizzaria' } }, // EXEMPLO
-      { name: 'Rodízio de sexta', text: 'Pizza à vontade, salgadas e doces, toda sexta à noite.', cta: 'Saiba mais', action: '/rodizio/', photo: { id: '1724232860199-ca42e61ddb43', alt: 'Mesa cheia de pizzas e taças de vinho' } }, // EXEMPLO
-      { name: 'Festas', text: 'Levamos o forno e as pizzas para aniversários, empresas e condomínios.', cta: 'Pedir orçamento', action: '/eventos/', photo: { id: '1714978444570-729693fde1f3', alt: 'Amigos em volta de uma mesa com caixas de pizza' } }, // EXEMPLO
-    ] as { name: string; text: string; cta: string; action: string; photo: Photo }[],
-  },
-
   /* ------------------------------------------------------------------------
      Festas e eventos
      ------------------------------------------------------------------------ */
