@@ -410,21 +410,6 @@ faqItems.forEach((d) =>
 );
 
 /* --------------------------------------------------------------------------
-   Map: loads from Google only when asked
-   -------------------------------------------------------------------------- */
-$$('[data-map]').forEach((box) => {
-  $('[data-map-load]', box)?.addEventListener('click', () => {
-    const iframe = document.createElement('iframe');
-    iframe.src = box.dataset.map!;
-    iframe.title = box.dataset.mapTitle!;
-    iframe.referrerPolicy = 'no-referrer-when-downgrade';
-    iframe.allowFullscreen = true;
-    box.replaceChildren(iframe);
-    iframe.focus();
-  });
-});
-
-/* --------------------------------------------------------------------------
    Cookie notice (remembered in localStorage, nothing else stored)
    -------------------------------------------------------------------------- */
 const cookie = $('[data-cookie]');

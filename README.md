@@ -30,6 +30,7 @@ Os valores marcados com `// EXEMPLO` são fictícios e precisam ser trocados.
 - **Fotos:** cada foto tem `id` (Unsplash) e `alt`. Para fotos do cliente, adapte `src/lib/img.ts`.
 - **Vídeo do topo:** arquivos em `public/video` (MP4 1280 px e 854 px, WebM e as imagens de capa). Mantenha cerca de 1,7 MB no computador e 0,7 MB no celular.
 - **Formulário de orçamento:** com `quoteForm.endpoint` vazio funciona em modo demonstração (valida, bloqueia spam e mostra a confirmação, sem enviar). Com um endpoint estilo Formspree, envia de verdade.
+- **Mapa:** `popup.mapsEmbed` (mapa na página de contato e na do rodízio) e `popup.mapsUrl` (botão "Abrir no Google Maps"). O exemplo usa coordenadas para não mostrar nenhum estabelecimento real; no site do cliente, use o endereço dele.
 - **`mockupNotice: true`** mostra a faixa "Site modelo" e tira o site do Google. No site real, mude para `false`.
 
 Depois de trocar o nome ou a frase, gere de novo a imagem de compartilhamento e o favicon: `npm run og`.

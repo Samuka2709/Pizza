@@ -2010,36 +2010,6 @@ main:focus {
   height: 100%;
   border: 0;
 }
-.map__placeholder {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 14px;
-  padding: 24px;
-  text-align: center;
-}
-.map__pin {
-  width: 44px;
-  height: 44px;
-  color: var(--tomato-ink);
-}
-.map__placeholder > p:first-of-type {
-  font-family: var(--serif);
-  font-weight: 540;
-  font-size: 1.25rem;
-}
-.map__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-.map__note {
-  font-size: 0.8125rem;
-  color: var(--ink-soft);
-}
 
 /* ==========================================================================
    Contact page and quote form
@@ -4073,4 +4043,36 @@ html.cart-open {
 .cart__send:disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.map {
+  margin: 0;
+}
+.map__open {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  box-shadow: 0 6px 18px rgb(24 24 21 / 0.18);
+}
+.contact__map {
+  display: grid;
+  gap: 20px;
+}
+.contact__map-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+.contact__map-head p {
+  color: var(--ink-soft);
+}
+.contact__map .map {
+  aspect-ratio: 16 / 7;
+}
+@media (max-width: 699px) {
+  .contact__map .map {
+    aspect-ratio: 4 / 5;
+  }
 }

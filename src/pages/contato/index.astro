@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
 import Icon from '../../components/Icon.astro';
 import Hours from '../../components/Hours.astro';
+import MapEmbed from '../../components/MapEmbed.astro';
 import { site as s } from '../../data/site';
 import { mailto, socialLinks, DAYS, popupTimes, whatsappLink } from '../../lib/format';
 ---
@@ -44,6 +45,16 @@ import { mailto, socialLinks, DAYS, popupTimes, whatsappLink } from '../../lib/f
           <p>{s.contact.serviceArea}</p>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="map-title">
+    <div class="container contact__map" data-reveal="fade">
+      <div class="contact__map-head">
+        <h2 class="display h3" id="map-title">Onde estamos</h2>
+        <p>{s.popup.addressLines.join(' · ')}</p>
+      </div>
+      <MapEmbed src={s.popup.mapsEmbed} title={`Mapa: ${s.popup.place}`} link={s.popup.mapsUrl} />
     </div>
   </section>
 </Base>

@@ -218,8 +218,8 @@ export const site = {
     close: '23:00', // EXEMPLO
     place: 'Rua de Exemplo, 123', // EXEMPLO
     addressLines: ['Rua de Exemplo, 123', 'Bairro Exemplo, São Paulo, SP'], // EXEMPLO
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=S%C3%A3o+Paulo%2C+SP', // EXEMPLO
-    mapsEmbed: 'https://www.google.com/maps?q=S%C3%A3o+Paulo,+SP&output=embed', // EXEMPLO
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=-23.5629%2C-46.6544', // EXEMPLO
+    mapsEmbed: 'https://www.google.com/maps?q=-23.5629,-46.6544&z=16&output=embed', // EXEMPLO (troque pelo endereço do cliente)
     gettingThere: [
       { title: 'De metrô', text: 'A estação mais próxima fica a poucos minutos a pé.' }, // EXEMPLO
       { title: 'De ônibus', text: 'Várias linhas param na avenida ao lado.' }, // EXEMPLO

@@ -1,4 +1,8 @@
 ---
+/**
+ * Google Maps embed, shown right away. The iframe is lazy: it only loads when it comes near
+ * the screen, so it does not slow down the top of the page. A link opens the full Google Maps.
+ */
 import Icon from './Icon.astro';
 interface Props {
   src: string;
@@ -7,15 +11,7 @@ interface Props {
 }
 const { src, title, link } = Astro.props;
 ---
-<!-- Map loads only on request: no Google cookies or weight until the visitor asks for it -->
-<div class="map" data-map={src} data-map-title={title}>
-  <div class="map__placeholder">
-    <Icon name="pin" class="map__pin" />
-    <p>{title}</p>
-    <div class="map__actions">
-      <button class="btn btn--sm btn--primary" type="button" data-map-load>Mostrar mapa</button>
-      <a class="btn btn--sm btn--outline" href={link} target="_blank" rel="noopener">Abrir no Google Maps</a>
-    </div>
-    <p class="map__note">Ao mostrar o mapa, o conteúdo é carregado do Google.</p>
-  </div>
-</div>
+<figure class="map">
+  <iframe src={src} title={title} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+  <a class="map__open btn btn--sm btn--light" href={link} target="_blank" rel="noopener"><Icon name="pin" class="btn__arrow" /> Abrir no Google Maps</a>
+</figure>
