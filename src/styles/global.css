@@ -3038,9 +3038,18 @@ textarea.input {
     border-radius: 22px;
     padding: 10px;
   }
+  /* fixed, almost square arch: the photo keeps its shape instead of stretching with the card */
   .pizza-card__media {
-    border-radius: 999px;
-    flex-basis: 104px;
+    flex: 0 0 118px;
+    height: 134px;
+    align-self: center;
+    border-radius: 59px 59px 14px 14px;
+  }
+  .pizza-card__media .ph,
+  .pizza-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .pizza-card__badge {
     display: none;
@@ -4081,5 +4090,10 @@ html.cart-open {
 @media (max-width: 699px) {
   .contact__map .map {
     aspect-ratio: 4 / 5;
+  }
+}
+@media (max-width: 639px) {
+  .qty__more {
+    display: none;
   }
 }
