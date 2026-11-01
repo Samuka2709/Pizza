@@ -25,6 +25,7 @@ export function initPizza(opts: { reduced: boolean }) {
   let switching = false;
   let paused = false;
   let looping = false;
+  let ready = false;
 
   function play(v: HTMLVideoElement) {
     v.play().catch(() => {
@@ -56,7 +57,7 @@ export function initPizza(opts: { reduced: boolean }) {
   }
 
   function start() {
-    if (paused || !visible || document.hidden) return;
+    if (!ready || paused || !visible || document.hidden) return;
     play(videos[front]);
     if (!looping) {
       looping = true;
@@ -101,5 +102,16 @@ export function initPizza(opts: { reduced: boolean }) {
     if (document.hidden) stop();
     else start();
   });
-  start();
+  // Start only after the page has loaded and gone quiet: the poster image is what people see
+  // first, and the video decoding must not compete with it or with the first interactions
+  const begin = () => {
+    const go = () => {
+      ready = true;
+      start();
+    };
+    if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2000 });
+    else setTimeout(go, 600);
+  };
+  if (document.readyState === 'complete') begin();
+  else window.addEventListener('load', begin, { once: true });
 }

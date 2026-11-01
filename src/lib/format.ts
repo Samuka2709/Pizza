@@ -18,8 +18,9 @@ export const popupTimes = () => `das ${hourLabel(site.popup.open)} às ${hourLab
 export const mailto = (subject?: string) =>
   `mailto:${site.contact.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}`;
 
+/** api.whatsapp.com (not wa.me): the wa.me redirect breaks emojis in the message */
 export function whatsappLink(message = `Olá! Quero fazer um pedido na ${site.name}.`) {
-  return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(message)}`;
+  return `https://api.whatsapp.com/send?phone=${site.contact.whatsapp}&text=${encodeURIComponent(message)}`;
 }
 
 export const socialLinks = () =>

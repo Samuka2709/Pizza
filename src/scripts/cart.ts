@@ -259,7 +259,7 @@ export function initCart(opts: { reduced: boolean }) {
       `*Pagamento:* ${pay}${pay === 'Dinheiro' && get('change') ? ` (troco para ${get('change')})` : ''}`,
       ...(get('notes') ? [`*Observações:* ${get('notes')}`] : []),
     ].join('\n');
-    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+    window.open(`https://api.whatsapp.com/send?phone=${wa}&text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   });
 
   render();

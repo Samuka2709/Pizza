@@ -29,6 +29,20 @@ export function initFlavorWheel(opts: { reduced: boolean; scrollTo?: (y: number)
   const nameBtns = [...section.querySelectorAll<HTMLButtonElement>('[data-wheel-go]')];
   const pizzas = [...section.querySelectorAll<HTMLImageElement>('[data-wheel-pizza]')];
   const N = flavors.length;
+
+  // Only the first pizza is in the HTML; the others load when the section gets close
+  const io = new IntersectionObserver(
+    ([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      pizzas.forEach((img) => {
+        if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+        if (img.dataset.src) img.src = img.dataset.src;
+      });
+    },
+    { rootMargin: '100% 0px' }
+  );
+  io.observe(section);
   let current = 0;
   let timer = 0;
 

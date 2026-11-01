@@ -15,6 +15,7 @@ interface Props {
 const { num } = Astro.props;
 const first = flavors[0];
 const light = ['#f6f1e4', '#efe3c4', '#f3efe6'];
+const srcset = (img: string) => `/img/sabores/${img}-sm.webp 560w, /img/sabores/${img}-720.webp 720w, /img/sabores/${img}.webp 900w`;
 const data = flavors.map((f) => ({ name: f.name, price: f.price, priceLabel: price(f.price), desc: f.desc, ing: f.ing, order: whatsappLink(`Olá! Quero pedir uma pizza de ${f.name}.`) }));
 ---
 <section class="wheel" aria-labelledby="wheel-title" data-wheel style={`--n:${flavors.length}`}>
@@ -55,13 +56,14 @@ const data = flavors.map((f) => ({ name: f.name, price: f.price, priceLabel: pri
         {flavors.map((f, i) => (
           <img
             class:list={['wheel__pizza', { 'is-active': i === 0, 'is-next': i > 0 }]}
-            src={`/img/sabores/${f.img}.webp`}
-            srcset={`/img/sabores/${f.img}-sm.webp 560w, /img/sabores/${f.img}.webp 900w`}
-            sizes="(min-width: 900px) 46vw, 92vw"
+            {...(i === 0
+              ? { src: `/img/sabores/${f.img}-sm.webp`, srcset: srcset(f.img) }
+              : { 'data-src': `/img/sabores/${f.img}-sm.webp`, 'data-srcset': srcset(f.img) })}
+            sizes="(min-width: 900px) min(46vw, 64vh), min(86vw, 46vh)"
             width="900"
             height="900"
             alt={i === 0 ? `Pizza de ${f.name} vista de cima` : ''}
-            loading={i < 2 ? 'eager' : 'lazy'}
+            loading="lazy"
             decoding="async"
             data-wheel-pizza
           />

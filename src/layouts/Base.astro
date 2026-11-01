@@ -85,6 +85,12 @@ const schema = {
         <link rel="preload" as="image" href="/video/hero-poster-sm.webp" type="image/webp" media="(max-width: 899px)" fetchpriority="high" />
       </>
     )}
+    {path !== '/' && (
+      <>
+        <link rel="preload" as="image" href="/img/pizza-top.webp" type="image/webp" media="(min-width: 900px)" />
+        <link rel="preload" as="image" href="/img/pizza-top-sm.webp" type="image/webp" media="(max-width: 899px)" />
+      </>
+    )}
     <link rel="preload" href={serifDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansBody} as="font" type="font/woff2" crossorigin />
 

@@ -1653,6 +1653,10 @@ main:focus {
     right: -22vw;
     width: 58vw;
     opacity: 0.28;
+    filter: none; /* faint on phones: the shadow is not seen, and it costs a repaint every frame */
+  }
+  .page-hero__pizza-img {
+    background-image: url('/img/pizza-top-sm.webp');
   }
 }
 
@@ -3498,6 +3502,7 @@ textarea.input {
 
 @media (max-width: 899px) {
   .wheel {
+    --anchor: -125deg; /* higher on the arc, so the current name stays on narrow screens */
     height: calc(100vh + var(--n) * 40vh);
     height: calc(100svh + var(--n) * 40svh);
   }
@@ -3517,7 +3522,9 @@ textarea.input {
     min-height: 46px;
   }
   .wheel__dial {
-    --d: min(86vw, 46vh);
+    --d: min(92vw, 50vh);
+    /* sits above the quick-actions bar (Ligar / Pedir agora) instead of under it */
+    bottom: calc(72px + env(safe-area-inset-bottom));
   }
   .wheel__names button {
     font-size: 0.875rem;
