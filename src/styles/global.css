@@ -1619,18 +1619,17 @@ main:focus {
   position: absolute;
   z-index: -1;
   top: calc(var(--header-h) + 24px);
-  right: -15vw;
+  right: -10vw;
   width: clamp(240px, 32vw, 500px);
   aspect-ratio: 1;
-  border-radius: 50%;
-  box-shadow: 0 30px 60px rgb(60 30 10 / 0.22);
+  /* Shadow follows the pizza's own outline, not a perfect circle */
+  filter: drop-shadow(0 24px 36px rgb(60 30 10 / 0.22));
 }
 /* Real pizza photo (seen from above), turning slowly */
 .page-hero__pizza-img {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  background: url('/img/pizza-top.webp') center / cover no-repeat;
+  background: url('/img/pizza-top.webp') center / contain no-repeat;
   animation: pizza-turn 60s linear infinite;
 }
 @keyframes pizza-turn {
