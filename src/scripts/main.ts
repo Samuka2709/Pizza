@@ -2,6 +2,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { initPizza } from './pizza';
+import { initDeck } from './deck';
 
 gsap.registerPlugin(ScrollTrigger);
 (window as unknown as { __motionReady: boolean }).__motionReady = true;
@@ -183,6 +184,7 @@ $$('[data-next-popup-long]').forEach((el) => {
    Main animation (home)
    -------------------------------------------------------------------------- */
 initPizza({ reduced });
+initDeck({ reduced });
 
 /* --------------------------------------------------------------------------
    Entrance and scroll animations

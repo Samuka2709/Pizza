@@ -3,6 +3,7 @@ import { site as s, type Diet, type MenuItem } from '../data/site';
 import { price } from '../lib/format';
 import Photo from './Photo.astro';
 import Icon from './Icon.astro';
+import { swatch } from '../lib/swatch';
 
 const dietLabel = (d: Diet) => s.dietKey.find((k) => k.code === d)!.label;
 /** Diet values used by the filter: vegan counts as vegetarian too */
@@ -57,22 +58,20 @@ const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
           <p class="sr-only" aria-live="polite" data-filter-status></p>
           <ul class="pizza-grid">
             {c.items.map((d, k) => (
-              <li class="pizza-card" data-diet={dietTags(d)} style={`--i:${k}`}>
+              <li class="pizza-card" data-diet={dietTags(d)} style={`--i:${k};--bg:${swatch(k).bg};--fg:${swatch(k).fg};--tilt:${[-1.2, 0.8, -0.6, 1.1][k % 4]}deg`}>
                 <div class="pizza-card__media">
-                  {d.photo && <Photo photo={d.photo} ratio={4 / 3} widths={[360, 540, 720]} sizes="(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 100vw" reveal={false} />}
+                  {d.photo && <Photo photo={d.photo} ratio={1} widths={[360, 540, 720]} sizes="(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 100vw" reveal={false} />}
                   {d.signature && <span class="pizza-card__badge">House favourite</span>}
                 </div>
                 <div class="pizza-card__body">
                   <div class="pizza-card__top">
                     <h3 class="pizza-card__name">{d.name}</h3>
-                    <p class="price">{price(d.price)}</p>
                   </div>
                   <p class="pizza-card__desc">{d.description}</p>
-                  {d.diet && (
-                    <p class="menu-row__diet">
-                      {d.diet.map((x) => <abbr class="diet" title={dietLabel(x)}>{x}<span class="sr-only"> ({dietLabel(x)})</span></abbr>)}
-                    </p>
-                  )}
+                  <div class="pizza-card__foot">
+                    <p class="pizza-card__diet">{d.diet ? d.diet.map(dietLabel).join(' · ') : ''}</p>
+                    <p class="pill">{price(d.price)}</p>
+                  </div>
                 </div>
               </li>
             ))}

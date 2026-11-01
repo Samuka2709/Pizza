@@ -2854,3 +2854,284 @@ textarea.input {
     line-height: 1.5;
   }
 }
+
+/* ==========================================================================
+   Price pill and round icon buttons (shared)
+   ========================================================================== */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid currentColor;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.icon-round {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  transition:
+    background-color 200ms var(--ease),
+    color 200ms var(--ease),
+    scale 160ms var(--ease);
+}
+.icon-round svg {
+  width: 20px;
+  height: 20px;
+}
+.icon-round:active {
+  scale: 0.94;
+}
+.icon-round--solid {
+  background: var(--tomato);
+  border-color: var(--tomato);
+  color: var(--flour);
+}
+@media (hover: hover) and (pointer: fine) {
+  .icon-round:hover {
+    background: var(--ink);
+    color: var(--flour);
+  }
+  .icon-round--solid:hover {
+    background: var(--tomato-deep);
+    border-color: var(--tomato-deep);
+  }
+}
+
+/* ==========================================================================
+   Home: pizza deck (cards fanned, shuffle through)
+   ========================================================================== */
+.deck-section {
+  overflow: hidden;
+}
+.deck-section__grid {
+  display: grid;
+  gap: 56px;
+  align-items: center;
+}
+.deck-section__text .lead {
+  margin-top: 20px;
+}
+.deck-section__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 28px;
+  margin-top: 28px;
+}
+@media (min-width: 900px) {
+  .deck-section__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+}
+.deck {
+  display: grid;
+  justify-items: center;
+  gap: 36px;
+}
+.deck__stack {
+  --w: min(340px, 78vw);
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 34 / 50;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.deck__card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  border-radius: calc(var(--w) / 2) calc(var(--w) / 2) 24px 24px;
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 0 18px 40px rgb(60 30 10 / 0.18);
+  cursor: grab;
+  transition:
+    transform 520ms cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 300ms ease;
+  will-change: transform;
+}
+.deck.is-dragging .deck__card {
+  cursor: grabbing;
+}
+.deck__media {
+  overflow: hidden;
+  border-radius: calc((var(--w) - 28px) / 2) calc((var(--w) - 28px) / 2) 14px 14px;
+  border: 3px solid color-mix(in srgb, var(--fg) 70%, transparent);
+}
+.deck__media .ph {
+  border-radius: 0;
+}
+.deck__media img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.deck__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 18px 10px 6px;
+}
+.deck__name {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.625rem, 1.3rem + 1vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.deck__desc {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  opacity: 0.92;
+}
+.deck__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+.deck__diet {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.deck__controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.deck__count {
+  min-width: 4ch;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Menu page: colourful arch cards
+   ========================================================================== */
+.pizza-card {
+  background: var(--bg);
+  color: var(--fg);
+  border: 0;
+  border-radius: calc(var(--card-w) / 2) calc(var(--card-w) / 2) 22px 22px;
+  padding: 12px;
+  rotate: var(--tilt);
+  box-shadow: 0 10px 26px rgb(60 30 10 / 0.12);
+  transition:
+    rotate 450ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 450ms cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 450ms ease,
+    opacity 250ms ease;
+}
+.pizza-card__media {
+  overflow: hidden;
+  border-radius: calc(var(--card-w) / 2 - 12px) calc(var(--card-w) / 2 - 12px) 12px 12px;
+  border: 3px solid color-mix(in srgb, var(--fg) 70%, transparent);
+}
+.pizza-card__badge {
+  top: auto;
+  bottom: 10px;
+  left: 50%;
+  translate: -50% 0;
+  background: var(--flour);
+  color: var(--ink);
+}
+.pizza-card__body {
+  padding: 16px 10px 8px;
+}
+.pizza-card__name {
+  font-weight: 600;
+  font-size: 1.625rem;
+}
+.pizza-card__desc {
+  color: inherit;
+  opacity: 0.92;
+}
+.pizza-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+}
+.pizza-card__diet {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.pizza-grid {
+  container-type: inline-size;
+  --cols: 1;
+  --gap: 12px;
+}
+.pizza-card {
+  --card-w: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
+}
+@media (min-width: 640px) {
+  .pizza-grid {
+    --cols: 2;
+    --gap: 26px;
+    gap: 32px var(--gap);
+  }
+}
+@media (min-width: 1100px) {
+  .pizza-grid {
+    --cols: 3;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .pizza-card:hover {
+    rotate: 0deg;
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px rgb(60 30 10 / 0.2);
+  }
+}
+@media (max-width: 639px) {
+  .pizza-card {
+    rotate: 0deg;
+    border-radius: 22px;
+    padding: 10px;
+  }
+  .pizza-card__media {
+    border-radius: 999px;
+    flex-basis: 104px;
+  }
+  .pizza-card__badge {
+    display: none;
+  }
+  .pizza-card__body {
+    padding: 8px 8px 6px 14px;
+  }
+  .pizza-card__name {
+    font-size: 1.25rem;
+  }
+}
+
+/* Dessert and side lists: price in a pill, like a counter board */
+.menu-row .price {
+  display: inline-flex;
+  padding: 2px 12px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid currentColor;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+}

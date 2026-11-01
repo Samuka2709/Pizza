@@ -1,0 +1,39 @@
+---
+import { site as s } from '../data/site';
+import { price } from '../lib/format';
+import { swatch } from '../lib/swatch';
+import Photo from './Photo.astro';
+import Icon from './Icon.astro';
+
+// House favourites first, then the rest of the pizzas with a photo
+const pizzas = s.menu[0].items.filter((i) => i.photo).sort((a, b) => Number(!!b.signature) - Number(!!a.signature));
+const dietWord = { V: 'Vegetarian', VG: 'Vegan', GF: 'Gluten-free', N: 'Contains nuts' } as const;
+---
+<!-- A deck of pizza cards: the front one flies to the back on Next / drag / arrow keys -->
+<div class="deck" data-deck>
+  <ul class="deck__stack" aria-roledescription="carousel" aria-label="Our pizzas">
+    {pizzas.map((d, i) => {
+      const c = swatch(i);
+      return (
+        <li class="deck__card" style={`--bg:${c.bg};--fg:${c.fg}`} data-deck-card aria-roledescription="slide" aria-label={`${i + 1} of ${pizzas.length}: ${d.name}`}>
+          <div class="deck__media">
+            <Photo photo={d.photo!} ratio={1} widths={[320, 480, 640]} sizes="(min-width: 900px) 320px, 70vw" reveal={false} />
+          </div>
+          <div class="deck__body">
+            <h3 class="deck__name">{d.name}</h3>
+            <p class="deck__desc">{d.description}</p>
+            <div class="deck__foot">
+              <span class="deck__diet">{d.diet ? d.diet.map((x) => dietWord[x]).join(' · ') : d.signature ? 'House favourite' : ''}</span>
+              <span class="pill">{price(d.price)}</span>
+            </div>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+  <div class="deck__controls">
+    <button class="icon-round" type="button" data-deck-prev><Icon name="prev" /><span class="sr-only">Previous pizza</span></button>
+    <p class="deck__count" aria-live="polite" data-deck-count>1 / {pizzas.length}</p>
+    <button class="icon-round icon-round--solid" type="button" data-deck-next><Icon name="next" /><span class="sr-only">Next pizza</span></button>
+  </div>
+</div>

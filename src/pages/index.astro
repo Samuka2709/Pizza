@@ -7,13 +7,11 @@ import EventTypes from '../components/EventTypes.astro';
 import PopupStrip from '../components/PopupStrip.astro';
 import Gallery from '../components/Gallery.astro';
 import Photo from '../components/Photo.astro';
+import PizzaDeck from '../components/PizzaDeck.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import Icon from '../components/Icon.astro';
 import { site as s } from '../data/site';
-import { price } from '../lib/format';
 
-// Pizzas that have a photo, house favourites first
-const favourites = s.menu[0].items.filter((i) => i.photo).sort((a, b) => Number(!!b.signature) - Number(!!a.signature)).slice(0, 3);
 ---
 <Base>
   <PizzaHero />
@@ -50,26 +48,18 @@ const favourites = s.menu[0].items.filter((i) => i.photo).sort((a, b) => Number(
 
   <PopupStrip num="04" />
 
-  <section class="section" aria-labelledby="menu-title">
-    <div class="container">
-      <header class="section-head section-head--split">
-        <div>
-          <SectionLabel num="05" text="The menu" />
-          <h2 class="display h2 reveal-words" id="menu-title" data-split-auto>Short menu, slow dough.</h2>
+  <section class="section deck-section" aria-labelledby="menu-title">
+    <div class="container deck-section__grid">
+      <div class="deck-section__text">
+        <SectionLabel num="05" text="The menu" />
+        <h2 class="display h2 reveal-words" id="menu-title" data-split-auto>Short menu, slow dough.</h2>
+        <p class="lead" data-reveal="fade">A handful of pizzas we know by heart, with vegetarian and vegan options every time. Shuffle through the deck.</p>
+        <div class="deck-section__ctas" data-reveal="fade">
+          <a class="btn btn--primary" href="/menu/" data-magnetic>See the full menu <Icon name="arrow" class="btn__arrow" /></a>
+          <a class="link-line" href="/contact/#quote">Pizza for your event</a>
         </div>
-        <p class="lead" data-reveal="fade">A handful of pizzas we know by heart, with vegetarian and vegan options every time.</p>
-      </header>
-      <ul class="favs">
-        {favourites.map((d) => (
-          <li class="fav" data-reveal="fade">
-            <div class="fav__media"><Photo photo={d.photo!} ratio={4 / 3} widths={[360, 540, 720]} sizes="(min-width: 1100px) 30vw, (min-width: 640px) 45vw, 100vw" reveal={false} /></div>
-            <h3 class="fav__name">{d.name}</h3>
-            <p class="fav__desc">{d.description}</p>
-            <p class="price">{price(d.price)}{d.diet && <span class="fav__diet">{d.diet.join(' · ')}</span>}</p>
-          </li>
-        ))}
-      </ul>
-      <p class="section-foot" data-reveal="fade"><a class="btn btn--outline" href="/menu/">See the full menu <Icon name="arrow" class="btn__arrow" /></a></p>
+      </div>
+      <PizzaDeck />
     </div>
   </section>
 
