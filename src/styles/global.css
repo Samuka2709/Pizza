@@ -3334,14 +3334,16 @@ textarea.input {
 }
 
 /* ==========================================================================
-   "Gire a pizza": pinned section, the pizza turns one slice per scroll step
-   (from the Figma "Pizzeria Website" Accueil/{pizza} frame)
+   "Gire a pizza": pinned section, one whole pizza per flavour spinning in and
+   out, flavour names on an arc around it (Figma rotating slider reference)
    ========================================================================== */
 .wheel {
+  --step: 23deg; /* angle between two names on the arc */
+  --anchor: -152deg; /* where the current name sits (left of the top) */
   position: relative;
   background: var(--paper);
-  height: calc(100vh + 8 * 45vh);
-  height: calc(100svh + 8 * 45svh);
+  height: calc(100vh + 8 * 50vh);
+  height: calc(100svh + 8 * 50svh);
 }
 .wheel__stage {
   position: sticky;
@@ -3350,63 +3352,25 @@ textarea.input {
   height: 100svh;
   overflow: hidden;
 }
-.wheel__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-.wheel__layout {
+.wheel__head {
   position: relative;
-  z-index: 1;
-  height: 100%;
-  pointer-events: none;
-}
-.wheel__info {
-  position: absolute;
-  left: var(--gutter);
-  top: calc(var(--header-h) + clamp(16px, 6vh, 64px));
-  width: min(520px, 38vw);
-  pointer-events: auto;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: calc(var(--header-h) + clamp(12px, 4vh, 48px));
 }
 .wheel__swap {
-  margin-top: 18px;
-}
-/* Flavour swap: parts leave upwards together, then come in from below one after the other */
-.wheel__swap > * {
-  transition:
-    opacity 420ms cubic-bezier(0.23, 1, 0.32, 1),
-    transform 520ms cubic-bezier(0.23, 1, 0.32, 1),
-    filter 420ms ease;
-}
-.wheel__swap > :nth-child(2) {
-  transition-delay: 60ms;
-}
-.wheel__swap > :nth-child(3) {
-  transition-delay: 120ms;
-}
-.wheel__swap.is-leaving > * {
-  opacity: 0;
-  transform: translateY(-10px);
-  filter: blur(4px);
-  transition-duration: 170ms;
-  transition-delay: 0ms;
-}
-.wheel__swap.is-entering > * {
-  opacity: 0;
-  transform: translateY(16px);
-  filter: blur(4px);
-  transition: none;
-}
-.wheel__ing li {
-  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  margin-top: 14px;
+  max-width: 40rem;
 }
 .wheel__title {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 4px 18px;
 }
 .wheel__name {
   font-family: var(--serif);
@@ -3423,24 +3387,22 @@ textarea.input {
   color: var(--tomato);
 }
 .wheel__desc {
-  margin-top: clamp(14px, 2.4vh, 26px);
+  margin-top: 10px;
   color: var(--ink-soft);
-  line-height: 1.65;
-}
-.wheel__desc p + p {
-  margin-top: 1em;
+  line-height: 1.6;
 }
 .wheel__ing {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
-  margin-top: clamp(14px, 2.6vh, 28px);
+  margin-top: 14px;
 }
 .wheel__ing li {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 14px;
+  padding: 6px 13px;
   border-radius: var(--radius-pill);
   background: var(--flour);
   box-shadow: 0 2px 10px rgb(60 30 10 / 0.08);
@@ -3453,103 +3415,193 @@ textarea.input {
   border-radius: 50%;
   flex: none;
 }
-.wheel__dots {
-  display: flex;
-  gap: 4px;
-  margin-top: clamp(18px, 3vh, 32px);
+.wheel__order {
+  margin-top: 16px;
 }
-.wheel__dots button {
-  position: relative;
-  width: 22px;
-  height: 24px;
+/* text swap: leave upwards together, come in from below one after the other */
+.wheel__swap > * {
+  transition:
+    opacity 420ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 520ms cubic-bezier(0.23, 1, 0.32, 1),
+    filter 420ms ease;
 }
-.wheel__dots button::after {
-  content: '';
+.wheel__swap > :nth-child(2) {
+  transition-delay: 60ms;
+}
+.wheel__swap > :nth-child(3) {
+  transition-delay: 120ms;
+}
+.wheel__swap.is-leaving > * {
+  opacity: 0;
+  transform: translateY(-10px);
+  filter: blur(4px);
+  transition-duration: 180ms;
+  transition-delay: 0ms;
+}
+.wheel__swap.is-entering > * {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(4px);
+  transition: none;
+}
+
+/* dial: centre on the bottom edge, so only the top half shows */
+.wheel__dial {
+  --d: min(46vw, 64vh); /* pizza diameter */
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 0;
+  width: calc(var(--d) * 1.5);
+  aspect-ratio: 1;
+  transform: translate(-50%, 50%);
+}
+.wheel__tracks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: rgb(36 27 22 / 0.16);
+  stroke-width: 0.18;
+}
+.wheel__dot {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
-  border-radius: 4px;
-  background: rgb(36 27 22 / 0.2);
-  transition:
-    background-color 200ms ease,
-    width 200ms ease,
-    margin 200ms ease;
-}
-.wheel__dots button.is-active::after {
-  width: 20px;
-  margin-left: -10px;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
   background: var(--tomato);
+  box-shadow: 0 0 0 5px rgb(183 50 29 / 0.15);
+  transform: rotate(var(--anchor)) translateX(calc(var(--d) * 1.5 * 0.405));
 }
-.wheel__order {
-  margin-top: clamp(16px, 2.6vh, 28px);
-}
-.wheel__hint {
+.wheel__names {
+  --at: 0;
   position: absolute;
-  z-index: 1;
-  right: calc(var(--gutter) + 10px);
-  top: calc(var(--header-h) + clamp(16px, 6vh, 64px));
+  inset: 0;
+  transform: rotate(calc(var(--at) * var(--step) * -1));
+  transition: transform 900ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.wheel__names li {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(calc(var(--anchor) + var(--i) * var(--step))) translateX(calc(var(--d) * 1.5 * 0.47)) rotate(90deg);
+}
+.wheel__names button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  padding: 8px 6px;
   font-family: var(--serif);
-  font-style: italic;
+  font-size: clamp(0.9375rem, 0.8rem + 0.5vw, 1.25rem);
   font-weight: 500;
-  font-size: 1.125rem;
-  line-height: 1.1;
-  text-align: center;
   color: var(--ink-soft);
-  rotate: 10deg;
-  pointer-events: none;
+  opacity: 0.75;
+  transition:
+    color 300ms ease,
+    opacity 300ms ease,
+    font-size 300ms ease;
 }
-.wheel__hint svg {
-  display: block;
-  width: 34px;
-  height: 34px;
-  margin: 8px auto 0;
+.wheel__names button.is-active {
+  color: var(--tomato);
+  font-weight: 600;
+  opacity: 1;
 }
+@media (hover: hover) and (pointer: fine) {
+  .wheel__names button:hover {
+    opacity: 1;
+    color: var(--ink);
+  }
+}
+.wheel__pizzas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--d);
+  height: var(--d);
+  transform: translate(-50%, -50%);
+}
+.wheel__pizza {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 18px 30px rgb(60 30 10 / 0.25));
+  transition:
+    transform 950ms cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 650ms ease;
+  will-change: transform, opacity;
+}
+.wheel__pizza.is-active {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+/* previous pizzas spun away clockwise and sank; next ones wait turned the other way */
+.wheel__pizza.is-prev {
+  opacity: 0;
+  transform: rotate(140deg) scale(0.86) translateY(8%);
+}
+.wheel__pizza.is-next {
+  opacity: 0;
+  transform: rotate(-140deg) scale(0.86) translateY(8%);
+}
+.wheel__arrow {
+  position: absolute;
+  z-index: 2;
+  bottom: clamp(20px, 5vh, 48px);
+  background: var(--paper);
+}
+.wheel__arrow--prev {
+  left: var(--gutter);
+}
+.wheel__arrow--next {
+  right: var(--gutter);
+}
+
 @media (max-width: 899px) {
   .wheel {
-    height: calc(100vh + 8 * 38vh);
-    height: calc(100svh + 8 * 38svh);
+    --step: 30deg;
+    --anchor: -150deg;
+    height: calc(100vh + 8 * 40vh);
+    height: calc(100svh + 8 * 40svh);
   }
-  .wheel__info {
-    left: var(--gutter);
-    right: var(--gutter);
-    width: auto;
-    top: calc(var(--header-h) + 12px);
-  }
-  .wheel__swap {
-    margin-top: 10px;
+  .wheel__head {
+    padding-top: calc(var(--header-h) + 10px);
   }
   .wheel__desc {
     font-size: 0.9375rem;
     line-height: 1.5;
-    margin-top: 10px;
-  }
-  .wheel__desc p + p {
-    display: none;
-  }
-  .wheel__ing {
-    margin-top: 12px;
-    gap: 6px;
   }
   .wheel__ing li {
     padding: 5px 11px;
     font-size: 0.75rem;
   }
-  .wheel__dots {
-    display: none;
-  }
   .wheel__order {
-    margin-top: 14px;
+    margin-top: 12px;
     min-height: 46px;
   }
-  .wheel__hint {
+  .wheel__dial {
+    --d: min(86vw, 46vh);
+  }
+  .wheel__names button {
+    font-size: 0.875rem;
+  }
+  .wheel__arrow {
     display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .wheel__swap > * {
+  .wheel__swap > *,
+  .wheel__pizza,
+  .wheel__names {
     transition: none !important;
   }
 }
+

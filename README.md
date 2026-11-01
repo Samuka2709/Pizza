@@ -36,6 +36,7 @@ Depois de trocar o nome ou a frase, gere de novo a imagem de compartilhamento e 
 
 - **Topo:** vídeo da pizza girando com vapor, em loop sem emenda visível; botão de pausar; aproxima um pouco ao rolar.
 - **Cardápio na home:** baralho de cartões que se abre em leque com a rolagem (computador) ou se passa arrastando (celular).
+- **Gire a pizza (home):** meia pizza inteira na base da tela; a cada trecho de rolagem ela gira e dá lugar ao próximo sabor, com os nomes num arco e o nome, preço, descrição e ingredientes trocando junto. Setas e nomes também trocam o sabor. Fotos em `public/img/sabores`.
 - Títulos que sobem palavra por palavra, fotos que se revelam, cartões do cardápio que entram com a rolagem e pizza girando no topo das páginas internas.
 - Quem desativa animações no aparelho vê tudo parado, e os botões continuam funcionando.
 
