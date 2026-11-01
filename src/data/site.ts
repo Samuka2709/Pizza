@@ -46,10 +46,10 @@ export interface MenuGroup {
 export const site = {
   name: 'Pizzaria', // EXEMPLO (nome do cliente)
   tagline: 'Massa de longa fermentação, forno quente e borda recheada.', // EXEMPLO
-  city: 'São Paulo', // EXEMPLO
+  city: 'Ilhéus', // EXEMPLO
   /** Domínio do cliente. Vazio = endereço da Vercel */
   siteUrl: '',
-  timezone: 'America/Sao_Paulo',
+  timezone: 'America/Bahia',
   priceRange: '$$',
 
   /** Faixa no topo avisando que é um site modelo. Coloque false no site real. */
@@ -62,8 +62,8 @@ export const site = {
   },
 
   contact: {
-    phone: '(11) 0000-0000', // EXEMPLO
-    phoneHref: '+551100000000', // EXEMPLO
+    phone: '(73) 0000-0000', // EXEMPLO
+    phoneHref: '+557300000000', // EXEMPLO
     whatsapp: '557398258544', // número que recebe os pedidos (só números, com DDI e DDD)
     email: 'contato@exemplo.com.br', // EXEMPLO
     /** Redes sociais. Texto vazio esconde o link. */
@@ -72,7 +72,7 @@ export const site = {
       facebook: 'https://www.facebook.com/', // EXEMPLO
       tiktok: '',
     },
-    serviceArea: 'Zona Oeste de São Paulo e arredores', // EXEMPLO
+    serviceArea: 'Centro de Ilhéus e bairros próximos', // EXEMPLO
   },
 
   /**
@@ -217,12 +217,12 @@ export const site = {
     open: '19:00', // EXEMPLO
     close: '23:00', // EXEMPLO
     place: 'Rua de Exemplo, 123', // EXEMPLO
-    addressLines: ['Rua de Exemplo, 123', 'Bairro Exemplo, São Paulo, SP'], // EXEMPLO
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=-23.5629%2C-46.6544', // EXEMPLO
-    mapsEmbed: 'https://www.google.com/maps?q=-23.5629,-46.6544&z=16&output=embed', // EXEMPLO (troque pelo endereço do cliente)
+    addressLines: ['Rua de Exemplo, 123', 'Centro, Ilhéus, BA'], // EXEMPLO
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=-14.7958%2C-39.0345', // EXEMPLO
+    mapsEmbed: 'https://www.google.com/maps?q=-14.7958,-39.0345&z=16&output=embed', // EXEMPLO (troque pelo endereço do cliente)
     gettingThere: [
-      { title: 'De metrô', text: 'A estação mais próxima fica a poucos minutos a pé.' }, // EXEMPLO
-      { title: 'De ônibus', text: 'Várias linhas param na avenida ao lado.' }, // EXEMPLO
+      { title: 'A pé', text: 'No Centro histórico, a poucos minutos da Catedral de São Sebastião.' }, // EXEMPLO
+      { title: 'De ônibus', text: 'Várias linhas param no Centro, perto da orla.' }, // EXEMPLO
       { title: 'De carro', text: 'Estacionamento conveniado na mesma rua.' }, // EXEMPLO
     ],
     notes: ['Pix, cartão e vale-refeição', 'Sabores vegetarianos e pizzas doces', 'Crianças até 6 anos não pagam'], // EXEMPLO

@@ -480,7 +480,7 @@ if (form) {
     if (f.name.value.trim().length < 2) errors.push([f.name, 'Digite seu nome.']);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.value.trim())) errors.push([f.email, 'Digite um e-mail válido, por exemplo nome@exemplo.com.']);
     const digits = f.phone.value.replace(/\D/g, '');
-    if (digits.length < 10 || digits.length > 13) errors.push([f.phone, 'Digite um telefone com DDD, por exemplo (11) 90000-0000.']);
+    if (digits.length < 10 || digits.length > 13) errors.push([f.phone, 'Digite um telefone com DDD, por exemplo (73) 90000-0000.']);
     if (!f.date.value) errors.push([f.date, 'Escolha a data da festa.']);
     else if (f.date.value < todayIso) errors.push([f.date, 'A data precisa ser hoje ou depois.']);
     const guests = Number(f.guests.value);

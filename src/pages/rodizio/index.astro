@@ -8,7 +8,7 @@ import Icon from '../../components/Icon.astro';
 import { site as s } from '../../data/site';
 import { DAYS, popupTimes, socialLinks } from '../../lib/format';
 const p = s.popup;
-const icons = { 'De metrô': 'train', 'De ônibus': 'pin', 'De carro': 'pin' } as const;
+const icons = { 'A pé': 'pin', 'De ônibus': 'pin', 'De carro': 'pin' } as const;
 ---
 <Base title="Rodízio de sexta" path="/rodizio/" description={`Rodízio de pizza toda ${DAYS[p.weekday]}, ${popupTimes()}. Horário, endereço e como chegar.`}>
   <PageHero label="Rodízio" title={p.title} lead={p.lead}>
