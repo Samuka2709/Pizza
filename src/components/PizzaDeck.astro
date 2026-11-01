@@ -15,7 +15,7 @@ const dietWord = { V: 'Vegetarian', VG: 'Vegan', GF: 'Gluten-free', N: 'Contains
     {pizzas.map((d, i) => {
       const c = swatch(i);
       return (
-        <li class="deck__card" style={`--bg:${c.bg};--fg:${c.fg}`} data-deck-card aria-roledescription="slide" aria-label={`${i + 1} of ${pizzas.length}: ${d.name}`}>
+        <li class="deck__card" style={`--bg:${c.bg};--fg:${c.fg};--line:${c.line}`} data-deck-card aria-roledescription="slide" aria-label={`${i + 1} of ${pizzas.length}: ${d.name}`}>
           <div class="deck__media">
             <Photo photo={d.photo!} ratio={1} widths={[320, 480, 640]} sizes="(min-width: 900px) 320px, 70vw" reveal={false} />
           </div>

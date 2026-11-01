@@ -58,7 +58,7 @@ const extraPrice = (v: number) => (v === 0 ? 'free swap' : `+${price(v)}`);
           <p class="sr-only" aria-live="polite" data-filter-status></p>
           <ul class="pizza-grid">
             {c.items.map((d, k) => (
-              <li class="pizza-card" data-diet={dietTags(d)} style={`--i:${k};--bg:${swatch(k).bg};--fg:${swatch(k).fg};--tilt:${[-1.2, 0.8, -0.6, 1.1][k % 4]}deg`}>
+              <li class="pizza-card" data-diet={dietTags(d)} style={`--i:${k};--bg:${swatch(k).bg};--fg:${swatch(k).fg};--line:${swatch(k).line};--tilt:${[-1.2, 0.8, -0.6, 1.1][k % 4]}deg`}>
                 <div class="pizza-card__media">
                   {d.photo && <Photo photo={d.photo} ratio={1} widths={[360, 540, 720]} sizes="(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 100vw" reveal={false} />}
                   {d.signature && <span class="pizza-card__badge">House favourite</span>}

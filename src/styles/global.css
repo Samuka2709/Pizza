@@ -3259,3 +3259,59 @@ textarea.input {
     box-shadow: 0 30px 50px rgb(60 30 10 / 0.25);
   }
 }
+
+/* ==========================================================================
+   Gourmet finish for the pizza cards: muted palette, fine gold rules
+   ========================================================================== */
+.deck__card,
+.pizza-card {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--line) 55%, transparent),
+    0 18px 40px rgb(30 15 5 / 0.2);
+}
+.deck__card::after,
+.pizza-card::after {
+  /* second, inset hairline that follows the arch */
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: inherit;
+  border: 1px solid color-mix(in srgb, var(--line) 45%, transparent);
+  pointer-events: none;
+}
+.pizza-card {
+  position: relative;
+}
+.deck__media,
+.pizza-card__media {
+  border: 1.5px solid var(--line);
+}
+.deck__name,
+.pizza-card__name {
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+.deck__diet,
+.pizza-card__diet {
+  color: var(--line);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+}
+.deck__card .pill,
+.pizza-card .pill {
+  border-color: var(--line);
+  color: var(--fg);
+  font-family: var(--serif);
+  font-weight: 560;
+  font-size: 0.9375rem;
+}
+.pizza-card__badge {
+  background: var(--line);
+  color: #1f1814;
+}
+@media (min-width: 900px) {
+  .deck--spread .deck__name {
+    font-size: 1.5rem;
+  }
+}
