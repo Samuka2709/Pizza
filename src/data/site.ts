@@ -296,9 +296,9 @@ export const site = {
       id: 'bebidas',
       label: 'Bebidas e porções',
       items: [
-        { name: 'Refrigerante 2 litros', description: 'Coca-Cola, Guaraná ou Fanta.', price: 14, diet: ['VG', 'GF'] }, // EXEMPLO
-        { name: 'Suco natural 1 litro', description: 'Laranja, limão ou maracujá.', price: 16, diet: ['VG', 'GF'] }, // EXEMPLO
-        { name: 'Batata frita', description: 'Porção com cheddar e bacon.', price: 32 }, // EXEMPLO
+        { name: 'Refrigerante 2 litros', description: 'Coca-Cola, Guaraná ou Fanta.', price: 14, diet: ['VG', 'GF'], photo: { id: '', src: '/img/cardapio/refrigerante', alt: 'Garrafa de refrigerante gelada e dois copos com gelo' } }, // EXEMPLO
+        { name: 'Suco natural 1 litro', description: 'Laranja, limão ou maracujá.', price: 16, diet: ['VG', 'GF'], photo: { id: '', src: '/img/cardapio/suco-natural', alt: 'Jarra e copo de suco de laranja com gelo' } }, // EXEMPLO
+        { name: 'Batata frita recheada', description: 'Porção de batata frita coberta com cheddar cremoso e bacon.', price: 32, photo: { id: '', src: '/img/cardapio/batata-frita', alt: 'Batata frita recheada com cheddar e bacon na frigideira' } }, // EXEMPLO
       ],
     },
   ] as MenuGroup[],
