@@ -120,6 +120,20 @@ export const site = {
     text: 'Massa que descansa por 48 horas, molho de tomate da casa e muito queijo. Peça no delivery, venha ao salão ou leve a pizzaria para a sua festa.', // EXEMPLO
   },
 
+  /** Seção da home: jeitos de pedir. `action`: whatsapp abre o WhatsApp; os outros são links */
+  ways: {
+    label: 'Como pedir',
+    title: 'Do jeito que você preferir.', // EXEMPLO
+    lead: 'Peça pelo WhatsApp, retire no balcão ou venha comer com a gente. A pizza é a mesma, saindo quentinha do forno.', // EXEMPLO
+    items: [
+      { name: 'Delivery', text: 'Entrega em até 45 minutos na região, em caixa que mantém a pizza quente.', cta: 'Pedir pelo WhatsApp', action: 'whatsapp', photo: { id: '1622883618971-97068745dc6c', alt: 'Pessoa abrindo a caixa de uma pizza que acabou de chegar' } }, // EXEMPLO
+      { name: 'Retirada', text: 'Peça antes e retire no balcão sem fila. Ganhe 10% de desconto.', cta: 'Pedir para retirar', action: 'whatsapp', photo: { id: '1605960224189-e0010ea15ca0', alt: 'Pizza sobre caixas de papelão prontas para levar' } }, // EXEMPLO
+      { name: 'Salão', text: 'Mesa para a família e os amigos, com chope gelado e pizza saindo do forno.', cta: 'Ver horários', action: '/rodizio/', photo: { id: '1753351057883-cdb5458333eb', alt: 'Casal dividindo uma pizza numa mesa de pizzaria' } }, // EXEMPLO
+      { name: 'Rodízio de sexta', text: 'Pizza à vontade, salgadas e doces, toda sexta à noite.', cta: 'Saiba mais', action: '/rodizio/', photo: { id: '1724232860199-ca42e61ddb43', alt: 'Mesa cheia de pizzas e taças de vinho' } }, // EXEMPLO
+      { name: 'Festas', text: 'Levamos o forno e as pizzas para aniversários, empresas e condomínios.', cta: 'Pedir orçamento', action: '/eventos/', photo: { id: '1714978444570-729693fde1f3', alt: 'Amigos em volta de uma mesa com caixas de pizza' } }, // EXEMPLO
+    ] as { name: string; text: string; cta: string; action: string; photo: Photo }[],
+  },
+
   /* ------------------------------------------------------------------------
      Festas e eventos
      ------------------------------------------------------------------------ */
@@ -314,7 +328,7 @@ export const site = {
     { id: '1516697073-419b2bd079db', alt: 'Duas pizzas em caixas de papelão, prontas para comer', span: 'wide' },
     { id: '1576458087875-4d52fc51e013', alt: 'Pizza com azeitona e tomate, fatiada', span: '' },
     { id: '1710575326152-4a397c13716d', alt: 'Mãos abrindo a massa da pizza na bancada', span: '' },
-    { id: '1708649783218-b2b9a8781724', alt: 'Pizza doce coberta de chocolate', span: '' },
+    { id: '1599462620592-8e17c48eed70', alt: 'Quatro pizzas em caixas de entrega, vistas de cima', span: '' },
   ] as (Photo & { span: '' | 'tall' | 'wide' })[],
 
   footer: {

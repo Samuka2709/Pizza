@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import PizzaHero from '../components/PizzaHero.astro';
 import Marquee from '../components/Marquee.astro';
 import BrandFilm from '../components/BrandFilm.astro';
-import EventTypes from '../components/EventTypes.astro';
+import Ways from '../components/Ways.astro';
 import PopupStrip from '../components/PopupStrip.astro';
 import Gallery from '../components/Gallery.astro';
 import Photo from '../components/Photo.astro';
@@ -12,6 +12,7 @@ import Decor from '../components/Decor.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import Icon from '../components/Icon.astro';
 import { site as s } from '../data/site';
+import { whatsappLink } from '../lib/format';
 
 ---
 <Base>
@@ -31,19 +32,19 @@ import { site as s } from '../data/site';
 
   <BrandFilm />
 
-  <section class="section section--paper" aria-labelledby="events-title">
+  <section class="section section--paper" aria-labelledby="ways-title">
     <div class="container">
       <header class="section-head section-head--split">
         <div>
-          <SectionLabel num="03" text="Festas e eventos" />
-          <h2 class="display h2 reveal-words" id="events-title" data-split-auto>{s.events.title}</h2>
+          <SectionLabel num="03" text={s.ways.label} />
+          <h2 class="display h2 reveal-words" id="ways-title" data-split-auto>{s.ways.title}</h2>
         </div>
         <div>
-          <p class="lead" data-reveal="fade">{s.events.lead}</p>
-          <a class="btn btn--primary section-head__cta" href="/contato/#orcamento" data-reveal="fade" data-magnetic>Pedir orçamento <Icon name="arrow" class="btn__arrow" /></a>
+          <p class="lead" data-reveal="fade">{s.ways.lead}</p>
+          <a class="btn btn--primary section-head__cta" href={whatsappLink()} target="_blank" rel="noopener" data-reveal="fade" data-magnetic><Icon name="whatsapp" class="btn__arrow" /> Pedir pelo WhatsApp</a>
         </div>
       </header>
-      <EventTypes />
+      <Ways />
     </div>
   </section>
 
