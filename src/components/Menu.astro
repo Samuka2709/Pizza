@@ -35,7 +35,7 @@ const extraPrice = (v: number) => (v === 0 ? 'sem custo' : `+${price(v)}`);
       {c.items.map((d) => (
         <li class="dish">
           <div class="dish__photo">
-            {d.photo && <Photo photo={d.photo} ratio={1} widths={[240, 360, 540]} sizes="(min-width: 700px) 132px, 168px" reveal={false} />}
+            {d.photo && <Photo photo={d.photo} ratio={1} widths={[360, 540, 720]} sizes="(min-width: 1400px) 620px, (min-width: 900px) 45vw, 92vw" reveal={false} />}
           </div>
           <div class="dish__body">
             <h3 class="dish__name">{d.name}</h3>
