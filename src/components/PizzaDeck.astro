@@ -1,7 +1,6 @@
 ---
 import { site as s } from '../data/site';
 import { price } from '../lib/format';
-import { swatch } from '../lib/swatch';
 import Photo from './Photo.astro';
 import Icon from './Icon.astro';
 
@@ -13,18 +12,25 @@ const dietWord = { V: 'Vegetariana', VG: 'Vegana', GF: 'Sem glúten', N: 'Conté
 <div class="deck" data-deck>
   <ul class="deck__stack" aria-roledescription="carousel" aria-label="Nossas pizzas">
     {pizzas.map((d, i) => {
-      const c = swatch(i);
       return (
-        <li class="deck__card" style={`--bg:${c.bg};--fg:${c.fg};--line:${c.line}`} data-deck-card aria-roledescription="slide" aria-label={`${i + 1} de ${pizzas.length}: ${d.name}`}>
+        <li class="deck__card" data-deck-card aria-roledescription="slide" aria-label={`${i + 1} de ${pizzas.length}: ${d.name}`}>
           <div class="deck__media">
             <Photo photo={d.photo!} ratio={1} widths={[320, 480, 640]} sizes="(min-width: 900px) 320px, 70vw" reveal={false} />
           </div>
           <div class="deck__body">
             <h3 class="deck__name">{d.name}</h3>
+            {(d.signature || d.diet) && (
+              <ul class="dish__tags">
+                {d.signature && <li class="dish__tag dish__tag--gold"><span aria-hidden="true">★</span> Mais pedida</li>}
+                {d.diet?.map((x) => <li class="dish__tag dish__tag--diet">{dietWord[x]}</li>)}
+              </ul>
+            )}
             <p class="deck__desc">{d.description}</p>
             <div class="deck__foot">
-              <span class="deck__diet">{d.diet ? d.diet.map((x) => dietWord[x]).join(' · ') : d.signature ? 'Mais pedida' : ''}</span>
-              <span class="pill">{price(d.price)}</span>
+              <p class="dish__price">
+                {s.menu[0].size && <span class="dish__size">{s.menu[0].size}</span>}
+                <strong>{price(d.price)}</strong>
+              </p>
             </div>
           </div>
         </li>
