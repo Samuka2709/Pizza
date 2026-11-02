@@ -15,7 +15,7 @@ const dietWord = { V: 'Vegetariana', VG: 'Vegana', GF: 'Sem glúten', N: 'Conté
       return (
         <li class="deck__card" data-deck-card aria-roledescription="slide" aria-label={`${i + 1} de ${pizzas.length}: ${d.name}`}>
           <div class="deck__media">
-            <Photo photo={d.photo!} ratio={1} widths={[320, 480, 640]} sizes="(min-width: 900px) 320px, 70vw" reveal={false} />
+            <Photo photo={d.photo!} ratio={1} widths={[360, 540, 720]} sizes="(min-width: 900px) 240px, 78vw" reveal={false} />
           </div>
           <div class="deck__body">
             <h3 class="deck__name">{d.name}</h3>

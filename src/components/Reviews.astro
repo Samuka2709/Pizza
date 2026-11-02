@@ -1,0 +1,33 @@
+---
+/** Avaliações de clientes (home). Enquanto mockupNotice estiver ligado, aparecem marcadas como exemplo. */
+import { site as s } from '../data/site';
+import SectionLabel from './SectionLabel.astro';
+interface Props {
+  num?: string;
+}
+const { num } = Astro.props;
+const r = s.reviews;
+const stars = '★★★★★';
+---
+<section class="section reviews" aria-labelledby="reviews-title">
+  <div class="container">
+    <header class="reviews__head">
+      <SectionLabel num={num} text="O que dizem" />
+      <h2 class="display h2" id="reviews-title" data-split-auto>Quem prova, volta.</h2>
+      <p class="reviews__score" data-reveal="fade">
+        <span class="reviews__stars" aria-hidden="true">{stars}</span>
+        <span><strong>{r.rating}</strong> no Google · {r.count} avaliações</span>
+      </p>
+      {s.mockupNotice && <p class="reviews__note" data-reveal="fade">Avaliações de exemplo, para mostrar como a seção fica.</p>}
+    </header>
+    <ul class="reviews__list">
+      {r.items.map((it) => (
+        <li class="review" data-reveal="fade">
+          <p class="review__stars" aria-label="5 de 5 estrelas">{stars}</p>
+          <blockquote class="review__text"><p>“{it.text}”</p></blockquote>
+          <p class="review__by">{it.by}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

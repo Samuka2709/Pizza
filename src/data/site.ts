@@ -279,14 +279,14 @@ export const site = {
         { name: 'Meio a meio', price: 0 }, // EXEMPLO
       ],
       items: [
-        { name: 'Calabresa', description: 'Molho de tomate, mussarela, calabresa fatiada e cebola.', price: 54, signature: true, photo: { id: '1655673654158-9f7285b7d1ea', alt: 'Pizza de calabresa com cebola e tomate' } }, // EXEMPLO
-        { name: 'Marguerita', description: 'Mussarela, rodelas de tomate, manjericão e orégano.', price: 52, diet: ['V'], photo: { id: '1576458088443-04a19bb13da6', alt: 'Pizza com rodelas de tomate, azeitona e orégano' } }, // EXEMPLO
-        { name: 'Portuguesa', description: 'Presunto, ovo, cebola, azeitona, ervilha e mussarela.', price: 62, signature: true, photo: { id: '1571066811602-716837d681de', alt: 'Pizza portuguesa com ovo, azeitona e presunto' } }, // EXEMPLO
-        { name: 'Frango com catupiry', description: 'Frango desfiado temperado, catupiry e milho.', price: 60, signature: true, photo: { id: '1618213837799-25d5552820d3', alt: 'Pizza de frango com requeijão cremoso e azeitona' } }, // EXEMPLO
-        { name: 'Pepperoni', description: 'Molho de tomate, mussarela e muito pepperoni.', price: 64, photo: { id: '1534308983496-4fabb1a015ee', alt: 'Pizza de pepperoni com mussarela derretida' } }, // EXEMPLO
-        { name: 'Quatro queijos', description: 'Mussarela, provolone, parmesão e catupiry.', price: 60, diet: ['V'], photo: { id: '1604917869287-3ae73c77e227', alt: 'Pizza de quatro queijos dourada' } }, // EXEMPLO
-        { name: 'Toscana', description: 'Linguiça toscana moída, cebola e mussarela.', price: 58, photo: { id: '1750680230007-055ecc622c94', alt: 'Pizza de linguiça numa pá de madeira sobre toalha xadrez' } }, // EXEMPLO
-        { name: 'Picanha com cheddar', description: 'Tiras de picanha, cheddar cremoso e cebola caramelizada.', price: 72, photo: { id: '1694630716997-83f42bf92267', alt: 'Pizza com tiras de carne e pedaços de linguiça' } }, // EXEMPLO
+        { name: 'Calabresa', description: 'Molho de tomate, mussarela, calabresa fatiada e cebola.', price: 54, signature: true, photo: { id: '', src: '/img/cardapio/calabresa', alt: 'Pizza de calabresa com cebola vista de cima, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Marguerita', description: 'Mussarela, rodelas de tomate, manjericão e orégano.', price: 52, diet: ['V'], photo: { id: '', src: '/img/cardapio/marguerita', alt: 'Pizza marguerita com tomate e manjericão vista de cima, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Portuguesa', description: 'Presunto, ovo, cebola, azeitona, ervilha e mussarela.', price: 62, signature: true, photo: { id: '', src: '/img/cardapio/portuguesa', alt: 'Pizza portuguesa com ovo, presunto, azeitona e ervilha, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Frango com catupiry', description: 'Frango desfiado temperado, catupiry e milho.', price: 60, signature: true, photo: { id: '', src: '/img/cardapio/frango', alt: 'Pizza de frango com catupiry e milho vista de cima, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Pepperoni', description: 'Molho de tomate, mussarela e muito pepperoni.', price: 64, photo: { id: '', src: '/img/cardapio/pepperoni', alt: 'Pizza de pepperoni vista de cima, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Quatro queijos', description: 'Mussarela, provolone, parmesão e catupiry.', price: 60, diet: ['V'], photo: { id: '', src: '/img/cardapio/quatro-queijos', alt: 'Pizza de quatro queijos gratinada, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Toscana', description: 'Linguiça toscana moída, cebola e mussarela.', price: 58, photo: { id: '', src: '/img/cardapio/toscana', alt: 'Pizza de linguiça toscana com cebola, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Picanha com cheddar', description: 'Tiras de picanha, cheddar cremoso e cebola caramelizada.', price: 72, photo: { id: '', src: '/img/cardapio/picanha', alt: 'Pizza com tiras de picanha, cheddar e cebola caramelizada, sobre pedra escura' } }, // EXEMPLO
       ],
     },
     {
@@ -295,9 +295,9 @@ export const site = {
       kicker: 'Para fechar',
       size: 'Grande · 8 fatias', // EXEMPLO
       items: [
-        { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'], signature: true, photo: { id: '', src: '/img/cardapio/brigadeiro', alt: 'Pizza de brigadeiro com granulado, cortada em fatias' } }, // EXEMPLO
-        { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'], photo: { id: '', src: '/img/cardapio/romeu-e-julieta', alt: 'Pizza de goiabada com queijo minas, cortada em fatias' } }, // EXEMPLO
-        { name: 'Banana com canela', description: 'Banana, açúcar, canela e leite condensado.', price: 44, diet: ['V'], photo: { id: '', src: '/img/cardapio/banana-com-canela', alt: 'Pizza de banana com canela e leite condensado, cortada em fatias' } }, // EXEMPLO
+        { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'], signature: true, photo: { id: '', src: '/img/cardapio/brigadeiro', alt: 'Pizza de brigadeiro com granulado, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'], photo: { id: '', src: '/img/cardapio/romeu-e-julieta', alt: 'Pizza de goiabada com queijo minas, sobre pedra escura' } }, // EXEMPLO
+        { name: 'Banana com canela', description: 'Banana, açúcar, canela e leite condensado.', price: 44, diet: ['V'], photo: { id: '', src: '/img/cardapio/banana-com-canela', alt: 'Pizza de banana com canela e leite condensado, sobre pedra escura' } }, // EXEMPLO
       ],
     },
     {
@@ -305,12 +305,26 @@ export const site = {
       label: 'Bebidas e porções',
       kicker: 'Para acompanhar',
       items: [
-        { name: 'Refrigerante 2 litros', description: 'Coca-Cola, Guaraná ou Fanta.', price: 14, diet: ['VG', 'GF'], photo: { id: '', src: '/img/cardapio/refrigerante', alt: 'Garrafa de refrigerante gelada e dois copos com gelo' } }, // EXEMPLO
+        { name: 'Refrigerante 2 litros', description: 'Coca-Cola, Guaraná ou Fanta.', price: 14, diet: ['VG', 'GF'], photo: { id: '', src: '/img/cardapio/refrigerante', alt: 'Garrafa de refrigerante gelada e copo com gelo' } }, // EXEMPLO
         { name: 'Suco natural 1 litro', description: 'Laranja, limão ou maracujá.', price: 16, diet: ['VG', 'GF'], photo: { id: '', src: '/img/cardapio/suco-natural', alt: 'Jarra e copo de suco de laranja com gelo' } }, // EXEMPLO
-        { name: 'Batata frita recheada', description: 'Porção de batata frita coberta com cheddar cremoso e bacon.', price: 32, photo: { id: '', src: '/img/cardapio/batata-frita', alt: 'Batata frita recheada com cheddar e bacon na frigideira' } }, // EXEMPLO
+        { name: 'Batata frita recheada', description: 'Porção de batata frita coberta com cheddar cremoso e bacon.', price: 32, photo: { id: '', src: '/img/cardapio/batata-frita', alt: 'Batata frita recheada com cheddar e bacon na frigideira de ferro' } }, // EXEMPLO
       ],
     },
   ] as MenuGroup[],
+
+  /**
+   * Avaliações (home). No site modelo são EXEMPLOS e aparecem marcadas como exemplo.
+   * No site real, use avaliações verdadeiras do Google do cliente, com permissão.
+   */
+  reviews: {
+    rating: '4,9', // EXEMPLO
+    count: '320', // EXEMPLO
+    items: [
+      { text: 'Massa leve, borda crocante e recheio de verdade. Virou a pizza oficial da família aos sábados.', by: 'Cliente de exemplo' }, // EXEMPLO
+      { text: 'Pedi pelo WhatsApp e chegou quentinha em 35 minutos. A de calabresa é imbatível.', by: 'Cliente de exemplo' }, // EXEMPLO
+      { text: 'Fizemos o rodízio no aniversário e todo mundo saiu falando da pizza de brigadeiro.', by: 'Cliente de exemplo' }, // EXEMPLO
+    ],
+  },
 
   /** Quadros de destaque na página do cardápio */
   menuCallouts: [

@@ -270,19 +270,6 @@ function setupScrollReveals() {
   const spin = $('[data-spin]');
   if (spin) gsap.to(spin, { rotate: 120, xPercent: 20, ease: 'none', scrollTrigger: { trigger: spin.parentElement, start: 'top top', end: 'bottom top', scrub: true } });
 
-  // Decorative circles drift at their own speed while scrolling
-  $$('[data-decor]').forEach((layer) => {
-    const section = layer.parentElement!.closest('section') ?? layer.parentElement!;
-    $$('.decor__item', layer).forEach((item) => {
-      const speed = Number(item.dataset.speed) || 0;
-      gsap.fromTo(
-        item,
-        { y: -speed * 160 },
-        { y: speed * 160, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }
-      );
-    });
-  });
-
   // Phones (deck not pinned): the whole stack tilts and rises as it scrolls past
   gsap.matchMedia().add('(max-width: 899px)', () => {
     $$('.deck__stack').forEach((stack) => {

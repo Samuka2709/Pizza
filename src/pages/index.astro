@@ -1,22 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
 import PizzaHero from '../components/PizzaHero.astro';
-import Marquee from '../components/Marquee.astro';
 import BrandFilm from '../components/BrandFilm.astro';
 import FlavorWheel from '../components/FlavorWheel.astro';
 import PopupStrip from '../components/PopupStrip.astro';
 import Gallery from '../components/Gallery.astro';
 import Photo from '../components/Photo.astro';
 import PizzaDeck from '../components/PizzaDeck.astro';
-import Decor from '../components/Decor.astro';
 import SectionLabel from '../components/SectionLabel.astro';
 import Icon from '../components/Icon.astro';
+import Reviews from '../components/Reviews.astro';
 import { site as s } from '../data/site';
 
 ---
 <Base>
   <PizzaHero />
-  <Marquee />
 
   <section class="section intro" aria-labelledby="intro-title">
     <div class="container intro__grid">
@@ -39,14 +37,6 @@ import { site as s } from '../data/site';
   <!-- Scroll-driven on desktop: the section stays pinned while the cards turn over one by one -->
   <section class="section deck-section" aria-labelledby="menu-title" data-deck-scroll>
     <div class="deck-section__pin">
-    <Decor items={[
-      { x: 8, y: 30, size: 90, speed: -0.4, mobile: true },
-      { x: 90, y: 14, size: 56, speed: 0.5, mobile: true },
-      { x: 84, y: 40, size: 120, speed: 0.4 },
-      { x: 16, y: 12, size: 34, speed: 0.6 },
-      { x: 30, y: 60, size: 40, speed: -0.7 },
-      { x: 76, y: 88, size: 64, speed: 0.3 },
-    ]} />
     <div class="container deck-section__grid">
       <div class="deck-section__text">
         <SectionLabel num="05" text="Cardápio" />
@@ -81,11 +71,13 @@ import { site as s } from '../data/site';
     </div>
   </section>
 
+  <Reviews num="07" />
+
   <section class="section" aria-labelledby="gallery-title">
     <div class="container">
       <header class="section-head section-head--split">
         <div>
-          <SectionLabel num="07" text="Saindo do forno" />
+          <SectionLabel num="08" text="Saindo do forno" />
           <h2 class="display h2 reveal-words" id="gallery-title" data-split-auto>Quentinha, crocante e cheia de queijo.</h2>
         </div>
         {s.contact.social.instagram && (
