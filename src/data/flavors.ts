@@ -34,8 +34,4 @@ export const flavors: Flavor[] = [
     desc: ['Frango desfiado e temperado, coberto com catupiry cremoso e uma camada de mussarela.',
       'Macia, cremosa e reconfortante, é a escolha certa para quem quer uma pizza suave e bem servida.'],
     ing: [['Frango desfiado', '#d9b98a'], ['Catupiry', '#f6f1e4'], ['Mussarela', '#f6f1e4'], ['Milho', '#f2c94c']] },
-  { name: 'Havaiana', img: 'havaiana', short: 'HAVAIANA', price: 51.9,
-    desc: ['O doce e o salgado juntos: abacaxi em cubos, presunto e mussarela sobre um molho de tomate generoso.',
-      'Divide opiniões, mas quem gosta defende com paixão, e quem tem dúvida costuma pedir mais um pedaço.'],
-    ing: [['Molho de tomate', '#d9361e'], ['Presunto', '#e8939a'], ['Abacaxi', '#f4d35e'], ['Mussarela', '#f6f1e4']] },
 ];
