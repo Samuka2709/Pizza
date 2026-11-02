@@ -290,13 +290,10 @@ function setupScrollReveals() {
     });
   });
 
-  // Menu page: pizza cards rise and settle into their tilt as they scroll in
-  $$('.pizza-card').forEach((card, i) => {
-    gsap.fromTo(
-      card,
-      { y: 70, rotation: i % 2 ? 7 : -7, opacity: 0 },
-      { y: 0, rotation: 0, opacity: 1, ease: 'none', clearProps: 'transform', scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 72%', scrub: 0.5 } }
-    );
+  // Menu page: dishes rise gently as they come in
+  ScrollTrigger.batch('.dish', {
+    start: 'top 94%',
+    onEnter: (els) => gsap.fromTo(els, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: EASE, stagger: 0.06 }),
   });
 
   const footerName = $('.footer__name');
@@ -321,81 +318,47 @@ window.addEventListener('resize', fitFooterName);
 document.fonts?.ready.then(fitFooterName);
 
 /* --------------------------------------------------------------------------
-   Menu tabs (keyboard: arrows, Home, End)
+   Menu: category buttons stay at the top, take you to each category and
+   light up the one on screen
    -------------------------------------------------------------------------- */
-const tabs = $$<HTMLButtonElement>('[role="tab"]');
-if (tabs.length) {
-  const indicator = $('.tabs__indicator')!;
-  const scroller = $('.tabs__scroller')!;
-  const moveIndicator = (tab: HTMLElement) => {
-    indicator.style.width = '1px';
-    indicator.style.transform = `translateX(${tab.offsetLeft}px) scaleX(${tab.offsetWidth})`;
-  };
-  const selectTab = (tab: HTMLButtonElement, focus = true) => {
-    tabs.forEach((t) => {
-      const on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      const panel = document.getElementById(t.getAttribute('aria-controls')!)!;
-      panel.hidden = !on;
-      panel.classList.toggle('is-entering', on && !reduced);
+const menuNav = $('[data-menu-nav]');
+if (menuNav) {
+  const links = $$<HTMLAnchorElement>('[data-menu-link]', menuNav);
+  const cats = $$('[data-menu-cat]');
+  const inner = menuNav.firstElementChild as HTMLElement;
+  const setActive = (id: string) => {
+    links.forEach((a) => {
+      const on = a.dataset.menuLink === id;
+      a.classList.toggle('is-active', on);
+      if (on) {
+        a.setAttribute('aria-current', 'true');
+        inner.scrollTo({ left: a.offsetLeft - (inner.clientWidth - a.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
+      } else a.removeAttribute('aria-current');
     });
-    if (focus) tab.focus();
-    moveIndicator(tab);
-    scroller.scrollTo({ left: tab.offsetLeft - (scroller.clientWidth - tab.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
-    lenis?.resize();
-    ScrollTrigger.refresh();
   };
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => selectTab(tab, false));
-    tab.addEventListener('keydown', (e) => {
-      let next = -1;
-      if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
-      if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
-      if (e.key === 'Home') next = 0;
-      if (e.key === 'End') next = tabs.length - 1;
-      if (next >= 0) {
-        e.preventDefault();
-        selectTab(tabs[next]);
-      }
-    });
-  });
-  const place = () => moveIndicator(tabs.find((t) => t.getAttribute('aria-selected') === 'true')!);
-  place();
-  window.addEventListener('resize', place);
-  document.fonts?.ready.then(place);
-}
-
-/* --------------------------------------------------------------------------
-   Menu: filter pizzas by diet (all / vegetarian / vegan)
-   -------------------------------------------------------------------------- */
-$$('[data-filter]').forEach((group) => {
-  const panel = group.closest('.menu-panel')!;
-  const cards = $$<HTMLElement>('.pizza-card', panel);
-  const status = $('[data-filter-status]', panel);
-  const buttons = $$<HTMLButtonElement>('[data-filter-value]', group);
-  buttons.forEach((btn) =>
-    btn.addEventListener('click', () => {
-      const value = btn.dataset.filterValue!;
-      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-      let n = 0;
-      cards.forEach((card) => {
-        const show = !value || (card.dataset.diet ?? '').split(' ').includes(value);
-        card.hidden = !show;
-        card.classList.remove('is-in');
-        if (show && !reduced) {
-          card.style.setProperty('--n', String(n));
-          void card.offsetWidth; // restart the entrance animation
-          card.classList.add('is-in');
-        }
-        if (show) n++;
+  // the category whose title passed under the bar is the current one
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) setActive(e.target.id);
       });
-      if (status) status.textContent = `${n} ${n === 1 ? 'pizza encontrada' : 'pizzas encontradas'}`;
-      lenis?.resize();
-      ScrollTrigger.refresh();
+    },
+    { rootMargin: '-30% 0px -60% 0px' }
+  );
+  cats.forEach((c) => io.observe(c));
+  links.forEach((a) =>
+    a.addEventListener('click', (e) => {
+      const target = document.getElementById(a.dataset.menuLink!);
+      if (!target) return;
+      e.preventDefault();
+      const offset = -(menuNav.offsetHeight + 24);
+      if (lenis) lenis.scrollTo(target, { offset, duration: 1 });
+      else window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY + offset, behavior: reduced ? 'auto' : 'smooth' });
+      history.replaceState(null, '', `#${target.id}`);
+      setActive(target.id);
     })
   );
-});
+}
 
 /* --------------------------------------------------------------------------
    FAQ: one answer open at a time, page height kept in sync

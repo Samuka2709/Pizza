@@ -35,6 +35,10 @@ export interface MenuItem {
 export interface MenuGroup {
   id: string;
   label: string;
+  /** Frase pequena acima do título da categoria */
+  kicker?: string;
+  /** Tamanho mostrado junto do preço (ex.: "Grande, 8 fatias") */
+  size?: string;
   note?: string;
   /** Texto curto acima da lista (pizzas) */
   intro?: { title: string; text: string; facts: string[] };
@@ -260,6 +264,8 @@ export const site = {
     {
       id: 'pizzas',
       label: 'Pizzas salgadas',
+      kicker: 'Do forno',
+      size: 'Grande · 8 fatias', // EXEMPLO
       note: 'Pizza grande, 8 fatias. Todas podem vir com borda recheada.', // EXEMPLO
       intro: {
         title: 'Massa de 48 horas, forno bem quente e recheio até a borda.', // EXEMPLO
@@ -286,6 +292,8 @@ export const site = {
     {
       id: 'doces',
       label: 'Pizzas doces',
+      kicker: 'Para fechar',
+      size: 'Grande · 8 fatias', // EXEMPLO
       items: [
         { name: 'Brigadeiro', description: 'Chocolate ao leite e granulado.', price: 48, diet: ['V'], signature: true, photo: { id: '', src: '/img/cardapio/brigadeiro', alt: 'Pizza de brigadeiro com granulado, cortada em fatias' } }, // EXEMPLO
         { name: 'Romeu e Julieta', description: 'Goiabada cremosa e queijo minas.', price: 46, diet: ['V'], photo: { id: '', src: '/img/cardapio/romeu-e-julieta', alt: 'Pizza de goiabada com queijo minas, cortada em fatias' } }, // EXEMPLO
@@ -295,6 +303,7 @@ export const site = {
     {
       id: 'bebidas',
       label: 'Bebidas e porções',
+      kicker: 'Para acompanhar',
       items: [
         { name: 'Refrigerante 2 litros', description: 'Coca-Cola, Guaraná ou Fanta.', price: 14, diet: ['VG', 'GF'], photo: { id: '', src: '/img/cardapio/refrigerante', alt: 'Garrafa de refrigerante gelada e dois copos com gelo' } }, // EXEMPLO
         { name: 'Suco natural 1 litro', description: 'Laranja, limão ou maracujá.', price: 16, diet: ['VG', 'GF'], photo: { id: '', src: '/img/cardapio/suco-natural', alt: 'Jarra e copo de suco de laranja com gelo' } }, // EXEMPLO
