@@ -4699,3 +4699,6 @@ body {
     animation: none;
   }
 }
+
+/* Nome longo no topo: uma linha só */
+.brand__name { white-space: nowrap; font-size: clamp(1.05rem, 4.6vw, 1.4rem); }

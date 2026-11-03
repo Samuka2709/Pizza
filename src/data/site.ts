@@ -48,7 +48,7 @@ export interface MenuGroup {
 }
 
 export const site = {
-  name: 'Pizzaria', // EXEMPLO (nome do cliente)
+  name: 'Massa Pizza Artesanal',
   tagline: 'Massa de longa fermentação, forno quente e borda recheada.', // EXEMPLO
   city: 'Ilhéus', // EXEMPLO
   /** Domínio do cliente. Vazio = endereço da Vercel */
@@ -60,7 +60,7 @@ export const site = {
   mockupNotice: true,
 
   seo: {
-    title: 'Pizzaria · pizzas artesanais, delivery e festas', // EXEMPLO
+    title: 'Massa Pizza Artesanal · pizzas artesanais, delivery e festas', // EXEMPLO
     description:
       'Pizzas artesanais no salão, no delivery e em festas: calabresa, portuguesa, frango com catupiry, pepperoni e pizzas doces. Peça pelo WhatsApp.', // EXEMPLO
   },
@@ -76,7 +76,7 @@ export const site = {
       facebook: 'https://www.facebook.com/', // EXEMPLO
       tiktok: '',
     },
-    serviceArea: 'Centro de Ilhéus e bairros próximos', // EXEMPLO
+    serviceArea: 'Pontal e bairros próximos de Ilhéus', // EXEMPLO
   },
 
   /**
@@ -220,13 +220,13 @@ export const site = {
     weekday: 5,
     open: '19:00', // EXEMPLO
     close: '23:00', // EXEMPLO
-    place: 'Rua de Exemplo, 123', // EXEMPLO
-    addressLines: ['Rua de Exemplo, 123', 'Centro, Ilhéus, BA'], // EXEMPLO
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=-14.7958%2C-39.0345', // EXEMPLO
-    mapsEmbed: 'https://www.google.com/maps?q=-14.7958,-39.0345&z=16&output=embed', // EXEMPLO (troque pelo endereço do cliente)
+    place: 'Av. Getúlio Vargas, 1814', // EXEMPLO
+    addressLines: ['Av. Getúlio Vargas, 1814', 'Pontal, Ilhéus, BA'], // EXEMPLO
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Massa+Pizza+Artesanal,+Av.+Get%C3%BAlio+Vargas,+1814,+Pontal,+Ilh%C3%A9us+-+BA', // EXEMPLO
+    mapsEmbed: 'https://www.google.com/maps?q=Massa+Pizza+Artesanal,+Av.+Get%C3%BAlio+Vargas,+1814,+Pontal,+Ilh%C3%A9us+-+BA&z=16&output=embed', // EXEMPLO (troque pelo endereço do cliente)
     gettingThere: [
-      { title: 'A pé', text: 'No Centro histórico, a poucos minutos da Catedral de São Sebastião.' }, // EXEMPLO
-      { title: 'De ônibus', text: 'Várias linhas param no Centro, perto da orla.' }, // EXEMPLO
+      { title: 'A pé', text: 'No Pontal, perto do Mirante da Piedade.' }, // EXEMPLO
+      { title: 'De ônibus', text: 'Linhas do Pontal param na Av. Getúlio Vargas.' }, // EXEMPLO
       { title: 'De carro', text: 'Estacionamento conveniado na mesma rua.' }, // EXEMPLO
     ],
     notes: ['Pix, cartão e vale-refeição', 'Sabores vegetarianos e pizzas doces', 'Crianças até 6 anos não pagam'], // EXEMPLO
